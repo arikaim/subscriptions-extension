@@ -1,0 +1,27 @@
+{
+    "title": "Subscriptions",
+    "name": "checkout",
+    "package-type": "extension",
+    "type": "user",
+    "description": "Subscriptions service.",
+    "short-description": "Subscriptions service.",
+    "version": "1.0.0",
+    "repository": "https://github.com/arikaim-repository/subscriptions-extension.git",
+    "private-repository": true,
+    "position": "2",
+    "admin-menu": {        
+        "title": "Subscriptions",
+        "icon": "user plus",
+        "page-title": "Subscriptions",
+        "page-icon": "user plus",       
+        "component": "subscriptions::admin"
+    },
+    "require": {
+        "modules": [
+            "checkout"
+        ],
+        "extensions": [
+            "currency"
+        ]
+    }
+}

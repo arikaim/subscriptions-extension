@@ -1,0 +1,15 @@
+{
+    "title": {
+        "content": "View",
+        "icon": "list"      
+    },
+    "columns": {
+        "action": "Action",
+        "title": "Title",
+        "slug": "Slug",
+        "monthly": "Monthly Bulling Price",
+        "annual": "Annual Bulling Price",
+        "description": "Description",
+        "status": "Status"      
+    }
+}

@@ -1,0 +1,57 @@
+{% set model = createModel('SubscriptionPlans','subscriptions').orderBy('title') %}
+{% set items = paginate(model,'subscription-plans') %}
+{% set items = items.getItems() %}
+{% if items|length == 0 %}
+<tr>
+    <td>{{ labels.empty }}</td>
+</tr>
+{% endif %}
+{% for item in items %}  
+    <tr id="row_{{ item.uuid }}">              
+        <td>             
+            <div class="ui buttons">        
+                <button class="ui icon mini basic button edit-button" uuid="{{ item.uuid }}" title="{{ labels.edit }}">
+                    <i class="icon edit"></i>
+                </button>     
+                {% if item.hasProducts() == false %}       
+                <button class="ui icon mini basic button delete-button" uuid="{{ item.uuid }}" {{ labels.delete|attr('title') }} data-title="{{ item.title }}">
+                    <i class="icon trash orange"></i>
+                </button>  
+                {% endif %}
+            </div>                             
+        </td>
+        <td>
+            {{  component('components:status.dropdown',{ 
+                    status: item.status,
+                    uuid: item.uuid,
+                    skip: [2,3,4,5] 
+                }) 
+            }}
+        </td>          
+        <td>{{ item.title }}</td> 
+        <td>
+            <div class="ui horizontal basic label">
+                {{ item.slug }}
+            </div>
+        </td> 
+        <td>      
+            <span class="font-bold">
+                {{ item.currency.code }}
+            </span>   
+            <span>
+                {{ item.monthly_price|numberFormat }}        
+            </span>                
+        </td>
+        <td>
+            <span class="font-bold">
+                {{ item.currency.code }}
+            </span>   
+            <span>
+                {{ item.annual_price|numberFormat }}     
+            </span>           
+        </td>
+        <td>
+            {{ item.description|sliceLabel(30) }}
+        </td>                        
+    </tr>
+{% endfor %}

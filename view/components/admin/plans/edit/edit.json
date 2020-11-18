@@ -1,0 +1,10 @@
+{
+    "title": {
+        "content": "Edit",
+        "icon": "edit"
+    },
+    "labels": {
+        "plan": "Subscription Plan",
+        "product": "Product"
+    }
+}

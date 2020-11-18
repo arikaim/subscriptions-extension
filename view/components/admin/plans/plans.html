@@ -1,0 +1,17 @@
+{% set items = [ 
+    { title: labels.view, component: 'subscriptions::admin.plans.view', icon: 'list', active: true },
+    { title: labels.add, component: 'subscriptions::admin.plans.add', icon: 'plus' },
+    { id:'edit_plan', title: labels.edit, component: 'subscriptions::admin.plans.edit', icon: 'edit' }
+] %}
+
+{{  component('components:tabs.vertical',{ 
+        items: items, 
+        menu: { id: 'subscription_plan_menu' }, 
+        item_class: 'subscription-plan-item',
+        content: { 
+            id: 'subscription_plan_content',
+            component: 'subscriptions::admin.plans.view',
+            params: params 
+        } 
+    })
+}}

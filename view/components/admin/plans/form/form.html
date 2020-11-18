@@ -1,0 +1,54 @@
+{% set plan = createModel('SubscriptionPlans','subscriptions') %}
+{% if uuid is not empty %}
+    {% set plan = plan.findById(uuid) %}
+{% endif %}
+{% set annual_price = (plan is empty) ? 0 : plan.annual_price %}
+{% set monthly_price = (plan is empty) ? 0 : plan.monthly_price %}
+
+<form class="ui form" id="subscriptoion_plan_form" method="POST">  
+    <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">        
+    <div class="field">
+        <label>{{ fields.title.label }}</label>
+        <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ plan.title }}"> 
+    </div>   
+    <div class="ui segment field">
+        <h4 class="ui dividing header">
+            {{ fields.price.label }}
+        </h4>       
+        <div class="three fields">
+            {{  component('components:form.fields.price',{
+                    name: 'annual_price',       
+                    placeholder: fields.annual.placeholder,         
+                    label: fields.annual.label,
+                    value: annual_price,
+                    icon: plan.currency.icon,
+                    currency_code: plan.currency.code
+                })  
+            }}
+    
+            {{  component('components:form.fields.price',{
+                    name: 'monthly_price',
+                    label: fields.monthly.label,
+                    placeholder: fields.monthly.placeholder,      
+                    value: monthly_price,
+                    icon: plan.currency.icon,
+                    currency_code: plan.currency.code
+                })  
+            }}
+            <div class="field">
+                <label>{{ fields.currency.label }}</label>
+                {{  component('currency::dropdown',{ 
+                        name: 'currency_id',                     
+                        data_field: 'id',
+                        selected: plan.currency
+                    }) 
+                }}
+            </div>
+        </div>
+    </div>    
+    <div class="field">
+        <label>{{ fields.description.label }}</label>
+        <textarea name="description" id="description" placeholder="{{ fields.description.placeholder }}">{{ plan.description }}</textarea>
+    </div> 
+    {{ component('components:form.footer') }}
+</form>

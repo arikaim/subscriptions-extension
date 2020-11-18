@@ -1,0 +1,17 @@
+{   
+    "label": {     
+        "active": "Active",
+        "settings": "Settings",
+        "current": "Current"
+    },
+    "columns": {
+        "action": "Action",
+        "created": "Date",
+        "status": "Status",
+        "currency": "Currency",
+        "transaction": "Transaction Id",
+        "amount": "Amount",
+        "payer": "Payer",
+        "driver": "Checkout"
+    }
+}

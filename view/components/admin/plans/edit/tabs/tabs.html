@@ -1,0 +1,18 @@
+<div class="ui stackable tabular menu plan-edit-tabs">      
+    <div class="item link active edit-paln-tab-item" component="subscriptions::admin.plans.form" uuid="{{ uuid }}">
+        <i class="icon stream blue"></i>
+        {{ labels.details }}     
+    </div>  
+    <div class="item link edit-paln-tab-item" component="subscriptions::admin.plans.features" uuid="{{ uuid }}">
+        <i class="file list icon blue"></i>
+        {{ labels.features }}     
+    </div> 
+</div>
+<div class="ui grid">
+    <div class="six wide column">
+        <div class="ui active tab basic segment " id="plan_edit_content">           
+            {{ component('subscriptions::admin.plans.form',{ uuid: uuid }) }}
+        </div> 
+    </div>
+</div>
+

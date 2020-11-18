@@ -1,0 +1,25 @@
+{% component 'components:tabs.vertical.content' %}
+{% set class = 'sixteen wide column' %}
+{% set panel_class = '' %}
+<div class="mt-4">   
+    <div class="ui grid">
+        <div class="five wide column">
+            <div class="ui segment">   
+                <h4>{{ labels.plan }}</h4>
+                {{  component('subscriptions::admin.plans.dropdown',{ 
+                        class: 'basic button fluid',
+                        selected: uuid, 
+                        data_column: 'uuid',
+                        hide_readonly: true
+                    }) 
+                }}
+            </div>
+        </div>       
+    </div>  
+    <div class="mt-4" id="plan_edit_form_content">
+        {% if uuid is not empty %} 
+            {{ component('subscriptions::admin.plans.edit.tabs',{ uuid: uuid }) }}
+        {% endif %}
+    </div>     
+</div>       
+{% endcomponent %}

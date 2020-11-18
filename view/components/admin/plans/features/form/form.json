@@ -1,0 +1,28 @@
+{    
+    "fields": {        
+        "title": {
+            "label": "Title",
+            "placeholder": "Enter product type title"
+        },
+        "price": {
+            "label": "Price",
+            "placeholder": "Enter Price"
+        },
+        "annual": {
+            "label": "Annual Billing",
+            "placeholder": "Enter Annual Billing Price"
+        },
+        "monthly": {
+            "label": "Monthly Billing",
+            "placeholder": "Enter Monthly Billing Price"
+        },
+        "description": {
+            "label": "Description",
+            "placeholder": "Enter product type description"
+        },
+        "currency": {
+            "label": "Currency",
+            "placeholder": "Enter currency"
+        }        
+    }
+}

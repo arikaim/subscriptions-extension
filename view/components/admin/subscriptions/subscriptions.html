@@ -1,0 +1,17 @@
+{% set items = [ 
+    { title: labels.view, component: 'checkout::admin.subscriptions.view', icon: 'list', active: true },
+    { title: labels.details, component: 'checkout::admin.subscriptions.details', icon: 'info' },
+  
+] %}
+
+{{  component('components:tabs.vertical',{ 
+        items: items, 
+        menu: { id: 'subscriptions_menu' }, 
+        item_class: 'subscription-tab-item',
+        content: { 
+            id: 'subscriptions_content',
+            component: 'checkout::admin.subscriptions.view',
+            params: params 
+        } 
+    })
+}}

@@ -1,0 +1,63 @@
+/**
+ *  Arikaim
+ *  @copyright  Copyright (c) Konstantin Atanasov <info@arikaim.com>
+ *  @license    http://www.arikaim.com/license
+ *  http://www.arikaim.com
+ */
+'use strict';
+
+function SubscriptionPlans() {
+    var self = this;
+
+    this.addFeature = function(formId, onSuccess, onError) {
+        return arikaim.post('/api/subscriptions/admin/plan/feature/add',formId, onSuccess, onError);          
+    };
+
+    this.add = function(formId, onSuccess, onError) {
+        return arikaim.post('/api/subscriptions/admin/plans/add',formId, onSuccess, onError);          
+    };
+
+    this.updateFeature = function(formId, onSuccess, onError) {
+        return arikaim.put('/api/subscriptions/admin/plan/feature/update',formId, onSuccess, onError);          
+    };
+
+    this.update = function(formId, onSuccess, onError) {
+        return arikaim.put('/api/subscriptions/admin/plans/update',formId, onSuccess, onError);          
+    };
+    
+    this.deleteFeature = function(uuid, onSuccess, onError) {
+        return arikaim.delete('/api/subscriptions/admin/plan/feature/delete/' + uuid, onSuccess, onError);          
+    };
+
+    this.delete = function(uuid, onSuccess, onError) {
+        return arikaim.delete('/api/subscriptions/admin/plans/delete/' + uuid, onSuccess, onError);          
+    };
+
+    this.setStatus = function(uuid, status, onSuccess, onError) {          
+        var data = { 
+            uuid: uuid,
+            status: status 
+        };
+
+        return arikaim.put('/api/subscriptions/admin/plans/status',data,onSuccess,onError);      
+    };
+
+    this.init = function() {       
+        arikaim.ui.tab('.subscription-plan-item','subscription_plan_content');
+    };    
+
+    this.initEditForm = function() {
+        arikaim.ui.form.onSubmit('#subscriptoion_plan_form',function() {
+            return self.update('#subscriptoion_plan_form');
+        },function(result) {
+            arikaim.ui.form.showMessage(result.message);       
+        },function(error) {
+        });
+    }
+}
+
+var subscriptionPlans = new SubscriptionPlans();
+
+$(document).ready(function() {
+    subscriptionPlans.init();
+});

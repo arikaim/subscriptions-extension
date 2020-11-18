@@ -1,0 +1,21 @@
+{
+    "plan": {
+        "add": "Subscription plan added successfully.",
+        "update": "Subscription plan saved successfully.",
+        "delete": "Subscription plan deleted successfully."
+    },
+    "errors": {
+        "plan": {
+            "add": "Can't add subscription plan.",
+            "update": "Can't update subscription plan.",
+            "id": "Not valid subscription plan Id.",
+            "exist": "Subscription plan exists."
+        } 
+    },
+    "messages": {
+        "remove": {
+            "title": "Confirm Remove",
+            "content": "Confirm remove subscription plan '<b><% title %></b>'."
+        }
+    }  
+}

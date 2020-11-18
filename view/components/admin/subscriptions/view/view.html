@@ -1,0 +1,36 @@
+{% component 'components:tabs.vertical.content' %}
+{% set class = 'sixteen wide column' %}
+{% set panel_class = '' %}
+<div class="ui stackable grid">
+    <div class="sixteen wide column mt-10">           
+        {{ component("components:search",{ namespace: 'subscriptions' }) }}
+    </div>
+</div>
+<div class="ui stackable text menu">
+    <div class="item right floated">       
+        {{ component('components:paginator.dropdown',{ namespace: 'subscriptions' }) }}
+    </div>
+</div>
+<div class="ui mt-2">
+    <table class="ui compact stackable selectable borderless basic table">
+        <thead class="table-head">
+            <tr>              
+                <th class="one wide collapsing left aligned">{{ columns.action }}</th>
+                <th class="one wide">{{ columns.created }}</th>
+                <th class="collapsing one wide">{{ columns.status }}</th>
+                <th class="collapsing four wide">{{ columns.transaction }}</th>
+                <th class="one wide">{{ columns.currency }}</th>  
+                <th class="three wide">{{ columns.price }}</th>    
+                <th class="three wide">{{ columns.user }}</th>                             
+                <th class="two wide">{{ columns.billing }}</th>                                      
+            </tr>
+        </thead>
+        <tbody id="subscriptions_rows" component="checkout::admin.subscriptions.view.rows" namespace="subscriptions">
+            {{ component('checkout::admin.subscriptions.view.rows') }} 
+        </tbody>
+    </table> 
+    <div id="paginator">      
+        {{ component("components:paginator",{ namespace: 'subscriptions' }) }}
+    </div>
+</div>
+{% endcomponent %}

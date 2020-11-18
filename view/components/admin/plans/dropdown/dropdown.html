@@ -1,0 +1,35 @@
+{% set show_label = (show_label is null) ? true : show_label %}
+{% set name = name|default('subscription_plans_dropdown') %}
+{% set id = id|default(name) %}
+{% set model = createModel('SubscriptionPlans','subscriptions') %}
+{% set class = class|default('basic button') %}
+{% set data_column = data_column|default('id') %}
+{% if selected is not empty %}
+    {% set selected = model.findById(selected) %}
+{% endif %}
+{% set label = (selected is empty) ? labels.choose : selected.title %}
+
+<div class="ui dropdown subscription-plans-dropdown {{ class }}" {{ title|attr('title') }} {{ id|attr('id') }}>
+    <input type="hidden" value="{{ selected[data_column] }}" name="{{ name }}">  
+    {% if icon is not empty %}
+    <i class="icon {{ icon }}"></i>
+    {% endif %}
+    {% if show_label == true %}
+        <div class="text default">
+           {{ label }}
+        </div>  
+    {% endif %}
+    <i class="icon dropdown"></i>
+    <div class="menu">
+        {% if show_all == true %}
+        <div class="item" data-value="">                    
+            {{ labels.all }}            
+        </div>  
+        {% endif %}
+        {% for item in model.get() %}
+        <div class="item" data-value="{{ item[data_column] }}">                    
+            {{ item.title }}            
+        </div>   
+        {% endfor %}         
+    </div>
+</div>

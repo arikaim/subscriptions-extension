@@ -1,0 +1,11 @@
+{
+    "labels": {
+        "empty": "..",
+        "edit": "Edit",
+        "delete": "Delete",       
+        "status": {
+            "active": "active",
+            "disabled": "disabled"
+        }                    
+    }
+}

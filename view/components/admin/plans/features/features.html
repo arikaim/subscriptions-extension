@@ -1,0 +1,14 @@
+{% set plan = createModel('SubscriptionPlans','subscriptions').findById(uuid) %}
+<div class="ui grid">
+    <div class="two wide column">
+        {{ component('subscriptions::admin.plans.features.list',{ plan_id: plan.id }) }}
+        <div>
+            <button class="ui mini button green icon add-feature" title="{{ labels.add }}">
+                <i class="icon plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="fourteen wide column">
+
+    </div>
+</div>

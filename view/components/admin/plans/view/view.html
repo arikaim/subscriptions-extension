@@ -1,0 +1,26 @@
+<div class="ui stackable text menu">
+    <div class="item right floated">       
+        {{ component('components:paginator.dropdown',{ namespace: 'subscription-plans' }) }}
+    </div>
+</div>
+<div class="mt-8">
+    <table class="ui compact stackable selectable borderless basic table">
+        <thead class="table-head">
+            <tr>              
+                <th class="one wide collapsing left aligned">{{ columns.action }}</th> 
+                <th class="one wide column">{{ columns.status }}</th>                
+                <th class="three wide column">{{ columns.title }}</th>  
+                <th class="three wide column">{{ columns.slug }}</th>     
+                <th class="two wide column">{{ columns.monthly }}</th>    
+                <th class="two wide column">{{ columns.annual }}</th>                        
+                <th class="ten wide column">{{ columns.description }}</th>                                                                                 
+            </tr>
+        </thead>
+        <tbody id="plans_rows" component="subscriptions::admin.plans.view.rows" namespace="subscription-plans">
+            {{ component('subscriptions::admin.plans.view.rows') }} 
+        </tbody>
+    </table> 
+    <div id="paginator">      
+        {{ component("components:paginator",{ namespace: 'subscription-plans' }) }}
+    </div>
+</div>

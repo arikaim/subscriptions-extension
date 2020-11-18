@@ -1,0 +1,9 @@
+
+{% set features = createModel('SubscriptionPlanFeatures','subscriptions').planFeaturesQuery(plan_id) %}
+<div class="ui list">
+    {% for feature in features %}
+        <div class="item">
+            {{ feature.ttile }}
+        </div>
+    {% endfor %}
+</div>

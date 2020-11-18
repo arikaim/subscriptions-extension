@@ -1,0 +1,6 @@
+{% component 'components:tabs.vertical.content' %}
+{% set current = getOption('checkout.current') %}
+<div class="mt-4">
+    {{ component('system:admin.drivers.list',{ category: 'checkout', current : current }) }}
+</div>
+{% endcomponent %}

@@ -1,0 +1,12 @@
+{% set items = [ 
+    { id: 'subscriptions_button',title: labels.subscriptions, component: 'subscriptions::admin.subscriptions', icon: 'user plus',active: true  }, 
+    { id: 'plans_button', title: labels.plans, component: 'subscriptions::admin.plans', icon: 'grid layout'},   
+    { id: 'settings_button', title: labels.settings, component: 'subscriptions::admin.settings', icon: 'cog' },    
+] %}
+
+{{  component('components:tabs',{ 
+        items: items,
+        menu: { component: 'system:admin.extensions.menu.actions', extension: 'subscriptions' },
+        content: { component: 'checkout::admin.subscriptions' } 
+    })
+}}
