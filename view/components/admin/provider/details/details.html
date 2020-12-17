@@ -1,0 +1,136 @@
+{{ component('components:segment-title',{ title: title, icon: 'info' }) }}
+{% set driver_name = getOption('subscriptions.driver') %}
+{% set driver = service('driver').create(driver_name) %}
+{% set result = driver.plan().getDetails(plan_id) %}
+
+<div class="mt-2">
+    <div class="ui segment">
+        <div class="ui grid">
+            <div class="three wide column">       
+                <span class="font-bold">
+                    {{ labels.driver }}            
+                </span>
+                <span class="pl-2">
+                    {{ driver.getDriverTitle() }}
+                </span>        
+            </div>     
+            <div class="two wide column">
+                <span class="font-bold">
+                    {{ labels.billing }}            
+                </span>
+                <span class="pl-2">
+                    {{ billing_type }}
+                </span>             
+            </div>
+        </div> 
+    </div>
+</div>
+{% if result.hasError() == true %}
+<div class="ui warning message">
+    <div class="ui header">
+        {{ result.getError() }}
+    </div>
+    <p>
+        {{ result.getErrorDetails() }}
+    </p>
+</div>
+{% else %}
+{% set plan = result.getResult() %}
+<div class="mt-4">
+    <table class="ui definition very basic table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="two wide right aligned">{{ labels.id }}</td>
+                <td>
+                    {{ plan.id }}
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.status }}</td>
+                <td class="flex items-baseline">
+                    <div class="p-1 align-middle text-center" id="status_content">
+                        {{ plan.state }}
+                    </div>                   
+                    <div class="pl-2">
+                    {% if plan.state != 'ACTIVE' %}                        
+                        <button class="ui primary mini button activate-plan" plan-id="{{ plan.id }}">
+                            {{ labels.activate }}
+                        </button>                                                              
+                    {% endif %}
+                    </div>  
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.created }}</td>
+                <td>
+                    {{ plan.create_time }}
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.updated }}</td>
+                <td>
+                    {{ plan.update_time }}
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.payment }}</td>
+                <td>
+                    <table class="ui mini definition very basic table">
+                        <tbody>
+                            <tr>
+                                <td class="one wide right aligned">{{ labels.name }}</td>
+                                <td>{{ plan.payment_definitions[0].name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="one wide right aligned">{{ labels.frequency }}</td>
+                                <td>{{ plan.payment_definitions[0].frequency }}</td>
+                            </tr>
+                            <tr>
+                                <td class="one wide right aligned">{{ labels.interval }}</td>
+                                <td>{{ plan.payment_definitions[0].frequency_interval }}</td>
+                            </tr>                            
+                            <tr>
+                                <td class="one wide right aligned">{{ labels.amount }}</td>
+                                <td>
+                                    {{ plan.payment_definitions[0].amount.value }}
+                                    <span>{{ plan.payment_definitions[0].amount.currency }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                   
+                </td>
+            </tr>         
+            <tr>
+                <td class="two wide right aligned">{{ labels.merchant }}</td>
+                <td>
+                    {% set merchant = plan.getMerchantPreferences() %}
+                    <table class="ui mini definition very basic table">
+                        <tbody>
+                            <tr>
+                                <td class="one wide right aligned">{{ labels.return_url }}</td>
+                                <td>{{ merchant.return_url }}</td>
+                            </tr>
+                            <tr>
+                                <td class="one wide right aligned">{{ labels.cancel_url }}</td>
+                                <td>{{ merchant.cancel_url }}</td>
+                            </tr>                          
+                        </tbody>
+                    </table>        
+                </td>
+            </tr>  
+            <tr>
+                <td class="two wide right aligned">{{ labels.description }}</td>
+                <td>
+                    {{ plan.description }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}

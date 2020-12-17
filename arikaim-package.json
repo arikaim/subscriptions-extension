@@ -1,6 +1,6 @@
 {
     "title": "Subscriptions",
-    "name": "checkout",
+    "name": "subscriptions",
     "package-type": "extension",
     "type": "user",
     "description": "Subscriptions service.",
@@ -21,7 +21,8 @@
             "checkout"
         ],
         "extensions": [
-            "currency"
+            "currency",
+            "users"
         ]
     }
 }

@@ -51,19 +51,19 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
     {       
         $this->onDataValid(function($data) {             
             $model = Model::create('SubscriptionPlanFeatures','subscriptions');
-
-            if ($model->hasPlan($data['title']) == true) {
-                $this->error('errors.plan.exist');
+ 
+            if ($model->hasFeature($data['key'],$data['plan_id']) == true) {
+                $this->error('errors.feature.exist');
                 return false;
             }
-            
+
             $plan = $model->create($data->toArray());
 
             $this->setResponse(\is_object($plan),function() use($plan) {                  
                 $this
-                    ->message('plan.add')
+                    ->message('feature.add')
                     ->field('uuid',$plan->uuid);             
-            },'errors.plan.add');              
+            },'errors.feature.add');              
         });
         $data->validate();                
     }
@@ -83,7 +83,7 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
             $model = Model::create('SubscriptionPlanFeatures','subscriptions')->findById($uuid);
 
             if (\is_object($model) == false) {
-                $this->error('errors.plan.id');
+                $this->error('errors.feature.id');
                 return false;
             }
             
@@ -91,15 +91,15 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
 
             $this->setResponse($result,function() use($uuid) {                  
                 $this
-                    ->message('plan.update')
+                    ->message('feature.update')
                     ->field('uuid',$uuid);             
-            },'errors.plan.update');              
+            },'errors.feature.update');              
         });
         $data->validate();                
     }
 
     /**
-     * Delete plan subscription
+     * Delete plan feature
      *
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -113,7 +113,7 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
             $model = Model::create('SubscriptionPlanFeatures','subscriptions')->findById($uuid);
 
             if (\is_object($model) == false) {
-                $this->error('errors.plan.id');
+                $this->error('errors.feature.id');
                 return false;
             }
             
@@ -121,9 +121,9 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
 
             $this->setResponse($result,function() use($uuid) {                  
                 $this
-                    ->message('plan.delete')
+                    ->message('feature.delete')
                     ->field('uuid',$uuid);             
-            },'errors.plan.delete');              
+            },'errors.feature.delete');              
         });
         $data->validate();                
     }

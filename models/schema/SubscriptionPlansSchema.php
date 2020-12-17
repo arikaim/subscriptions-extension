@@ -41,7 +41,10 @@ class SubscriptionPlansSchema extends Schema
         $table->relation('currency_id','currency');
         $table->string('title')->nullable(false);
         $table->text('description')->nullable(true);
+        $table->string('api_monthly_plan_id')->nullable(true);
+        $table->string('api_annual_plan_id')->nullable(true);
         $table->dateCreated();
+        $table->dateUpdated();
         // index
         $table->unique(['title']);
     }

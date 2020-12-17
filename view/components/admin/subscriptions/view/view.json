@@ -6,12 +6,13 @@
     },
     "columns": {
         "action": "Action",
-        "created": "Date",
+        "created": "Date Created",
+        "expired": "Date Expired",
         "status": "Status",
-        "currency": "Currency",
-        "transaction": "Transaction Id",
-        "amount": "Amount",
-        "payer": "Payer",
+        "plan": "Plan",
+        "user": "User",
+        "price": "Price", 
+        "billing": "Billing",      
         "driver": "Checkout"
     }
 }

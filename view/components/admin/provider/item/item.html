@@ -1,0 +1,66 @@
+<div class="item">
+    <div class="header">
+        {{ plan.title }}
+    </div>
+    <div class="description p-4">                  
+        <table class="ui very basic mini table">
+            <tbody>
+                <thead>
+                    <tr>
+                        <th class="two wide center aligned">{{ labels.billing }}</th>
+                        <th class="four wide center aligned">{{ labels.id }}</th>
+                        <th>{{ labels.action }}</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td class="warning center aligned">{{ labels.monthly }}</td>
+                    <td class="left aligned" id="monthly_plan_{{ plan.uuid }}">
+                        {{ (plan.api_monthly_plan_id is empty) ? labels.empty : plan.api_monthly_plan_id }}
+                    </td>
+                    <td>
+                        <button 
+                            class="ui basic mini button select-plan" 
+                            uuid="{{ plan.uuid }}" 
+                            content-id="monthly_plan_{{ plan.uuid }}"
+                            billing-type="monthly">
+                            {{ labels.select }}
+                        </button>
+                        <button class="ui basic mini button create-plan" uuid="{{ plan.uuid }}" billing-type="monthly">
+                            <i class="plus green icon"></i>
+                            {{ labels.create }}
+                        </button>
+                        {% if plan.api_monthly_plan_id is not empty %}
+                        <button class="ui basic mini button plan-details right floated" uuid="{{ plan.uuid }}" billing-type="monthly">                          
+                            {{ labels.details }}
+                        </button>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="warning center aligned">{{ labels.annual }}</td>
+                    <td class="left aligned" id="annual_plan_{{ plan.uuid }}">
+                        {{ (plan.api_annual_plan_id is empty) ? labels.empty : plan.api_annual_plan_id }}                               
+                    </td>
+                    <td>
+                        <button 
+                            class="ui basic mini button select-plan"
+                            uuid="{{ plan.uuid }}" 
+                            content-id="annual_plan_{{ plan.uuid }}"
+                            billing-type="annual">                                    
+                            {{ labels.select }}
+                        </button>
+                        <button class="ui basic mini button create-plan" uuid="{{ plan.uuid }}" billing-type="annual">
+                            <i class="plus green icon"></i>
+                            {{ labels.create }}
+                        </button>
+                        {% if plan.api_annual_plan_id is not empty %}
+                        <button class="ui basic mini button plan-details right floated" uuid="{{ plan.uuid }}" billing-type="annual">                          
+                            {{ labels.details }}
+                        </button>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,8 +1,13 @@
 {
     "plan": {
-        "add": "Subscription plan added successfully.",
-        "update": "Subscription plan saved successfully.",
-        "delete": "Subscription plan deleted successfully."
+        "add": "Subscription Plan added successfully.",
+        "update": "Subscription Plan saved successfully.",
+        "delete": "Subscription Plan deleted successfully."
+    },
+    "feature": {
+        "add": "Subscription Feature added successfully.",
+        "update": "Subscription Feature saved successfully.",
+        "delete": "Subscription Feature deleted successfully."
     },
     "errors": {
         "plan": {
@@ -10,12 +15,22 @@
             "update": "Can't update subscription plan.",
             "id": "Not valid subscription plan Id.",
             "exist": "Subscription plan exists."
-        } 
+        },
+        "feature": {
+            "add": "Can't add Subscription Feature.",
+            "update": "Can't update Subscription Feature.",
+            "id": "Not valid Subscription Feature Id.",
+            "exist": "Subscription Feature exists."
+        }  
     },
     "messages": {
         "remove": {
             "title": "Confirm Remove",
             "content": "Confirm remove subscription plan '<b><% title %></b>'."
+        },
+        "remove_feature": {
+            "title": "Confirm Remove",
+            "content": "Confirm remove subscription feature '<b><% title %></b>'."
         }
     }  
 }

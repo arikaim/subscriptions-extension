@@ -1,6 +1,14 @@
 {
-    "title": {
-        "content": "Transaction Details",
-        "icon": "info"
-    }
+    "title": "Subscription Details",    
+    "icon": "info",
+    "labels": {
+        "alert": "Alert",
+        "uuid": "Uuid",
+        "status": "Status",
+        "billing": "Billing",
+        "plan": "Plan",
+        "api": "Checkout Api Details",
+        "user": "User"
+    },
+    "message": "Subscription not selected."
 }

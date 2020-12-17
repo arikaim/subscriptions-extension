@@ -1,7 +1,9 @@
 {% if status == 1 %}
-<div class="ui basic olive label">{{ labels.completed }}</div> 
+<div class="ui basic olive label">{{ labels.active }}</div> 
 {% elseif status == 2 %}
 <div class="ui basic orange label">{{ labels.refund }}</div> 
 {% elseif status == 0 %}
 <div class="ui basic red label">{{ labels.error }}</div> 
+{% elseif status == 4 %}
+<div class="ui basic red label">{{ labels.pendding }}</div> 
 {% endif %}

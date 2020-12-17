@@ -1,0 +1,17 @@
+{
+    "labels": {
+        "id": "Id",
+        "status": "Status",
+        "payer": {
+            "title": "Payer",
+            "email": "Email",
+            "name": "Name"
+        },
+        "plan": {
+            "title": "Plan",
+            "interval": "Interval",
+            "frequency": "Frequency",
+            "amount": "Amount"
+        }        
+    }
+}

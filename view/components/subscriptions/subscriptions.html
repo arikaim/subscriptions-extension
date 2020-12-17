@@ -1,0 +1,26 @@
+{% set plans = createModel('SubscriptionPlans','subscriptions').getActive() %}
+{% set plans = plans.orderBy('monthly_price').get() %}
+
+{% for plan in plans %}
+    <div class="two wide column">
+        {{  component('subscriptions>subscriptions.item',{ 
+                plan: plan,              
+                billing_type: billing_type
+            }) 
+        }}
+    </div>
+{% endfor %}
+<div class="row">
+    <div class="five wide column centered p-2">
+        <div class="flex">
+            <div class="p-2 font-bold">
+                {{ labels.monthly }}
+            </div>        
+            <div class="ui pt-2 billing-toggle toggle fitted checkbox">
+                <input type="checkbox" value="annual">
+                <label></label>
+            </div>
+            <div class="p-2 font-bold">{{ labels.annual }}</div>
+        </div>       
+    </div>
+</div>

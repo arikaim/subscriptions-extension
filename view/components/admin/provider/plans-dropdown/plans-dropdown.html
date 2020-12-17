@@ -1,0 +1,25 @@
+{% set name = name|default('subscription_plans') %}
+{% set id = id|default(id) %}
+{% set class = class|default('selection') %}
+
+{% set driver_name = getOption('subscriptions.driver') %}
+{% set driver = service('driver').create(driver_name) %}
+{% set plans = driver.plan().getList() %}
+{% set items = plans.getResult() %}
+
+<div class="ui dropdown provider-plans-dropdown {{ class }}" id="{{ id }}">
+    <input name="{{ name }}" type="hidden" value="{{ selected }}">
+    <i class="dropdown icon"></i>
+    <div class="text">{{ labels.select }}</div>
+    <div class="menu">
+        {% for item in items %}
+        <div class="item {{ (item.id == selected) ? 'active' : '' }}" data-value="{{ item.id }}">               
+            {{ item.name }}
+            <div class="description">              
+                {{ item.description }}
+                {{ item.id }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

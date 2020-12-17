@@ -1,7 +1,8 @@
 {
     "labels": {       
         "subscriptions": "Subscriptions",  
-        "plans": "Plans",                      
+        "plans": "Plans", 
+        "provider": "Provider",                     
         "settings": "Settings"            
     }   
 }

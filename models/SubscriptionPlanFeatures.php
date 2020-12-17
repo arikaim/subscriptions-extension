@@ -68,4 +68,30 @@ class SubscriptionPlanFeatures extends Model
 
         return $query->where('plan_id','=',$planId);
     }
+
+    /**
+     * Get feature
+     *
+     * @param string $key
+     * @param int $planId
+     * @return Model|null
+     */
+    public function getFeature($key, $planId = null)
+    {
+        return $this->planFeaturesQuery($planId)->where('key','=',$key)->first();
+    }
+
+    /**
+     * Return true if feature exist
+     *
+     * @param string $key
+     * @param int $planId
+     * @return boolean
+     */
+    public function hasFeature($key, $planId = null)
+    {
+        $model = $this->getFeature($key,$planId);
+
+        return \is_object($model);
+    }
 }

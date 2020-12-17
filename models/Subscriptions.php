@@ -11,8 +11,7 @@ namespace Arikaim\Extensions\Subscriptions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Arikaim\Modules\Checkout\Interfaces\TransactionInterface;
-
+use Arikaim\Extensions\Subscriptions\Models\SubscriptionPlans;
 use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
 use Arikaim\Core\Db\Traits\UserRelation;
@@ -37,7 +36,7 @@ class Subscriptions extends Model
      *
      * @var string
      */
-    protected $table = "subscriptions";
+    protected $table = 'subscriptions';
 
     /**
      * Fillable attributes
@@ -45,13 +44,12 @@ class Subscriptions extends Model
      * @var array
      */
     protected $fillable = [
-        'transaction_id',
-        'product_id',
-        'price',
-        'billing_type',
-        'currency',
+        'token',
+        'billing_type',        
         'checkout_driver',        
         'user_id',
+        'plan_id',
+        'subscription_id',
         'date_created',
         'date_updated'
     ];
@@ -63,30 +61,66 @@ class Subscriptions extends Model
      */
     public $timestamps = false;
 
-    
     /**
-     * Create subscription row
+     * Plan relation
      *
-     * @param integer $userId
-     * @param integer $productId
-     * @param string $billingType
-     * @param TransactionInterface $transaction
-     * @return Model|boolean
+     * @return Relation
      */
-    public function saveSubscription($userId, $productId, $billingType, TransactionInterface $transaction)
-    {        
-        $data = [
-            'transaction_id'  => $transaction->getTransactionId(),
-            'billing_type'    => $billingType,
+    public function plan()
+    {
+        return $this->belongsTo(SubscriptionPlans::class,'plan_id');
+    }
+
+    /**
+     * Register subscription with PENDING status
+     *
+     * @param int $userId
+     * @param int $planId
+     * @param string $billingType
+     * @param string $token
+     * @param string $checkoutDriver
+     * @return bool
+     */
+    public function registerSubscription($userId, $planId, $billingType, $token, $checkoutDriver)
+    {
+        $model = $this->getSubscription($userId);           
+        $info = [
             'user_id'         => $userId,
-            'priduct_id'      => $productId,
-            'price'           => $transaction->getAmount(),
-            'checkout_driver' => $transaction->geetCheckoutDriver(),
-            'currency'        => $transaction->getCurrency(),
-            'date_created'    => $transaction->getDateTimeCreated()
+            'plan_id'         => $planId,
+            'token'           => $token,
+            'billing_type'    => $billingType,      
+            'checkout_driver' => $checkoutDriver,
+            'status'          => 4 // PENDING
         ];
 
-        return ($this->hasSubscription($userId) == true) ? $this->update($data) : $this->create($data);      
+        if (\is_object($model) == true) {
+            return $model->update($info);
+        }
+        
+        $model = $this->create($info);
+           
+        return \is_object($model);
+    }
+
+    /**
+     * Confirm subscription
+     *
+     * @param string $token
+     * @param string $checkoutDriver
+     * @param string $id
+     * @return bool
+     */
+    public function confirmSubscription($token, $checkoutDriver, $id)
+    {
+        $model = $this->findSubscription($token,$checkoutDriver);
+        if (\is_object($model) == false) {
+            return false;
+        }
+
+        return $model->update([
+            'status'          => 1,
+            'subscription_id' => $id           
+        ]);
     }
 
     /**
@@ -97,6 +131,29 @@ class Subscriptions extends Model
      */
     public function hasSubscription($userId)
     {
-        return \is_object($this->findById($userId));
+        return \is_object($this->getSubscription($userId));
+    }
+
+    /**
+     * Get user subscription
+     *
+     * @param int $userId
+     * @return Model|null
+     */
+    public function getSubscription($userId)
+    {
+        return $this->where('user_id','=',$userId)->first();
+    }
+
+    /**
+     * Find subcription
+     *
+     * @param string $token
+     * @param string $checkoutDriver
+     * @return Model|null
+     */
+    public function findSubscription($token, $checkoutDriver)
+    {
+        return $this->where('token','=',$token)->where('checkout_driver','=',$checkoutDriver)->first();
     }
 }

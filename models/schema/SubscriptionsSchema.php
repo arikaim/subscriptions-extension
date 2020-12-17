@@ -21,7 +21,7 @@ class SubscriptionsSchema extends Schema
      *
      * @var string
      */
-    protected $tableName = "subscriptions";
+    protected $tableName = 'subscriptions';
 
     /**
      * Create table
@@ -36,17 +36,16 @@ class SubscriptionsSchema extends Schema
         $table->prototype('uuid');       
         $table->userId();
         $table->status();
-        $table->relation('plan_id','subscription_plans');
-        $table->price();
-        $table->string('currency')->nullable(false);      
-        $table->string('transaction_id')->nullable(false);
-        $table->string('billing_type')->nullable(false);      
+        $table->relation('plan_id','subscription_plans');     
+        $table->string('billing_type')->nullable(false);    
         $table->string('checkout_driver')->nullable(false);        
+        $table->string('token')->nullable(false);        
+        $table->string('subscription_id')->nullable(true);        
         $table->dateCreated();
         $table->dateUpdated();  
-        $table->dateExpired();   
         // index        
         $table->unique('user_id');    
+        $table->unique(['token','checkout_driver']);    
     }
 
     /**

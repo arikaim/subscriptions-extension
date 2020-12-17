@@ -1,6 +1,16 @@
 {% component 'components:tabs.vertical.content' %}
-{% set current = getOption('checkout.current') %}
+{% set current = getOption('subscriptions.driver') %}
 <div class="mt-4">
-    {{ component('system:admin.drivers.list',{ category: 'checkout', current : current }) }}
+    <div class="ui segment">
+    {{  component('system:admin.drivers.dropdown',{ 
+            selected: current, 
+            category: 'subscriptions',
+            class: 'fluid' 
+        }) 
+    }}                       
+    </div>
+    <div class="ui segment mt-2" id="driver_settings">
+        {{ component('system:admin.modules.drivers.config.form',{ driver_name: current }) }}       
+    </div>
 </div>
 {% endcomponent %}

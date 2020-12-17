@@ -1,0 +1,44 @@
+{{ component('components:segment-title',{ title: title, icon: 'plus' }) }}
+{% set plan = createModel('SubscriptionPlans','subscriptions').findById(uuid) %}
+<div class="mt-4">
+    <table class="ui definition very basic table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="two wide right aligned">{{ labels.billing }}</td>
+                <td>
+                    {{ billing_type }}
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.title }}</td>
+                <td>
+                    {{ plan.title }}
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.description }}</td>
+                <td>
+                    {{ plan.description }}
+                </td>
+            </tr>
+            <tr>
+                <td class="two wide right aligned">{{ labels.price }}</td>
+                <td>
+                    {{ plan.getPrice(billing_type)|numberFormat }}
+                    <span class="pl-1">
+                        {{ plan.currency.code }}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="ui green button provider-create-plan" uuid="{{ uuid }}" billing-type="{{ billing_type }}">      
+        {{ labels.create }}
+    </button>
+</div>

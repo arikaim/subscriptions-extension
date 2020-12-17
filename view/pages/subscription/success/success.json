@@ -1,3 +1,6 @@
 {
-    
+    "labels": {
+        "success": "Success"
+    },
+    "message": "You have successfully subscribed."
 }

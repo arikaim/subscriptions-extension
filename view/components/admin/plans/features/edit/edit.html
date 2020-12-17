@@ -1,0 +1,7 @@
+{% component 'components:tabs.vertical.content' %}
+    {% set class = 'sixteen wide column' %}  
+    {% set panel_class = '' %}
+    <div class="mt-4">
+        {{ component('subscriptions::admin.plans.features.form',{ uuid: uuid }) }}
+    </div>       
+{% endcomponent %}

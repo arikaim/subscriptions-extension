@@ -4,17 +4,17 @@
  *  @license    http://www.arikaim.com/license
  *  http://www.arikaim.com
  */
-"use strict";
+'use strict';
 
-function CheckoutControlPanel() {
+function SubscriptionsControlPanel() {
    
     this.init = function() {    
         arikaim.ui.tab('.tab-item','tab_content');
     };   
 }
 
-var checkout = new CheckoutControlPanel();
+var subscriptions = new SubscriptionsControlPanel();
 
-arikaim.page.onReady(function() {
-    checkout.init();
+$(document).ready(function() {
+    subscriptions.init();
 });

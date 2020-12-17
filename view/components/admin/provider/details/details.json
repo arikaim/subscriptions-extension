@@ -1,0 +1,21 @@
+{
+    "title": "Plan Details",
+    "labels": {
+        "id": "ID",
+        "driver": "Api Driver",
+        "billing": "Billing Type",
+        "name": "Name",
+        "status": "Status",
+        "created": "Date Created",
+        "updated": "Date Updated",
+        "payment": "Payment",
+        "frequency": "Frequency",
+        "interval": "Interval",
+        "amount": "Amount",
+        "activate": "Activate",
+        "merchant": "Merchant Preferences",
+        "return_url": "Return url",
+        "cancel_url": "Cancel url",
+        "description": "Description"        
+    }
+}

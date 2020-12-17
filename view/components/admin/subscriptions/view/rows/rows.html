@@ -1,39 +1,35 @@
-{% component 'components:view.rows' %}
-
-{% set model = createModel('Subscriptions','checkout').orderBy('id','desc') %}
-
-{{ createSearch('transaction_id','subscriptions','like:%{value}%','and') }}
-{% set model = applySearch(model,'subscriptions') %}
+{% set model = createModel('Subscriptions','subscriptions').orderBy('id','desc') %}
 {% set items = paginate(model,'subscriptions') %}
-
-{% for item in items.getItems() %}  
+{% set items = items.getItems() %}
+{% if items|length == 0 %}
+    <tr>
+        <td colspan="7">{{ labels.empty }}</td>
+    </tr>
+{% endif %}
+{% for item in items %}  
     <tr id="{{ item.uuid }}">              
-        <td>                                  
-            <button class="ui icon mini basic button subscription-details" uuid="{{ item.uuid }}">
+        <td class="one wide">                                  
+            <button class="ui icon mini basic button subscription-details" uuid="{{ item.uuid }}" title="{{ labels.details }}">
                 <i class="icon info"></i>
             </button>                        
         </td>
         <td>
-            {{ item.date_time }}
+            {{ item.date_created|dateTimeFormat }}
         </td>  
         <td>
-            {{ component('checkout::admin.subscriptions.label',{ status: item.status }) }}         
+            {{ component('subscriptions::admin.subscriptions.label',{ status: item.status }) }}         
         </td>
         <td>
-           {{ item.transaction_id }}       
-        </td>
+           {{ item.plan.title }}       
+        </td>   
         <td>
-            {{ item.currency }}
-        </td>         
+            {{ item.user.user_name_or_email }}
+        </td>   
         <td>
-            {{ item.amount|numberFormat }}
-        </td>                              
-        <td>
-            {{ item.payer }}
-        </td>    
+            {{ item.billing_type }}
+        </td>                                   
         <td>
             {{ item.checkout_driver }}
         </td>                       
     </tr>
 {% endfor %}
-{% endcomponent %}

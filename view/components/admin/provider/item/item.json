@@ -1,0 +1,13 @@
+{
+    "labels": {
+        "select": "Select",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "details": "Details",
+        "billing": "Billing Type",
+        "id": "Plan Id",
+        "empty": "Not selected",
+        "action": "Action",
+        "create": "Create"
+    }
+}

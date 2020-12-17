@@ -1,0 +1,10 @@
+{
+    "title": "Create Plan",
+    "labels": {
+        "billing": "Billing Type",
+        "title": "Title",
+        "price": "Price",
+        "description": "Description",       
+        "create": "Create"
+    }
+}

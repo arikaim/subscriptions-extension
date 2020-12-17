@@ -1,3 +1,53 @@
-{% component 'components:tabs.vertical.content' %}
-
-{% endcomponent %}
+{{ component('components:segment-title',{ title: title, icon: icon }) }}
+{% if uuid is empty %}
+<div class="ui message">   
+    <p>
+        {{ message }}
+    </p>
+</div>
+{% else %}
+    {% set model = createModel('Subscriptions','subscriptions').findById(uuid) %}
+    {% set driver_name = getOption('subscriptions.driver') %}
+    {% set driver = service('driver').create(driver_name) %}
+    {% set result = driver.subscription().details(model.subscription_id) %}
+    {% set details = result.getResult() %}
+    <div class="mt-4">
+        <div class="ui grid">   
+            <div class="six wide column">
+                <table class="ui table definition very basic">
+                    <tbody>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.uuid }}</td>
+                            <td>{{ model.uuid }}</td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.status }}</td>
+                            <td>
+                                {{ component('subscriptions::admin.subscriptions.label',{ status: model.status }) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.plan }}</td>
+                            <td>{{ model.plan.title }}</td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.user }}</td>
+                            <td>{{ model.user.username_or_email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-4 p-2">
+                    <h4 class="ui header">
+                        {{ labels.api }}
+                    </h4>
+                    <div class="ui divider"></div>
+                    <div id="checkout_api_details">
+                        {{ component('subscriptions::admin.subscriptions.details.api',{ details: details }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="ten wide column">
+            </div>
+        </div>
+    </div>
+{% endif %}

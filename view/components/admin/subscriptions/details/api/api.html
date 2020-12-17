@@ -1,0 +1,66 @@
+<table class="ui table definition very basic">
+    <tbody>
+        <tr>
+            <td class="four wide right aligned">{{ labels.id }}</td>
+            <td>{{ details.id }}</td>
+        </tr>
+        <tr>
+            <td class="four wide right aligned">{{ labels.status }}</td>
+            <td>
+               {{ details.state }}
+            </td>
+        </tr>
+        <tr>
+            <td class="four wide right aligned">{{ labels.plan.title }}</td>
+            <td>
+                {% set plan = details.plan %}
+                <table class="ui table definition very basic">
+                    <tbody>                        
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.plan.frequency }}</td>
+                            <td>
+                                {{ plan.payment_definitions[0].frequency }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.plan.interval }}</td>
+                            <td>
+                                {{ plan.payment_definitions[0].frequency_interval }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.plan.amount }}</td>
+                            <td>
+                                {{ plan.payment_definitions[0].amount.value }}
+                                <span>{{ plan.payment_definitions[0].amount.currency }}</span>
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="four wide right aligned">{{ labels.payer.title }}</td>
+            <td>             
+                {% set payer = details.payer.payer_info %}
+                <table class="ui table definition very basic">
+                    <tbody>                        
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.payer.email }}</td>
+                            <td>
+                                {{ payer.email }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.payer.name }}</td>
+                            <td>
+                                {{ payer.first_name }}
+                                {{ payer.last_name }}
+                            </td>
+                        </tr>       
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

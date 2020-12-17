@@ -11,15 +11,29 @@ namespace Arikaim\Extensions\Subscriptions\Controllers;
 
 use Arikaim\Core\Controllers\Controller;
 use Arikaim\Core\Db\Model;
-use Arikaim\Modules\Checkout\SubscriptionData;
-
-// test page: http://work.com/arikaim/subscription/paypal/basic/cb3da7c7-4b89-4a82-b717-81085eee2ed2
+use Arikaim\Extensions\Subscriptions\Classes\Subscriptions;
 
 /**
  * Subscription pages controler
 */
 class SubscriptionPages extends Controller
 {
+    /**
+     * Subscription page
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function showPlans($request, $response, $data) 
+    { 
+        $language = $this->getPageLanguage($data);
+        $response = $this->noCacheHeaders($response);
+
+        return $this->pageLoad($request,$response,$data,'subscriptions>subscription',$language);
+    }
+
     /**
      * Create subscription page
      *
@@ -30,59 +44,59 @@ class SubscriptionPages extends Controller
     */
     public function create($request, $response, $data) 
     { 
-        $driverName = $data->get('name','paypal');
+        $language = $this->getPageLanguage($data);
+        $driverName = $this->get('options')->get('subscriptions.driver');
         $driver = $this->get('driver')->create($driverName);
+        $billingType = $data->get('billing','monthly');
+        $planSlug = $data->get('plan');
+        $userUuid = $data->get('user',$this->getUserId());
 
-        $userUuid = $data->get('user_uuid');
-        $productSlug = $data->get('product_slug');
-
-        // Product
-        $product = Model::Products('products')->findBySlug($productSlug);
-        if (\is_object($product) == false) {
-            return $this->pageLoad($request,$response,$data,'checkout>subscription.error');
-        }
         // User
         $user = Model::Users()->findById($userUuid);
         if (\is_object($user) == false) {
-            return $this->pageLoad($request,$response,$data,'checkout>subscription.error',false);
+            $error = ['error' => 'Not valid user'];
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
         }
-      
-        $subscriptonData = [           
-            'invoice_id'    => null,
-            'description'   => $product->getOptionValue('description')
-        ];
-
-        $this->get('event')->dispatch('subscriptions.init',[
-            'user'      => $user->toArray(),
-            'product'   => $product->toArray(),
-            'data'      => $subscriptonData
-        ]); 
-
-        $checkoutData = SubscriptionData::create($subscriptonData);
-        $checkoutData->setUserId($user->id);
-        $checkoutData->setProductId($product->id);
+        // Subscription Plan
+        $plan = Model::SubscriptionPlans('subscriptions')->findBySlug($planSlug);
+        if (\is_object($plan) == false) {
+            $data = ['error' => 'Not valid subscription plan'];
+            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error',$language);
+        }
         
-        $price = \number_format($product->getPriceValue('annual-price'),2);
-
-        $checkoutData->addItem($product->title,$price);
-        if ($checkoutData->isEmpty() == true) {
-            return $this->pageLoad($request,$response,$data,'checkout>subscription.error',false);
-        }
-   
-        $dataResult = $driver->setSubscriptionData($checkoutData);
+        $planId = $plan->getApiPlanId($billingType);
+        $apiResponse = Subscriptions::createSubscription($driver,$planId,$plan->title,$plan->description);
     
-        if ($driver->isSuccess($dataResult) == true) {
-            $checkoutUrl = $driver->getCheckoutUrl($dataResult,null); 
-           
-            return $this->withRedirect($response,$checkoutUrl);
-        } 
-        $error = [
-            'error'         => $driver->getErrorMessage($dataResult),
-            'errorDetails'  => $dataResult
-        ];
+        if ($apiResponse->hasError() == true) {
+            $data = [
+                'error'         => $apiResponse->getError(),
+                'error_details' => $apiResponse->getErrorDetails(),
+            ];
+            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error',$language,false);
+        }
+        $apiResult = $apiResponse->getResult();
 
-        // show error page      
-        return $this->pageLoad($request,$response,$error,'checkout>subscription.error',false);
+        // register subscription  
+        $token = $apiResult['token'] ?? null;
+        $planId = $apiResult['plan_id'] ?? null;
+
+        $planId = $plan->findPlanId($planId,$billingType);   
+        $model = Model::Subscriptions('subscriptions');
+        $result = $model->registerSubscription($user->id,$planId,$billingType,$token,$driverName);
+       
+        if ($result == false) {
+            $error = ['error' => 'Error register subscription.'];
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
+        }
+
+        $approvalUrl = $apiResult['response']->getApprovalLink();
+        if (empty($approvalUrl) == true) {
+            $error = ['error' => 'Not valid approval url.'];        
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
+        }
+        
+        // Success redirect 
+        return $this->withRedirect($response,$approvalUrl);
     }
 
     /**
@@ -95,46 +109,38 @@ class SubscriptionPages extends Controller
     */
     public function success($request, $response, $data) 
     {               
-        $driverName = $data->get('name','paypal');
+        $language = $this->getPageLanguage($data);
+        $model = Model::Subscriptions('subscriptions');
+        $driverName = $this->get('options')->get('subscriptions.driver');
         $driver = $this->get('driver')->create($driverName);
+        $params = $request->getQueryParams();
+        $token = $params['token'] ?? null;
 
-        $checkoutData = $data->get('data',$request->getQueryParams());
-        
-        $token = $driver->getToken($checkoutData);
-        $payer = $driver->getPayer($checkoutData);
-
-        $details = $driver->getCheckoutDetails($token);
-
-        $subscriptionData = $driver->createSubscriptionData($details);
-        $subscriptionData->setBullingPeriod('Month');
-
-        $result = $driver->createRecurringProfile($subscriptionData,$token);
-
-        if ($driver->isSuccess($result) == true) {
-            //done
-            $this->get('event')->dispatch('subscriptions.success',[
-                'data' => $subscriptionData->toArray()
-            ]);  
-            
-            $model = Model::Transactions('checkout');
-            $model->saveTransaction($transaction);
-
-            return $this->pageLoad($request,$response,$data,'checkout>subscription.success');
+        if (empty($token) == true) {
+            $error = ['error' => 'Not valid subscription approval token'];            
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
         }
-        print_r($result);
-        echo $token;
-        echo $payer;
 
-        print_r($details);
-        exit();
-       
-        $error = [
-            'error'         => $driver->getErrorMessage($result),
-            'errorDetails'  => $result
-        ];
+        $apiResponse = $driver->subscription()->confirm($token);
+        if ($apiResponse->hasError() == true) {
+            $data = [
+                'error'         => $apiResponse->getError(),
+                'error_details' => $apiResponse->getErrorDetails(),
+            ];
+            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error',$language,false);
+        }
+        $apiResult = $apiResponse->getResult();
 
-        // show error page      
-        return $this->pageLoad($request,$response,$error,'checkout>subscription.error',false);
+        // confirm subscription
+        $subscriptionId = $apiResult->getId();
+        $result = $model->confirmSubscription($token,$driverName,$subscriptionId);
+
+        if ($result == false) {
+            $error = ['error' => 'Subscription activation error'];  
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
+        }
+
+        return $this->pageLoad($request,$response,$data,'subscriptions>subscription.success',$language,false);        
     }
 
     /**
@@ -146,18 +152,13 @@ class SubscriptionPages extends Controller
      * @return Psr\Http\Message\ResponseInterface
     */
     public function cancel($request, $response, $data) 
-    {               
-        $driverName = $data->get('name','paypal');
+    {             
+        $language = $this->getPageLanguage($data);
+        $driverName = $this->get('options')->get('subscriptions.driver');
         $driver = $this->get('driver')->create($driverName);
+        $params = $request->getQueryParams();
+        $token = $params['token'] ?? null;
 
-        $checkoutData = $data->get('data',null);
-        if (empty($checkoutData) == true) {
-            $checkoutData = $request->getQueryParams();
-        }
-
-        $result = $driver->processCancelCheckout($checkoutData);
-        $this->get('event')->dispatch('checkout.cancel',$result);  
-
-        return $this->pageLoad($request,$response,$data,'checkout>subscription.cancel');
+        return $this->pageLoad($request,$response,$data,'subscriptions>subscription.cancel',$language);
     }
 }

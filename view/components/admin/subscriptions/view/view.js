@@ -15,7 +15,7 @@ function SubscriptionsView() {
 
         search.init({
             id: 'subscriptions_rows',
-            component: 'checkout::admin.subscriptions.view.rows',
+            component: 'subscriptions::admin.subscriptions.view.rows',
             event: 'subscriptions.search.load'
         },'subscriptions');  
         
@@ -30,7 +30,7 @@ function SubscriptionsView() {
             var uuid = $(element).attr('uuid');
             return arikaim.page.loadContent({
                 id: 'subscriptions_content',
-                component: 'checkout::admin.subscriptions.details',
+                component: 'subscriptions::admin.subscriptions.details',
                 params: { uuid: uuid }
             });
         });
