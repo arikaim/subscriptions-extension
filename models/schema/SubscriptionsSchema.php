@@ -45,7 +45,8 @@ class SubscriptionsSchema extends Schema
         $table->dateUpdated();  
         // index        
         $table->unique('user_id');    
-        $table->unique(['token','checkout_driver']);    
+        $table->unique(['token','checkout_driver']);   
+        $table->unique('subscription_id');     
     }
 
     /**

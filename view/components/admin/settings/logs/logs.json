@@ -1,0 +1,12 @@
+{
+    "title": {
+        "content": "Logger settings",
+        "icon": "cogs"
+    },    
+    "labels": {
+        "logs": "Log ipn data"
+    },
+    "descriptions": {
+        "logs": "Save log data with all ipn fields."
+    }
+}

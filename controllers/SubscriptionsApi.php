@@ -52,7 +52,10 @@ class SubscriptionsApi extends ApiController
      * @return Psr\Http\Message\ResponseInterface
     */
     public function notify($request, $response, $data) 
-    {       
+    {  
+        $saveLog = $this->get('options')->get('subscriptions.ipn.logs',false);
+
+        $subscription = Model::Subscriptions('subscriptions');     
         $model = Model::SubscriptionTransactions('subscriptions');
         $driverName = $this->get('options')->get('subscriptions.driver');
         $driver = $this->get('driver')->create($driverName);
@@ -60,9 +63,16 @@ class SubscriptionsApi extends ApiController
         
         // save to db      
         if ($transaction->isValid() == true) {
+            $subscriptionId = $transaction->getOrderId();
+            $subscription = $subscription->getSubscription(null,$subscriptionId);
+            $orderId = (\is_object($subscription) == true) ? $subscription->id : null;
+            $transaction->setOrderId($orderId);
+
             $result = $model->saveTransaction($transaction);
             // log
-            $this->logInfo('IPN DATA',$data->toArray());
+            if ($saveLog == true) {
+                $this->logInfo('IPN data',$data->toArray());
+            }
         } else {
             // log error
             $this->logError('IPN data error, transaction data not vlaid',$data->toArray());

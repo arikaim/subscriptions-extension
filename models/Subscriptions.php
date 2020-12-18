@@ -140,9 +140,15 @@ class Subscriptions extends Model
      * @param int $userId
      * @return Model|null
      */
-    public function getSubscription($userId)
+    public function getSubscription($userId = null, $subscriptionId = null)
     {
-        return $this->where('user_id','=',$userId)->first();
+        $query = (empty($userId) == false) ? $this->where('user_id','=',$userId) : $this;
+      
+        if (empty($subscriptionId) == false) {
+            $query = $query->where('subscription_id','=',$subscriptionId);
+        }
+        
+        return $query->first();
     }
 
     /**

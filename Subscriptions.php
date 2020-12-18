@@ -56,7 +56,8 @@ class Subscriptions extends Extension
         $this->createDbTable('SubscriptionsSchema');
         $this->createDbTable('SubscriptionTransactionsSchema');
         // Options
-        $this->createOption('subscriptions.driver','paypal-subscriptions');      
+        $this->createOption('subscriptions.driver','paypal-subscriptions');  
+        $this->createOption('subscriptions.ipn.logs',true);           
     }   
 
     /**

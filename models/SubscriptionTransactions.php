@@ -73,6 +73,7 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
         $info = [
             'transaction_id'  => $transaction->getTransactionId(),
             'amount'          => $transaction->getAmount(),
+            'subscription_id' => $transaction->getOrderId(),
             'type'            => $transaction->getType(),
             'currency'        => $transaction->getCurrency(),
             'checkout_driver' => $transaction->geetCheckoutDriver(),

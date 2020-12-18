@@ -35,7 +35,7 @@ class SubscriptionTransactionsSchema extends Schema
         $table->id();
         $table->prototype('uuid');
         $table->relation('subscription_id','subscriptions');
-        $table->string('transaction_id')->nullable(false);
+        $table->string('transaction_id')->nullable(true);
         $table->string('type')->nullable(false);
         $table->decimal('amount',15,4)->nullable(false);
         $table->string('currency')->nullable(false);
