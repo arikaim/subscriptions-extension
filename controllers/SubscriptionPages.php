@@ -66,7 +66,9 @@ class SubscriptionPages extends Controller
         
         $planId = $plan->getApiPlanId($billingType);
         $apiResponse = Subscriptions::createSubscription($driver,$planId,$plan->title,$plan->description);
-    
+        
+        var_dump($apiResponse);
+
         if ($apiResponse->hasError() == true) {
             $data = [
                 'error'         => $apiResponse->getError(),
@@ -85,6 +87,7 @@ class SubscriptionPages extends Controller
         $result = $model->registerSubscription($user->id,$planId,$billingType,$token,$driverName);
        
         echo "r:$result";
+        exit();
         
         if ($result == false) {
             $error = ['error' => 'Error register subscription.'];
