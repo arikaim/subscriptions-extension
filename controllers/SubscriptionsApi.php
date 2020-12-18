@@ -53,13 +53,19 @@ class SubscriptionsApi extends ApiController
     */
     public function notify($request, $response, $data) 
     {       
+        $model = Model::SubscriptionTransactions('subscriptions');
         $driverName = $this->get('options')->get('subscriptions.driver');
         $driver = $this->get('driver')->create($driverName);
         $transaction = $driver->createTransaction($data->toArray());
         
-        // save to db
-        $model = Model::SubscriptionTransactions('subscriptions');
-        $model->saveTransaction($transaction);
+        // save to db      
+        if ($transaction->isValid() == true) {
+            $model->saveTransaction($transaction);
+        } else {
+            // log error
+            $this->logError('IPN data error, transaction data not vlaid',$data->toArray());
+        }
+       
         // log
         $this->logInfo('IPN DATA',$data->toArray());
     }
