@@ -7,7 +7,7 @@
  * @license     http://www.arikaim.com/license
  * 
 */
-namespace Arikaim\Extensions\Checkout\Models;
+namespace Arikaim\Extensions\Subscriptions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
