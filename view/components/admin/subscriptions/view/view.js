@@ -11,18 +11,7 @@ function SubscriptionsView() {
 
     this.init = function() {
         arikaim.ui.tab('.transaction-tab-item','subscriptions_content');
-        paginator.init('subscriptions_rows');   
-
-        search.init({
-            id: 'subscriptions_rows',
-            component: 'subscriptions::admin.subscriptions.view.rows',
-            event: 'subscriptions.search.load'
-        },'subscriptions');  
-        
-        arikaim.events.on('subscriptions.search.load',function(result) {      
-            paginator.reload();
-            self.initRows();    
-        },'subscriptionsSearch');
+        paginator.init('subscriptions_rows');         
     };
 
     this.initRows = function() {

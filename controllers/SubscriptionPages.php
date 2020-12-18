@@ -67,6 +67,9 @@ class SubscriptionPages extends Controller
         $planId = $plan->getApiPlanId($billingType);
         $apiResponse = Subscriptions::createSubscription($driver,$planId,$plan->title,$plan->description);
     
+        var_dump($apiResponse);
+        exit();
+        
         if ($apiResponse->hasError() == true) {
             $data = [
                 'error'         => $apiResponse->getError(),
