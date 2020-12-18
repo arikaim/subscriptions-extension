@@ -70,17 +70,14 @@ class SubscriptionsApi extends ApiController
 
             $result = $model->saveTransaction($transaction);
             // log
-            if ($saveLog == true) {
+           // if ($saveLog == true) {
                 $this->logInfo('IPN data',$data->toArray());
-            }
+           // }
         } else {
             // log error
             $this->logError('IPN data error, transaction data not vlaid',$data->toArray());
-            $result = false;
         }
        
-        $this->setResponse($result,'success','error');   
-        
-        return $this->getResponse();
+        return $response->withStatus('200');
     }
 }

@@ -1,0 +1,14 @@
+{
+    "title": {
+        "content": "IPN settings",
+        "icon": "exclamation circle"
+    },    
+    "labels": {
+        "logs": "Log ipn data",
+        "url": "IPN Url"
+    },
+    "descriptions": {
+        "logs": "Save log data with all ipn fields.",
+        "ipn": "Checkout IPN url"
+    }
+}

@@ -1,5 +1,8 @@
 {% component 'components:tabs.vertical.content' %}
 {% set save_ipn_data = getOption('subscriptions.ipn.logs') %}
+{% set driver_name = getOption('subscriptions.driver') %}
+{% set driver = service('driver').create(driver_name) %}
+
 <div class="mt-4">
     <div class="ui form">
         <div class="field">     
@@ -9,6 +12,12 @@
                 <span class="ml-16 pl-1 text-gray-700">{{ descriptions.logs }}</span>
             </div> 
         </div> 
+        <div class="field">
+            <label>{{ labels.url }}</label>
+            <div class="ui basic label">
+                {{ driver.getIpnUrl() }}
+            </div>
+        </div>
     </div>
 </div>
 {% endcomponent %}
