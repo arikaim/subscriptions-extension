@@ -68,8 +68,8 @@ class SubscriptionPages extends Controller
         $apiResponse = Subscriptions::createSubscription($driver,$planId,$plan->title,$plan->description);
         
         var_dump($apiResponse);
-        exit();
-        
+    
+
         if ($apiResponse->hasError() == true) {
             $data = [
                 'error'         => $apiResponse->getError(),
@@ -87,9 +87,6 @@ class SubscriptionPages extends Controller
         $model = Model::Subscriptions('subscriptions');
         $result = $model->registerSubscription($user->id,$planId,$billingType,$token,$driverName);
        
-        echo "r:$result";
-        exit();
-
         if ($result == false) {
             $error = ['error' => 'Error register subscription.'];
             return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);

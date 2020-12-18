@@ -93,8 +93,6 @@ class Subscriptions extends Model
             'status'          => 4 // PENDING
         ];
 
-        print_r($info);
-
         if (\is_object($model) == true) {
             return $model->update($info);
         }
