@@ -44,7 +44,7 @@ class Subscriptions extends Extension
         $this->addPageRoute('/subscription/cancel/','SubscriptionPages','cancel','subscriptions>subscription.cancel');   
        
         // API
-        $this->addApiRoute('POST','api/subscription/notify','SubscriptionsApi','notify',null); 
+        $this->addApiRoute('POST','/api/subscription/notify','SubscriptionsApi','notify',null); 
 
         // Events
         $this->registerEvent('subscriptions.init','Init subscription pyment');  
