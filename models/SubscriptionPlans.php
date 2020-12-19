@@ -67,6 +67,17 @@ class SubscriptionPlans extends Model
     public $timestamps = false;
 
     /**
+     * Get subscribe subscription url 
+     *
+     * @param [string] $billingType
+     * @return string
+     */
+    public function getSubscripbeUrl($billingType)
+    {
+        return 'subscription/create/' . $this->slug . '/' . $billingType;
+    }
+
+    /**
      * Get paid pans query
      *
      * @param Builder $query
