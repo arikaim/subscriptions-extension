@@ -53,6 +53,7 @@ class SubscriptionsApi extends ApiController
     */
     public function notify($request, $response, $data) 
     {  
+        $this->logInfo('Subscriptions IPN notify',[]);
         $saveLog = $this->get('options')->get('subscriptions.ipn.logs',false);
 
         $subscription = Model::Subscriptions('subscriptions');     

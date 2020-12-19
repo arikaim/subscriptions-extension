@@ -69,7 +69,7 @@ class SubscriptionPlans extends Model
     /**
      * Get subscribe subscription url 
      *
-     * @param [string] $billingType
+     * @param string $billingType
      * @return string
      */
     public function getSubscripbeUrl($billingType)
