@@ -81,6 +81,8 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
             'details'         => \json_encode($details)          
         ];
 
+        print_r($info);
+
         $model = $this->create($info);
 
         return \is_object($model);

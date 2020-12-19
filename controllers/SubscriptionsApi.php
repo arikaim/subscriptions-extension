@@ -12,27 +12,12 @@ namespace Arikaim\Extensions\Subscriptions\Controllers;
 use Arikaim\Core\Controllers\ApiController;
 
 use Arikaim\Core\Db\Model;
-use Arikaim\Extensions\Subscriptions\Classes\Subscriptions;
 
 /**
  * Subscriptions api controler
 */
 class SubscriptionsApi extends ApiController
 {
-  
-
-    /**
-     * Constructor
-     * 
-     * @param Container|null $container
-    */
-    public function __construct($container = null) 
-    {
-        parent::__construct($container);
-        $this->setModelClass('Subscriptions');
-        $this->setExtensionName('subscriptions');
-    }
-
     /**
      * Init controller
      *
@@ -52,8 +37,7 @@ class SubscriptionsApi extends ApiController
      * @return Psr\Http\Message\ResponseInterface
     */
     public function notify($request, $response, $data) 
-    {  
-        $this->logInfo('Subscriptions IPN notify',[]);
+    {          
         $saveLog = $this->get('options')->get('subscriptions.ipn.logs',false);
 
         $subscription = Model::Subscriptions('subscriptions');     
@@ -68,12 +52,14 @@ class SubscriptionsApi extends ApiController
             $subscription = $subscription->getSubscription(null,$subscriptionId);
             $orderId = (\is_object($subscription) == true) ? $subscription->id : null;
             $transaction->setOrderId($orderId);
+            // log
+            if ($saveLog == true) {              
+                $this->logInfo('Subscriptions IPN notify',$data->toArray());
+                $this->logInfo('Transction details',$transaction->toArray());
+            }
 
             $result = $model->saveTransaction($transaction);
-            // log
-           // if ($saveLog == true) {
-                $this->logInfo('IPN data',$data->toArray());
-           // }
+          
         } else {
             // log error
             $this->logError('IPN data error, transaction data not vlaid',$data->toArray());
