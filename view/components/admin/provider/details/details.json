@@ -16,6 +16,7 @@
         "merchant": "Merchant Preferences",
         "return_url": "Return url",
         "cancel_url": "Cancel url",
+        "notify_url": "IPN url",
         "description": "Description"        
     }
 }
