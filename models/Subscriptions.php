@@ -50,6 +50,7 @@ class Subscriptions extends Model
         'checkout_driver',        
         'user_id',
         'plan_id',
+        'status',
         'subscription_id',
         'date_created',
         'date_updated'

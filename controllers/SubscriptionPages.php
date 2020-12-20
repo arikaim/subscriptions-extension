@@ -133,6 +133,7 @@ class SubscriptionPages extends Controller
 
         // confirm subscription
         $subscriptionId = $apiResult->getId();
+        $this->logError('confirm', ['t' => $token,'d' => $driverName,'id' => $subscriptionId]);
         $result = $model->confirmSubscription($token,$driverName,$subscriptionId);
 
         if ($result == false) {
@@ -154,11 +155,7 @@ class SubscriptionPages extends Controller
     public function cancel($request, $response, $data) 
     {             
         $language = $this->getPageLanguage($data);
-        $driverName = $this->get('options')->get('subscriptions.driver');
-        $driver = $this->get('driver')->create($driverName);
-        $params = $request->getQueryParams();
-        $token = $params['token'] ?? null;
-
+       
         return $this->pageLoad($request,$response,$data,'subscriptions>subscription.cancel',$language);
     }
 }
