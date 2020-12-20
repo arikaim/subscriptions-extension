@@ -1,0 +1,11 @@
+{% if type == 'subscription_payment' %}
+<div class="ui basic green label">{{ labels.payment }}</div> 
+{% elseif type == 'subscription_expired' %}
+<div class="ui basic orange label">{{ labels.expired }}</div> 
+{% elseif type == 'subscription_cancel' %}
+<div class="ui basic red label">{{ labels.cancel }}</div> 
+{% elseif type == 'subscription_create' %}
+<div class="ui basic red label">{{ labels.create }}</div> 
+{% else %}
+<div class="ui basic label">{{ type }}</div> 
+{% endif %}

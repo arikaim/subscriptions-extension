@@ -16,6 +16,7 @@ use Arikaim\Modules\Checkout\Interfaces\TransactionInterface;
 
 use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
+use Arikaim\Core\Db\Traits\DateCreated;
 
 /**
  * Subscription transactions model class
@@ -23,6 +24,7 @@ use Arikaim\Core\Db\Traits\Find;
 class SubscriptionTransactions extends Model implements TransactionStorageInterface
 {
     use Uuid,
+        DateCreated,
         Find;
 
     /**
@@ -78,11 +80,9 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
             'currency'        => $transaction->getCurrency(),
             'checkout_driver' => $transaction->geetCheckoutDriver(),
             'payer_email'     => $transaction->getPayerEmail(),
+            'payer_name'      => $transaction->getPayerName(),
             'details'         => \json_encode($details)          
         ];
-
-        print_r($info);
-
         $model = $this->create($info);
 
         return \is_object($model);

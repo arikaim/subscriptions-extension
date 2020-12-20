@@ -1,0 +1,8 @@
+{
+    "labels": {
+        "payment": "Payment",
+        "expired": "Expired",
+        "cancel": "Canceled",
+        "create": "Created"        
+    }
+}

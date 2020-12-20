@@ -9,7 +9,7 @@
             {{ item.date_created|dateTimeFormat }}
         </td>  
         <td>
-            {{ item.type }}
+            {{ component('subscriptions::admin.subscriptions.details.transactions.type',{ type: item.type }) }}           
         </td>
         <td>
            {{ item.currency }}    
