@@ -4,11 +4,10 @@
  *  @license    http://www.arikaim.com/license
  *  http://www.arikaim.com
  */
-"use strict";
+'use strict';
 
 function SubscriptionsView() {
-    var self = this;
-
+    
     this.init = function() {
         arikaim.ui.tab('.transaction-tab-item','subscriptions_content');
         paginator.init('subscriptions_rows');         
@@ -30,4 +29,5 @@ var subscriptionsView = new SubscriptionsView();
 
 $(document).ready(function() {  
     subscriptionsView.init();
+    subscriptionsView.initRows();
 }); 

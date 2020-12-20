@@ -6,4 +6,8 @@
 <div class="ui basic red label">{{ labels.error }}</div> 
 {% elseif status == 4 %}
 <div class="ui basic red label">{{ labels.pendding }}</div> 
+{% elseif status == 6 %}
+<div class="ui basic red label">{{ labels.cancel }}</div> 
+{% elseif status == 7 %}
+<div class="ui basic red label">{{ labels.expired }}</div> 
 {% endif %}

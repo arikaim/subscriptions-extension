@@ -1,0 +1,21 @@
+<div class="ui header">   
+    {{ title }}
+</div>
+<div class="ui divider"></div>
+<div>
+    <table class="ui compact stackable selectable borderless basic table">
+        <thead class="table-head">
+            <tr>              
+                <th class="two wide">{{ columns.created }}</th>          
+                <th class="collapsing two wide">{{ columns.type }}</th>
+                <th>{{ columns.amount }}</th>           
+                <th class="four wide">{{ columns.email }}</th>       
+                <th class="four wide">{{ columns.name }}</th>      
+                <th class="two wide">{{ columns.driver }}</th>                                      
+            </tr>
+        </thead>
+        <tbody id="transaction_rows" namespace="transactions">
+            {{ component('subscriptions::admin.subscriptions.details.transactions.rows',{ items: transactions }) }} 
+        </tbody>
+    </table> 
+</div>

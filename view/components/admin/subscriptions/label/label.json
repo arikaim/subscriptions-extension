@@ -3,6 +3,8 @@
         "active": "Active",
         "error": "Error",
         "pendding": "Pendding",
-        "refund": "Refund"
+        "refund": "Refund",
+        "cancel": "Canceled",
+        "expired": "Expired"
     }
 }

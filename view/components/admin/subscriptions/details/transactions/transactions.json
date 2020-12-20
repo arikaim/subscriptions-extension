@@ -1,0 +1,12 @@
+{
+    "title": "Transactions",    
+    "icon": "info",
+    "columns": {
+        "created": "Date Created",
+        "type": "Type",
+        "amount": "Amount",
+        "email": "Payer Email",
+        "name": "Payer Name",
+        "driver": "Cheeckout Driver"
+    }
+}

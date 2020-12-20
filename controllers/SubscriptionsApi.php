@@ -10,8 +10,8 @@
 namespace Arikaim\Extensions\Subscriptions\Controllers;
 
 use Arikaim\Core\Controllers\ApiController;
-
 use Arikaim\Core\Db\Model;
+use Arikaim\Modules\Checkout\Transaction;
 
 /**
  * Subscriptions api controler
@@ -59,7 +59,16 @@ class SubscriptionsApi extends ApiController
             }
 
             $result = $model->saveTransaction($transaction);
-          
+            // update subscription status 
+            switch ($transaction->getType()) {
+                case Transaction::SUBSCRIPTION_EXPIRED: 
+                    $subscription->setStatus(7); // EXPIRED
+                    break;
+                case Transaction::SUBSCRIPTION_CANCEL: 
+                    $subscription->setStatus(6); // CANCELED
+                    break;
+            }
+
         } else {
             // log error
             $this->logError('IPN data error, transaction data not vlaid',$data->toArray());

@@ -46,7 +46,8 @@
                     </div>
                 </div>
             </div>
-            <div class="ten wide column">
+            <div class="ten wide column" id="transaction_details">
+                {{ component('subscriptions::admin.subscriptions.details.transactions',{ transactions: model.transactions }) }}
             </div>
         </div>
     </div>

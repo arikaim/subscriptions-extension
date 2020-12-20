@@ -12,6 +12,7 @@ namespace Arikaim\Extensions\Subscriptions\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use Arikaim\Extensions\Subscriptions\Models\SubscriptionPlans;
+use Arikaim\Extensions\Subscriptions\Models\SubscriptionTransactions;
 use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
 use Arikaim\Core\Db\Traits\UserRelation;
@@ -60,6 +61,16 @@ class Subscriptions extends Model
      * @var boolean
      */
     public $timestamps = false;
+
+    /**
+     * Transactions
+     *
+     * @return Relation
+     */
+    public function transactions()
+    {
+        return $this->hasMany(SubscriptionTransactions::class,'subscription_id');
+    }
 
     /**
      * Plan relation

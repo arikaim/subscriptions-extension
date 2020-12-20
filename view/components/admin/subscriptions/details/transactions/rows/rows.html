@@ -1,0 +1,28 @@
+{% if items|length == 0 %}
+    <tr>
+        <td colspan="6">{{ labels.empty }}</td>
+    </tr>
+{% endif %}
+{% for item in items %}  
+    <tr id="{{ item.uuid }}">                      
+        <td>
+            {{ item.date_created|dateTimeFormat }}
+        </td>  
+        <td>
+            {{ item.type }}
+        </td>
+        <td>
+           {{ item.currency }}    
+           {{ item.amount|numberFormat }}       
+        </td>   
+        <td>
+            {{ item.payer_email }}
+        </td>   
+        <td>
+            {{ item.payer_name }}
+        </td>                                   
+        <td>
+            {{ item.checkout_driver }}
+        </td>                       
+    </tr>
+{% endfor %}
