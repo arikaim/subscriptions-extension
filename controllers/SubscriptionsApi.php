@@ -54,7 +54,7 @@ class SubscriptionsApi extends ApiController
             $transaction->setOrderId($orderId);
             // log
             if ($saveLog == true) {              
-                $this->logInfo('Subscriptions IPN notify',$data->toArray());
+                //$this->logInfo('Subscriptions IPN notify',$data->toArray());
                 $this->logInfo('Transction details',$transaction->toArray());
             }
 

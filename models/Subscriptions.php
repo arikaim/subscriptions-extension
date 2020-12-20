@@ -11,6 +11,7 @@ namespace Arikaim\Extensions\Subscriptions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Arikaim\Core\Utils\DateTime;
 use Arikaim\Extensions\Subscriptions\Models\SubscriptionPlans;
 use Arikaim\Extensions\Subscriptions\Models\SubscriptionTransactions;
 use Arikaim\Core\Db\Traits\Uuid;
@@ -130,7 +131,8 @@ class Subscriptions extends Model
         }
 
         return $model->update([
-            'status'          => 1,
+            'status'          => 1, // ACTIVE
+            'date_created'    => DateTime::getTimestamp(),
             'subscription_id' => $id           
         ]);
     }

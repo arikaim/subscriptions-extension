@@ -132,8 +132,7 @@ class SubscriptionPages extends Controller
         $apiResult = $apiResponse->getResult();
 
         // confirm subscription
-        $subscriptionId = $apiResult->getId();
-        $this->logError('confirm', ['t' => $token,'d' => $driverName,'id' => $subscriptionId]);
+        $subscriptionId = $apiResult->getId();       
         $result = $model->confirmSubscription($token,$driverName,$subscriptionId);
 
         if ($result == false) {
