@@ -1,6 +1,6 @@
 {% set items = [ 
     { title: labels.view, component: 'subscriptions::admin.subscriptions.view', icon: 'list', active: true },
-    { title: labels.details, component: 'subscriptions::admin.subscriptions.details', icon: 'info' }
+    { id: 'details_tab', title: labels.details, component: 'subscriptions::admin.subscriptions.details', icon: 'info' }
 ] %}
 
 {{  component('components:tabs.vertical',{ 

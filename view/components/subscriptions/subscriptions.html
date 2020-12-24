@@ -1,11 +1,10 @@
-{% set plans = createModel('SubscriptionPlans','subscriptions').getActive() %}
-{% set plans = plans.orderBy('monthly_price').get() %}
+{% set billing_type = billing_type|default('annual') %}
 
 {% for plan in plans %}
     <div class="two wide column">
         {{  component('subscriptions>subscriptions.item',{ 
                 plan: plan,    
-                upgrade: true,          
+                upgrade: upgrade,          
                 billing_type: billing_type
             }) 
         }}

@@ -1,17 +1,14 @@
 {% set billing_type = billing_type|default('annual') %}
-{% set upgrade = (access().getId() is not empty) ? true : false %}
-
-<div class="ui raised card rounded {{ class }}">     
-    <div class="p-1">
-        <h2 class="text-center pl-1 pt-2 text-3xl font-bold uppercase text-blue-700">
-            {{ plan.title }}
-        </h2>
-        <div class="ui divider"></div>              
-    </div>       
-    <div class="mt-4 p-4">
-        {{ plan.description }}
+{% set upgrade = upgrade|default(false) %}
+<div class="ui raised inverted card rounded {{ class }}">         
+    <h2 
+        class="animate-pulse text-center p-2 text-3xl font-bold uppercase text-orange-700 border-l-0 border-r-0 border-b border-gray-700 border-solid">
+        {{ plan.title }}
+    </h2>                     
+    <div class="mt-2 pl-4">
+        <span class="text-gray-300">{{ plan.description }}</span>
     </div>
-    <div class="mt-10 h-12">       
+    <div class="mt-8 h-10">       
         {% set monthly_price = plan.pricePerMonth('monthly')|numberFormat([0]) %}
         {% set annual_price = plan.pricePerMonth('annual')|numberFormat([0]) %}
         <div class="flex justify-center">   
@@ -28,26 +25,16 @@
             {% endif %}
         </div>        
     </div>
-    <div class="mt-8 rounded text-center">
-        upg {{ upgrade }}
-        {% if upgrade == true %}
-            {% set monthly_subscrbe_url = url(plan.getSubscribeUrl('monthly',true)) %}
-            {% set annual_subscrbe_url = url(plan.getSubscribeUrl('annual',true)) %}
-            <a 
-                class="ui big button olive subscribe-button" 
-                href="{{ (billing_type == 'annual') ? annual_subscrbe_url : monthly_subscrbe_url }}"  
-                monthly-url="{{ monthly_subscrbe_url }}"
-                annual-url="{{ annual_subscrbe_url }}">
-                <i class="icon check"></i>
-                <span class="uppercase">{{ labels.subscribe }}</span>
-            </a>
-        {% else %}
-            {% set signup_url = (plan.isFree() == true) ? url('signup') : url('signup/' ~ plan.slug) %}
-            <a class="ui big button olive signup-button" href="{{ signup_url }}">
-                <i class="icon check"></i>
-                <span class="uppercase">{{ labels.signup }}</span>
-            </a>
-        {% endif %}
+    <div class="mt-8 rounded text-center">       
+        {% set monthly_subscrbe_url = url(plan.getSubscribeUrl('monthly',upgrade)) %}
+        {% set annual_subscrbe_url = url(plan.getSubscribeUrl('annual',upgrade)) %}     
+
+        <a  class="ui big button olive subscribe-button" 
+            href="{{ (billing_type == 'annual') ? annual_subscrbe_url : monthly_subscrbe_url }}"  
+            monthly-url="{{ monthly_subscrbe_url }}"
+            annual-url="{{ annual_subscrbe_url }}">               
+            <span class="uppercase text-white">{{ (upgrade == true) ? labels.subscribe : labels.signup }}</span>
+        </a>       
     </div>
     <div class="mt-2">
         {% if plan.features.count > 0 %}
@@ -58,9 +45,9 @@
                 <div class="item">
                     <i class="icon check olive"></i>
                     <div class="content">                    
-                        {{ feature.title }}                                                               
+                        <span class="text-gray-200">{{ feature.title }}</span>                                                              
                         <div class="description">
-                            {{ feature.description }} 
+                            <span class="text-gray-200">{{ feature.description }}</span>
                         </div>
                     </div>                
                 </div>

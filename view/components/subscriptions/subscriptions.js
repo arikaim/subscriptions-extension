@@ -16,7 +16,7 @@ $(document).ready(function() {
             var monthly = $(this).attr('monthly-price');           
             var annual = $(this).attr('annual-price');
             var price = (type == 'annual') ? annual : monthly;
-            $(this).html(price)              
+            $(this).html(price);              
         });
         $('.subscribe-button').each(function() {
             var monthly = $(this).attr('monthly-url');           
@@ -24,6 +24,5 @@ $(document).ready(function() {
             var url = (type == 'annual') ? annual : monthly;
             $(this).attr('href',url);
         });
-
     }
 });

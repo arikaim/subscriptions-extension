@@ -34,6 +34,8 @@ function SubscriptionsView() {
     this.initRows = function() {
         arikaim.ui.button('.subscription-details',function(element) {
             var uuid = $(element).attr('uuid');
+            arikaim.ui.setActiveTab('#details_tab','.subscription-tab-item');
+            
             return arikaim.page.loadContent({
                 id: 'subscriptions_content',
                 component: 'subscriptions::admin.subscriptions.details',
