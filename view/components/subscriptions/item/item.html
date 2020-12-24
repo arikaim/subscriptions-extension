@@ -1,5 +1,5 @@
 {% set billing_type = billing_type|default('annual') %}
-{% set upgrade = (access().geId() is not empty) ? true : false %}
+{% set upgrade = (access().getId() is not empty) ? true : false %}
 
 <div class="ui raised card rounded {{ class }}">     
     <div class="p-1">
