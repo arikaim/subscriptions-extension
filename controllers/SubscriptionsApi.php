@@ -55,6 +55,7 @@ class SubscriptionsApi extends ApiController
             // log
             if ($saveLog == true) {                             
                 $this->logInfo('Transction details',$transaction->toArray());
+                $this->logInfo('IPN data',$data->toArray());
             }
 
             $model->saveTransaction($transaction);
