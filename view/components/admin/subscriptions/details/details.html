@@ -42,7 +42,7 @@
                     </h4>
                     <div class="ui divider"></div>
                     <div id="checkout_api_details">
-                        {% if details is not null %}
+                        {% if driver is iterable %}
                             {{ component('subscriptions::admin.subscriptions.details.api',{ details: details }) }}
                         {% else %}
                             <div class="ui warning message">
