@@ -29,6 +29,7 @@
         </div>        
     </div>
     <div class="mt-8 rounded text-center">
+        upg {{ upgrade }}
         {% if upgrade == true %}
             {% set monthly_subscrbe_url = url(plan.getSubscripbeUrl('monthly')) %}
             {% set annual_subscrbe_url = url(plan.getSubscripbeUrl('annual')) %}
