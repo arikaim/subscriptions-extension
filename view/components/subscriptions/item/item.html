@@ -31,8 +31,8 @@
     <div class="mt-8 rounded text-center">
         upg {{ upgrade }}
         {% if upgrade == true %}
-            {% set monthly_subscrbe_url = url(plan.getSubscripbeUrl('monthly')) %}
-            {% set annual_subscrbe_url = url(plan.getSubscripbeUrl('annual')) %}
+            {% set monthly_subscrbe_url = url(plan.getSubscribeUrl('monthly',true)) %}
+            {% set annual_subscrbe_url = url(plan.getSubscribeUrl('annual',true)) %}
             <a 
                 class="ui big button olive subscribe-button" 
                 href="{{ (billing_type == 'annual') ? annual_subscrbe_url : monthly_subscrbe_url }}"  
