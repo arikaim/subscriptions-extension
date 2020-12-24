@@ -4,7 +4,8 @@
 {% for plan in plans %}
     <div class="two wide column">
         {{  component('subscriptions>subscriptions.item',{ 
-                plan: plan,              
+                plan: plan,    
+                upgrade: true,          
                 billing_type: billing_type
             }) 
         }}
