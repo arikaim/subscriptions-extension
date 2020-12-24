@@ -70,11 +70,19 @@ class SubscriptionPlans extends Model
      * Get subscribe subscription url 
      *
      * @param string $billingType
+     * @param bool $currentUser
      * @return string
      */
-    public function getSubscripbeUrl($billingType)
+    public function getSubscribeUrl($billingType, $currentUser = false)
     {
-        return 'subscription/create/' . $this->slug . '/' . $billingType;
+        if ($currentUser == true) {
+            return 'subscription/create/' . $this->slug . '/' . $billingType;
+        }        
+        if ($this->isFree() == true) {
+            return 'signup'; 
+        }
+
+        return 'subscription/signup/' . $this->slug . '/' . $billingType;
     }
 
     /**

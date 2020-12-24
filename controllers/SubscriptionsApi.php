@@ -53,27 +53,52 @@ class SubscriptionsApi extends ApiController
             $orderId = (\is_object($subscription) == true) ? $subscription->id : null;
             $transaction->setOrderId($orderId);
             // log
-            if ($saveLog == true) {              
-                //$this->logInfo('Subscriptions IPN notify',$data->toArray());
+            if ($saveLog == true) {                             
                 $this->logInfo('Transction details',$transaction->toArray());
             }
 
-            $result = $model->saveTransaction($transaction);
-            // update subscription status 
-            switch ($transaction->getType()) {
-                case Transaction::SUBSCRIPTION_EXPIRED: 
-                    $subscription->setStatus(7); // EXPIRED
-                    break;
-                case Transaction::SUBSCRIPTION_CANCEL: 
-                    $subscription->setStatus(6); // CANCELED
-                    break;
+            $model->saveTransaction($transaction);
+            if (\is_object($subscription) == true) {
+                $this->updateSubscriptionStatus($transaction->getType(),$subscription,$data);
+            } else {
+                $this->logError('IPN error, not valid subscription id.',$data->toArray()); 
             }
 
         } else {
             // log error
-            $this->logError('IPN data error, transaction data not vlaid',$data->toArray());
+            $this->logError('IPN data error, transaction data not vlaid.',$data->toArray());
         }
        
         return $response->withStatus('200');
+    }
+
+    /**
+     * Update subscription status
+     *
+     * @param string $type
+     * @param object $subscription
+     * @param object $data
+     * @return void
+     */
+    public function updateSubscriptionStatus($type, $subscription, $data)
+    {
+        // update subscription status 
+        switch ($type) {              
+            case Transaction::SUBSCRIPTION_PAYMENT: 
+                $subscription->setStatus(1); // ACTIVE
+                $date = $data->get('next_payment_date',null);
+                $subscription->updateNextBillingDate($date);
+                break;
+            case Transaction::SUBSCRIPTION_EXPIRED: 
+                $subscription->setStatus(7); // EXPIRED
+                // event dispatch
+                $this->get('event')->dispatch('subscriptions.expire',$subscription->toArray()); 
+                break;
+            case Transaction::SUBSCRIPTION_CANCEL: 
+                $subscription->setStatus(6); // CANCELED
+                // event dispatch
+                $this->get('event')->dispatch('subscriptions.cancel',$subscription->toArray()); 
+                break;
+        }
     }
 }

@@ -1,6 +1,7 @@
 {
     "labels": {
         "dirver": "Drivers",
-        "ipn": "Ipn"
+        "ipn": "Ipn",
+        "redirects": "Redirects"
     }
 }

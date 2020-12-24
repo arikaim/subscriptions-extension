@@ -53,6 +53,7 @@ class Subscriptions extends Model
         'plan_id',
         'status',
         'subscription_id',
+        'next_billing_date',
         'date_created',
         'date_updated'
     ];
@@ -121,9 +122,10 @@ class Subscriptions extends Model
      * @param string $token
      * @param string $checkoutDriver
      * @param string $id
+     * @param string $nextBillingDate
      * @return bool
      */
-    public function confirmSubscription($token, $checkoutDriver, $id)
+    public function confirmSubscription($token, $checkoutDriver, $id, $nextBillingDate)
     {
         $model = $this->findSubscription($token,$checkoutDriver);
         if (\is_object($model) == false) {
@@ -131,10 +133,22 @@ class Subscriptions extends Model
         }
 
         return $model->update([
-            'status'          => 1, // ACTIVE
-            'date_created'    => DateTime::getTimestamp(),
-            'subscription_id' => $id           
+            'status'            => 1, // ACTIVE
+            'date_created'      => DateTime::getTimestamp(),
+            'subscription_id'   => $id,
+            'next_billing_date' => $nextBillingDate          
         ]);
+    }
+
+    /**
+     * Update next billing date
+     *
+     * @param string $date
+     * @return bool
+     */
+    public function updateNextBillingDate($date)
+    {
+        return $this->update(['next_billing_date' => $date]);
     }
 
     /**
@@ -166,6 +180,33 @@ class Subscriptions extends Model
     }
 
     /**
+     * Get active user subscription
+     *
+     * @param int $userId
+     * @return Model|null
+     */
+    public function getActiveSubscription($userId)
+    {
+        if (empty($userId) == true) {
+            return null;
+        }
+        return $this->where('user_id','=',$userId)->where('status','=',1)->first();
+    } 
+
+    /**
+     * Return true if user have active subscription 
+     *
+     * @param int $userId
+     * @return boolean
+     */
+    public function isSusbscribed($userId)
+    {
+        $model = $this->getActiveSubscription($userId);
+
+        return \is_object($model);
+    }
+
+    /**
      * Find subcription
      *
      * @param string $token
@@ -175,5 +216,17 @@ class Subscriptions extends Model
     public function findSubscription($token, $checkoutDriver)
     {
         return $this->where('token','=',$token)->where('checkout_driver','=',$checkoutDriver)->first();
+    }
+
+    /**
+     * Subscriptions query 
+     *
+     * @param Builder $query
+     * @param int $userId
+     * @return Builder
+     */
+    public function scopeSubscriptionsQuery($query, $userId)
+    {
+        return $query->where('user_id','=',$userId);
     }
 }

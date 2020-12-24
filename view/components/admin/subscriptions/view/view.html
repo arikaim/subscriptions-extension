@@ -1,9 +1,13 @@
-<div class="ui horizontal segments">
-    <div class="ui segment">           
-        
+<div class="ui grid">
+    <div class="fourteen wide column">           
+        <div class="ui segment">
+            {{ component('users::admin.users.dropdown',{ class: 'clearable', data_field: 'id' }) }}
+        </div>
     </div>
-    <div class="ui segment right aligned">       
+    <div class="two wide column right floated">  
+        <div class="ui segment right aligned">     
         {{ component('components:paginator.dropdown',{ namespace: 'subscriptions' }) }}
+        </div>
     </div>
 </div>
 <table class="ui compact stackable selectable borderless basic table">
@@ -13,7 +17,8 @@
             <th class="two wide">{{ columns.created }}</th>          
             <th class="collapsing one wide">{{ columns.status }}</th>
             <th>{{ columns.plan }}</th>   
-            <th class="tow wide">{{ columns.user }}</th>               
+            <th class="two wide">{{ columns.billing_date }}</th>   
+            <th class="two wide">{{ columns.user }}</th>               
             <th class="one wide">{{ columns.billing }}</th>       
             <th class="two wide">{{ columns.driver }}</th>                                      
         </tr>

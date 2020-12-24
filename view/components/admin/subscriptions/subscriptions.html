@@ -1,7 +1,6 @@
 {% set items = [ 
     { title: labels.view, component: 'subscriptions::admin.subscriptions.view', icon: 'list', active: true },
-    { title: labels.details, component: 'subscriptions::admin.subscriptions.details', icon: 'info' },
-  
+    { title: labels.details, component: 'subscriptions::admin.subscriptions.details', icon: 'info' }
 ] %}
 
 {{  component('components:tabs.vertical',{ 
@@ -10,8 +9,7 @@
         item_class: 'subscription-tab-item',
         content: { 
             id: 'subscriptions_content',
-            component: 'subscriptions::admin.subscriptions.view',
-            params: params 
+            component: 'subscriptions::admin.subscriptions.view'
         } 
     })
 }}

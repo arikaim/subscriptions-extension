@@ -26,12 +26,9 @@
     </div>
 </div>
 {% if result.hasError() == true %}
-<div class="ui warning message">
-    <div class="ui header">
-        {{ result.getError() }}
-    </div>
+<div class="ui warning message">   
     <p>
-        {{ result.getErrorDetails() }}
+        {{ error }}
     </p>
 </div>
 {% else %}

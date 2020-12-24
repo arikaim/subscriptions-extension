@@ -1,4 +1,7 @@
 {% set model = createModel('Subscriptions','subscriptions').orderBy('id','desc') %}
+{% if user_id is not null %}
+{% set model = model.subscriptionsQuery(user_id) %}
+{% endif %}
 {% set items = paginate(model,'subscriptions') %}
 {% set items = items.getItems() %}
 {% if items|length == 0 %}
@@ -22,6 +25,9 @@
         <td>
            {{ item.plan.title }}       
         </td>   
+        <td>
+            {{ item.next_billig_date|convertDate }}       
+         </td>   
         <td>
             {{ item.user.user_name_or_email }}
         </td>   

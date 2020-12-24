@@ -11,7 +11,7 @@
         "status": "Status",
         "plan": "Plan",
         "user": "User",
-        "price": "Price", 
+        "billing_date": "Next Billing Date", 
         "billing": "Billing",      
         "driver": "Checkout"
     }

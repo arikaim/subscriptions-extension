@@ -7,10 +7,28 @@
 'use strict';
 
 function SubscriptionsView() {
-    
+    var self = this;
+
     this.init = function() {
         arikaim.ui.tab('.transaction-tab-item','subscriptions_content');
-        paginator.init('subscriptions_rows');         
+        paginator.init('subscriptions_rows');       
+        
+        $('.users-dropdown').on('change',function() {
+            var selected = $(this).dropdown('get value');
+            self.loadRows(selected);    
+        });
+    };
+
+    this.loadRows = function(userId) {
+        var params = (isEmpty(userId) == false) ? { user_id: userId } : null;
+
+        return arikaim.page.loadContent({
+            id: 'subscriptions_rows',
+            component: 'subscriptions::admin.subscriptions.view.rows',
+            params: params
+        },function(result) {
+            self.initRows();
+        });
     };
 
     this.initRows = function() {

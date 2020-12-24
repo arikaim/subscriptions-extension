@@ -42,7 +42,13 @@
                     </h4>
                     <div class="ui divider"></div>
                     <div id="checkout_api_details">
-                        {{ component('subscriptions::admin.subscriptions.details.api',{ details: details }) }}
+                        {% if details is not null %}
+                            {{ component('subscriptions::admin.subscriptions.details.api',{ details: details }) }}
+                        {% else %}
+                            <div class="ui warning message">
+                                {{ error }}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

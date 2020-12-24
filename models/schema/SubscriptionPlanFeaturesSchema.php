@@ -36,7 +36,7 @@ class SubscriptionPlanFeaturesSchema extends Schema
         $table->prototype('uuid');
         $table->string('title')->nullable(false);
         $table->string('key')->nullable(false);
-        $table->string('item_value')->nullable(false);
+        $table->string('item_value')->nullable(true);
         $table->text('description')->nullable(true);
         $table->text('options')->nullable(true);
         $table->relation('plan_id','subscription_plans');

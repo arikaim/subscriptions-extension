@@ -39,7 +39,11 @@ class Subscriptions extends Extension
         $this->addApiRoute('DELETE','/api/subscriptions/admin/plan/feature/delete/{uuid}','PlanFeaturesControlPanel','delete','session'); 
         // Pages
         $this->addPageRoute('/subscription','SubscriptionPages','showPlans','subscriptions>subscription');
-        $this->addPageRoute('/subscription/create/{plan}/{billing}[/{user}]','SubscriptionPages','create','subscriptions>subscription');  
+        $this->addPageRoute('/subscription/signup/{plan}/{billing}','SubscriptionPages','signup','subscriptions>subscription.signup');
+        $this->addPageRoute('/subscription/create/{plan}/{billing}[/{user}[/{language:[a-z]{2}}/]]','SubscriptionPages',
+            'create','subscriptions>subscription',null,
+            'subscription.create.page',false
+        );  
         $this->addPageRoute('/subscription/success/','SubscriptionPages','success','subscriptions>subscription.success');
         $this->addPageRoute('/subscription/cancel/','SubscriptionPages','cancel','subscriptions>subscription.cancel');   
        
@@ -47,9 +51,9 @@ class Subscriptions extends Extension
         $this->addApiRoute('POST','/api/subscription/notify','SubscriptionsApi','notify',null); 
 
         // Events
-        $this->registerEvent('subscriptions.init','Init subscription pyment');  
-        $this->registerEvent('subscriptions.success','Success payment');  
-        $this->registerEvent('subscriptions.cancel','Success payment');  
+        $this->registerEvent('subscriptions.create','Create subscription');        
+        $this->registerEvent('subscriptions.cancel','Cancel subscription');  
+        $this->registerEvent('subscriptions.expire','Subscription expires');  
         // Db tables
         $this->createDbTable('SubscriptionPlansSchema');
         $this->createDbTable('SubscriptionPlanFeaturesSchema');
@@ -57,7 +61,12 @@ class Subscriptions extends Extension
         $this->createDbTable('SubscriptionTransactionsSchema');
         // Options
         $this->createOption('subscriptions.driver','paypal-subscriptions');  
-        $this->createOption('subscriptions.ipn.logs',true);           
+        $this->createOption('subscriptions.ipn.logs',true);  
+        $this->createOption('subscriptions.redirects',[
+            'success_url' => '',
+            'cancel_url'  => '',
+            'error_url'   => ''
+        ]);           
     }   
 
     /**

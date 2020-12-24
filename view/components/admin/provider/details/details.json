@@ -18,5 +18,6 @@
         "cancel_url": "Cancel url",
         "notify_url": "IPN url",
         "description": "Description"        
-    }
+    },
+    "error": "Subscriptions checkout driver not set, or config settings are not valid."
 }

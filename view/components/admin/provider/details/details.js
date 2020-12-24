@@ -5,7 +5,8 @@ $(document).ready(function() {
         var planId = $(element).attr('plan-id');    
       
         return subscriptionProviderView.activate(planId,function(result) {        
-            $('#status_content').html(result.status);          
+            $('#status_content').html(result.status);      
+            $('.activate-plan').hide();    
         });       
     });
 });

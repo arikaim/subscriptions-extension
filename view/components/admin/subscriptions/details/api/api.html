@@ -58,6 +58,13 @@
                                 {{ payer.last_name }}
                             </td>
                         </tr>       
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.payer.next_billing_date }}</td>
+                            <td>
+                                {% set billing_date = details.getAgreementDetails().getNextBillingDate() %}                                
+                                {{ billing_date|convertDate }}
+                            </td>
+                        </tr>   
                     </tbody>
                 </table>
             </td>

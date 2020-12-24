@@ -10,5 +10,6 @@
         "api": "Checkout Api Details",
         "user": "User"
     },
-    "message": "Subscription not selected."
+    "message": "Subscription not selected.",
+    "error": "Subscriptions checkout driver not set, or config settings are not valid."
 }

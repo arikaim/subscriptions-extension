@@ -5,7 +5,8 @@
         "payer": {
             "title": "Payer",
             "email": "Email",
-            "name": "Name"
+            "name": "Name",
+            "next_billing_date": "Next Bulling Date"
         },
         "plan": {
             "title": "Plan",

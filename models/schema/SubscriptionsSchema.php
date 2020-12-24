@@ -41,6 +41,7 @@ class SubscriptionsSchema extends Schema
         $table->string('checkout_driver')->nullable(false);        
         $table->string('token')->nullable(false);        
         $table->string('subscription_id')->nullable(true);        
+        $table->string('next_billing_date')->nullable(true);
         $table->dateCreated();
         $table->dateUpdated();  
         // index        
