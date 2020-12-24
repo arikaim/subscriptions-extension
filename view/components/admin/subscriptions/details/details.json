@@ -8,6 +8,7 @@
         "billing": "Billing",
         "plan": "Plan",
         "api": "Checkout Api Details",
+        "id": "Subscription Id",
         "user": "User"
     },
     "message": "Subscription not selected.",
