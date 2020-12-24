@@ -148,11 +148,7 @@ class SubscriptionPages extends Controller
         // confirm subscription
         $subscriptionId = $apiResponse->getResultItem('id');       
         $nextBillingDate = $apiResponse->getResultItem('next_billing_date');     
-        echo "id: $subscriptionId";
-        echo "nb: $nextBillingDate";
-        print_r($apiResponse->toArray());
-        exit();
-
+       
         $result = $model->confirmSubscription($token,$driverName,$subscriptionId,$nextBillingDate);
 
         if ($result == false) {
