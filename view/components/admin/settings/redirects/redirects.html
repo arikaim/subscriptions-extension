@@ -16,6 +16,13 @@
                 value: redirects.cancel_url
             }) 
         }}
+
+        {{  component('components:form.fields.url',{
+            label: labels.error,
+            name: 'error_url',
+            value: redirects.error_url
+        }) 
+    }}
     {{ component('components:form.footer') }}
     </form>
 </div>

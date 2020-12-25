@@ -38,7 +38,7 @@ class Subscriptions extends Extension
         $this->addApiRoute('PUT','/api/subscriptions/admin/plan/feature/update','PlanFeaturesControlPanel','update','session'); 
         $this->addApiRoute('DELETE','/api/subscriptions/admin/plan/feature/delete/{uuid}','PlanFeaturesControlPanel','delete','session'); 
         // Pages
-        $this->addPageRoute('/subscription','SubscriptionPages','showPlans','subscriptions>subscription');
+        $this->addPageRoute('/subscription','SubscriptionPages','showPlans','subscriptions>subscription',null,'subscription.page');
         $this->addPageRoute('/subscription/signup/{plan}/{billing}','SubscriptionPages','signup','subscriptions>subscription.signup');
         $this->addPageRoute('/subscription/create/{plan}/{billing}[/{user}[/{language:[a-z]{2}}/]]','SubscriptionPages',
             'create','subscriptions>subscription',null,

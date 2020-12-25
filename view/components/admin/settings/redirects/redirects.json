@@ -5,7 +5,8 @@
     },    
     "labels": {
         "success": "Success Url",
-        "cancel": "Cancel Url"
+        "cancel": "Cancel Url",
+        "error": "Error Url"
     },
     "descriptions": {
         "logs": "Save log data with all ipn fields.",

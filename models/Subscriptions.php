@@ -197,13 +197,20 @@ class Subscriptions extends Model
      * Return true if user have active subscription 
      *
      * @param int $userId
+     * @param string|null $planSlug
      * @return boolean
      */
-    public function isSusbscribed($userId)
+    public function isSusbscribed($userId, $planSlug = null)
     {
         $model = $this->getActiveSubscription($userId);
+        if (\is_object($model) == false) {
+            return false;
+        }
+        if (empty($planSlug) == false) {
+            return ($model->plan->slug == $planSlug);
+        }
 
-        return \is_object($model);
+        return true;
     }
 
     /**
