@@ -9,6 +9,7 @@
 {% for item in items %}  
     <tr id="row_{{ item.uuid }}">              
         <td>             
+            {% if demo_mode == true %}
             <div class="ui buttons">        
                 <button class="ui icon mini basic button edit-button" uuid="{{ item.uuid }}" title="{{ labels.edit }}">
                     <i class="icon edit"></i>
@@ -18,7 +19,10 @@
                     <i class="icon trash orange"></i>
                 </button>  
                 {% endif %}
-            </div>                             
+            </div>                  
+            {% else %}
+            <div class="ui basic red label">{{ labels.demo }}</div>
+            {% endif %}           
         </td>
         <td>
             {{  component('components:status.dropdown',{ 

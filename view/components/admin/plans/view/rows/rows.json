@@ -2,7 +2,8 @@
     "labels": {
         "empty": "..",
         "edit": "Edit",
-        "delete": "Delete",       
+        "delete": "Delete",    
+        "demo": "demo mode",   
         "status": {
             "active": "active",
             "disabled": "disabled"
