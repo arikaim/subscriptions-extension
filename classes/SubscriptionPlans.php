@@ -24,18 +24,21 @@ class SubscriptionPlans
      * @param string $slug
      * @param string $configFile
      * @param string $extensionName
-     * @return void
+     * @return bool
      */
     public function create($slug, $configFile, $extensionName)
     {
+        $currency = Model::Currency('currency');
+        if (\is_object($currency) == false) {
+            return false;
+        }
+
         // load josn config
         $config = Extension::loadJsonConfigFile($configFile,$extensionName);
 
-        $currency = Model::Currency('currency',function($query) use($config) {
-            $code = $config['currency'] ?? 'USD';
-            return $query->findCurrency($code);
-        });
-
+        $currencyCode = $config['currency'] ?? 'USD';
+        $currency = $currency->findCurrency($currencyCode);
+     
         // Add user type
         Model::seed('SubscriptionPlans','subscriptions',function($seed) use($config, $slug, $currency) {
             $seed->create(['slug' => $slug],[
@@ -73,5 +76,7 @@ class SubscriptionPlans
                 }
             }
         });
+
+        return true;
     }
 }
