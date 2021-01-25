@@ -5,8 +5,8 @@
     "type": "user",
     "description": "Subscriptions service.",
     "short-description": "Subscriptions service.",
-    "version": "1.0.7",
-    "repository": "https://github.com/arikaim-repository/subscriptions-extension.git",
+    "version": "1.0.8",
+    "repository": "arikaim-repository/subscriptions-extension",
     "private-repository": true,
     "position": "2",
     "admin-menu": {        
