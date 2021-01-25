@@ -16,6 +16,15 @@
         "page-icon": "user plus",       
         "component": "subscriptions::admin"
     },
+    "features": [
+        "Subscriptions plans.",
+        "Subscription plan features",
+        "Annual and monthly billing.",
+        "PayPal sandbox and live mode.",
+        "IPN managment",
+        "Subscription details, transaction and PayPal api details.",
+        "PayPal api integration."        
+    ],
     "require": {
         "modules": [
             "checkout"
