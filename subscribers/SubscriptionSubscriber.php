@@ -11,8 +11,6 @@ namespace Arikaim\Extensions\Arcade\Subscribers;
 
 use Arikaim\Core\Events\EventSubscriber;
 use Arikaim\Core\Interfaces\Events\EventSubscriberInterface;
-use Arikaim\Core\Db\Model;
-
 
 /**
  * Subscriptions subscriber class
