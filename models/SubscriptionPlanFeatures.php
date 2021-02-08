@@ -31,7 +31,7 @@ class SubscriptionPlanFeatures extends Model
      *
      * @var string
      */
-    protected $table = "subscription_plan_features";
+    protected $table = 'subscription_plan_features';
 
     /**
      * Fillable attributes

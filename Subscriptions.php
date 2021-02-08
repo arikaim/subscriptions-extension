@@ -67,6 +67,8 @@ class Subscriptions extends Extension
             'cancel_url'  => '',
             'error_url'   => ''
         ]);           
+        // Services
+        $this->registerService('Subscriptions');
     }   
 
     /**
@@ -75,6 +77,7 @@ class Subscriptions extends Extension
      * @return void
      */
     public function unInstall()
-    {  
+    {
+        $this->unRegisterService('Subscriptions'); 
     }
 }

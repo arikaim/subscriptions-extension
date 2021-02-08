@@ -20,15 +20,16 @@ trait Subscriptions
      * Return true if current user is subscribed
      *
      * @param string|null $planSlug
+     * @param int|null $userId
      * @return boolean
      */
-    public function hasSubscription($planSlug = null)
+    public function hasSubscription($planSlug = null, ?int $userId = null): bool
     {
-        $userId = $this->getUserId();
+        $userId = (empty($userId) == true) ? $this->getUserId() : $userId;
         if (empty($userId) == true) {
             return false;
         }
 
-        return Model::Subscriptions('subscriptions')->isSusbscribed($userId,$planSlug);
+        return (bool)Model::Subscriptions('subscriptions')->isSusbscribed($userId,$planSlug);
     }
 }

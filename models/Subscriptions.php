@@ -200,7 +200,7 @@ class Subscriptions extends Model
      * @param string|null $planSlug
      * @return boolean
      */
-    public function isSusbscribed($userId, $planSlug = null)
+    public function isSusbscribed($userId, ?string $planSlug = null): bool
     {
         $model = $this->getActiveSubscription($userId);
         if (\is_object($model) == false) {
