@@ -8,7 +8,7 @@
 
 function PlanFeaturesView() {
     var self = this;
-    this.messges = {};
+    this.messges = null;
 
     this.loadMessages = function() {
         if (isObject(this.messages) == true) {
@@ -20,6 +20,8 @@ function PlanFeaturesView() {
     };
 
     this.init = function() {
+        this.loadMessages();
+
         arikaim.ui.button('.add-feature',function(element) {
             var uuid = $(element).attr('plan-uuid');
 
@@ -31,19 +33,30 @@ function PlanFeaturesView() {
         });
     };
 
+    this.loadList = function(planId) {
+        arikaim.page.loadContent({
+            id: 'features_items',
+            component: 'subscriptions::admin.plans.features.list',
+            params: {
+                plan_id: planId
+            }           
+        });    
+    };
+
     this.initRows = function() {
        
-        arikaim.ui.button('.delete-feaure',function(element) {
+        arikaim.ui.button('.delete-feature',function(element) {
             var uuid = $(element).attr('uuid');
             var title = $(element).attr('data-title');
-            var message = arikaim.ui.template.render(self.messages.remove.content,{ title: title });
+            var message = arikaim.ui.template.render(self.messages.remove_feature.content,{ title: title });
             
             modal.confirmDelete({ 
                 title: self.messages.remove.title,
                 description: message
             },function() {
-                subscriptionPlans.delete(uuid,function(result) {
-                    arikaim.ui.table.removeRow('#' + uuid); 
+                subscriptionPlans.deleteFeature(uuid,function(result) {
+                    arikaim.ui.table.removeRow('#row_' + result.uuid); 
+                    $('#feature_content').html('');
                     arikaim.page.toastMessage(result.message);    
                 });
             });

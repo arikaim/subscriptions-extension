@@ -5,11 +5,9 @@ $(document).ready(function() {
         return subscriptionPlans.addFeature('#plan_feature_form');
     },function(result) {
         arikaim.ui.form.showMessage(result.message);
-        
-        arikaim.page.loadContent({
-            id: 'features_items',
-            component: 'subscriptions::admin.plans.features.list'           
-        });         
+        var planId = $('#plan_id').val();
+
+        planFeaturesView.loadList(planId);
     },function(error) {
     });
 });

@@ -117,7 +117,7 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
                 return false;
             }
             
-            $result = $model->deletePlan();
+            $result = (bool)$model->delete();
 
             $this->setResponse($result,function() use($uuid) {                  
                 $this

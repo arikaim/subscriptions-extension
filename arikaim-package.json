@@ -5,7 +5,7 @@
     "type": "user",
     "description": "Subscriptions service.",
     "short-description": "Subscriptions service.",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "repository-type": "arikaim",
     "repository": "arikaim-repository/subscriptions-extension",
     "private-repository": true,
@@ -26,7 +26,7 @@
         "Subscription details, transaction and PayPal api details.",
         "PayPal api integration."        
     ],
-    "require": {
+    "require": {      
         "modules": [
             "checkout"
         ],

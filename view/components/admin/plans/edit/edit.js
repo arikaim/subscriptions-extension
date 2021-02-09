@@ -7,11 +7,7 @@ $(document).ready(function() {
                 id: 'plan_edit_form_content',
                 component: 'subscriptions::admin.plans.edit.tabs',
                 params: { uuid: value }
-            },function(result) {
-                subscriptionPlans.initEditForm();   
             });    
         }
     });
-
-    subscriptionPlans.initEditForm();   
 });
