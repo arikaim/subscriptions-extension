@@ -1,6 +1,6 @@
 {% set plan = createModel('SubscriptionPlans','subscriptions') %}
 {% if uuid is not empty %}
-    {% set plan = plan.findById(uuid) %}
+    {% set plan = plan.findById(uuid) %}   
 {% endif %}
 {% set annual_price = (plan is empty) ? 0 : plan.annual_price %}
 {% set monthly_price = (plan is empty) ? 0 : plan.monthly_price %}
@@ -21,7 +21,7 @@
                     placeholder: fields.annual.placeholder,         
                     label: fields.annual.label,
                     value: annual_price,
-                    icon: plan.currency.icon,
+                    icon: plan.currency.icon,                  
                     currency_code: plan.currency.code
                 })  
             }}

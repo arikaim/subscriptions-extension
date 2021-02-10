@@ -2,6 +2,7 @@
 {% if uuid is not empty %}
     {% set feature = feature.findById(uuid) %}    
     {% set plan_id = feature.plan_id %}
+    {% set slug_update = true %}
 {% endif %}
 <form class="ui form" id="plan_feature_form" method="POST"> 
     <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">  
@@ -9,12 +10,13 @@
     <div class="field">
         <label>{{ fields.title.label }}</label>
         <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ feature.title }}"> 
-    </div>   
+    </div>     
     {{  component('components:form.fields.slug',{
             name: 'key',
             label: fields.key.label,
             editable: true,
             show_url: false,
+            disable_update: slug_update,
             value: feature.key
         })
     }}   
