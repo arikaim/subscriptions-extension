@@ -15,6 +15,6 @@ function SubscriptionsControlPanel() {
 
 var subscriptions = new SubscriptionsControlPanel();
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     subscriptions.init();
 });

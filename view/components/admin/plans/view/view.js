@@ -8,7 +8,7 @@
 
 function SubscriptionPlansView() {
     var self = this;
-    this.messges = {};
+    this.messges = null;
 
     this.loadMessages = function() {
         if (isObject(this.messages) == true) {
@@ -62,7 +62,7 @@ function SubscriptionPlansView() {
 
 var subscriptionPlansView = new SubscriptionPlansView();
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() {
     subscriptionPlansView.init();
     subscriptionPlansView.initRows();  
 }); 

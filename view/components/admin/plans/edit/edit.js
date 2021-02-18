@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() { 
     $('.subscription-plans-dropdown').dropdown({
         onChange: function(value) {             
             arikaim.page.loadContent({

@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     arikaim.ui.form.onSubmit('#subscriptoion_plan_form',function() {
         return subscriptionPlans.add('#subscriptoion_plan_form');
     },function(result) {

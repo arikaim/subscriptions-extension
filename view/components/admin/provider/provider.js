@@ -100,7 +100,7 @@ function SubscriptionsProviderView() {
 
 var subscriptionProviderView = new SubscriptionsProviderView();
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() {
     subscriptionProviderView.init();
     subscriptionProviderView.initRows();  
 }); 

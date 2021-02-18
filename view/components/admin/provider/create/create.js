@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() {
     arikaim.ui.button('.provider-create-plan',function(element) {
         var uuid = $(element).attr('uuid');    
         var billingType = $(element).attr('billing-type');    

@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() {
     arikaim.ui.button('.activate-plan',function(element) {
         var planId = $(element).attr('plan-id');    
       

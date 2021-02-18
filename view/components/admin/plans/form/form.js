@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     $('.currency-dropdown').dropdown({
         onChange: function(value) {
             

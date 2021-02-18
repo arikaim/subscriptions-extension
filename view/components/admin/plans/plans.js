@@ -58,6 +58,6 @@ function SubscriptionPlans() {
 
 var subscriptionPlans = new SubscriptionPlans();
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     subscriptionPlans.init();
 });

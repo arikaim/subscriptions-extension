@@ -24,6 +24,6 @@ function SubscriptionsControlPanel() {
 
 var subscriptionsControlPanel = new SubscriptionsControlPanel();
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     subscriptionsControlPanel.init();
 });

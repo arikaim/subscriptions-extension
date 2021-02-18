@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
+arikaim.component.onLoaded(function() {
     arikaim.ui.form.onSubmit('#redirects_form',function() {
         var successUrl = $('#success_url').val().trim();
         var cancelUrl = $('#cancel_url').val().trim();

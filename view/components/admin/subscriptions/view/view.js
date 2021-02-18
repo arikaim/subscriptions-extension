@@ -47,7 +47,7 @@ function SubscriptionsView() {
 
 var subscriptionsView = new SubscriptionsView();
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() {
     subscriptionsView.init();
     subscriptionsView.initRows();
 }); 

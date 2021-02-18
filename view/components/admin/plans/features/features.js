@@ -76,7 +76,7 @@ function PlanFeaturesView() {
 
 var planFeaturesView = new PlanFeaturesView();
 
-$(document).ready(function() {  
+arikaim.component.onLoaded(function() {  
     planFeaturesView.init();
     planFeaturesView.initRows();  
 }); 

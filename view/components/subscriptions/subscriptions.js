@@ -1,7 +1,6 @@
 'use strict';
 
-$(document).ready(function() {
-
+arikaim.component.onLoaded(function() {
     $('.billing-toggle').checkbox({
         onChecked: function() {    
             changePlanPrice('annual');
