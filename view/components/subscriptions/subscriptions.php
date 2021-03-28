@@ -4,6 +4,7 @@
  */
 use Arikaim\Core\Interfaces\View\ComponentDataInterface;
 use Arikaim\Core\Db\Model;
+use Arikaim\Core\Arikaim;
 
 /**
  * Data class
@@ -21,12 +22,12 @@ return new class() implements ComponentDataInterface
     {
         $plans = Model::SubscriptionPlans('subscriptions')->getActive();
         $plans = $plans->orderBy('monthly_price')->get();
-        $userId = $container->get('access')->getId();      
+        $userId = Arikaim::get('access')->getId();      
         $subscription = (empty($userId) == false) ? Model::Subscriptions('subscriptions')->getActiveSubscription($userId) : null;
                 
         return [
             'plans'        => $plans,
-            'upgrade'      => $container->get('access')->isLogged(),
+            'upgrade'      => Arikaim::get('access')->isLogged(),
             'subscription' => $subscription           
         ];
     }

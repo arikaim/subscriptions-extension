@@ -8,19 +8,9 @@
 
 function PlanFeaturesView() {
     var self = this;
-    this.messges = null;
-
-    this.loadMessages = function() {
-        if (isObject(this.messages) == true) {
-            return;
-        }
-        arikaim.component.loadProperties('subscriptions::admin.messages',function(params) { 
-            self.messages = params.messages;
-        }); 
-    };
-
+  
     this.init = function() {
-        this.loadMessages();
+        this.loadMessages('subscriptions::admin.messages');
 
         arikaim.ui.button('.add-feature',function(element) {
             var uuid = $(element).attr('plan-uuid');
@@ -48,10 +38,10 @@ function PlanFeaturesView() {
         arikaim.ui.button('.delete-feature',function(element) {
             var uuid = $(element).attr('uuid');
             var title = $(element).attr('data-title');
-            var message = arikaim.ui.template.render(self.messages.remove_feature.content,{ title: title });
+            var message = arikaim.ui.template.render(self.getMessage('remove_feature.content'),{ title: title });
             
             modal.confirmDelete({ 
-                title: self.messages.remove.title,
+                title: self.getMessage('remove.title'),
                 description: message
             },function() {
                 subscriptionPlans.deleteFeature(uuid,function(result) {
@@ -74,7 +64,7 @@ function PlanFeaturesView() {
     };
 };
 
-var planFeaturesView = new PlanFeaturesView();
+var planFeaturesView = createObject(PlanFeaturesView,ControlPanelView);
 
 arikaim.component.onLoaded(function() {  
     planFeaturesView.init();

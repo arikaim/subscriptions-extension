@@ -67,6 +67,15 @@ class SubscriptionPlans extends Model
     public $timestamps = false;
 
     /**
+     * Delete plan
+     *
+     * @return void
+     */
+    public function deletePlan()
+    {        
+    }
+
+    /**
      * Get subscribe subscription url 
      *
      * @param string $billingType
