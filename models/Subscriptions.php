@@ -163,6 +163,25 @@ class Subscriptions extends Model
     }
 
     /**
+     * Delete user subscription and transactions
+     *
+     * @param integer $userId
+     * @return boolean
+     */
+    public function deleteSubscription(int $userId): bool
+    {
+        $subscription = $this->getSubscription($userId);
+        if (\is_object($subscription) == false) {
+            return true;
+        }
+
+        // delete transactions
+        $subscription->transactions()->delete();
+
+        return (bool)$subscription->delete();
+    }
+
+    /**
      * Get user subscription
      *
      * @param int $userId
