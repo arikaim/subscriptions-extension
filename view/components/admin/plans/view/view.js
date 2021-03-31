@@ -33,8 +33,13 @@ function SubscriptionPlansView() {
                 description: message
             },function() {
                 subscriptionPlans.delete(uuid,function(result) {
-                    arikaim.ui.table.removeRow('#' + uuid); 
+                    arikaim.ui.table.removeRow('#row_' + uuid); 
                     arikaim.page.toastMessage(result.message);    
+                },function(error) {
+                    arikaim.page.toastMessage({
+                        class: 'error',
+                        message: error
+                    });    
                 });
             });
         });

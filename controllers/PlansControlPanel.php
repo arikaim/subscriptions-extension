@@ -211,14 +211,20 @@ class PlansControlPanel extends ControlPanelApiController
     {       
         $this->onDataValid(function($data) {             
             $uuid = $data->get('uuid',null);
-            $model = Model::create('SubscriptionPlans','subscriptions')->findById($uuid);
+            $subscriptions = Model::create('Subscriptions','subscriptions');
+            $plan = Model::create('SubscriptionPlans','subscriptions')->findById($uuid);
 
-            if (\is_object($model) == false) {
+            if (\is_object($plan) == false) {
                 $this->error('errors.plan.id');
                 return false;
             }
             
-            $result = $model->deletePlan();
+            if ($subscriptions->hasSubscriptions($plan->id) == true) {
+                $this->error('errors.plan.subscriptions');
+                return false;
+            }
+            
+            $result = $plan->deletePlan();
 
             $this->setResponse($result,function() use($uuid) {                  
                 $this

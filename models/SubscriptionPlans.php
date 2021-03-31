@@ -69,10 +69,17 @@ class SubscriptionPlans extends Model
     /**
      * Delete plan
      *
-     * @return void
+     * @param mixed $id 
+     * @return bool
      */
-    public function deletePlan()
+    public function deletePlan($id = null): bool
     {        
+        $model = (empty($id) == true) ? $this : $this->findById($id);
+        // delete features
+        $model->features()->delete();
+        $model->delete();
+
+        return true;
     }
 
     /**

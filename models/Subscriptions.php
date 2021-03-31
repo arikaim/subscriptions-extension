@@ -245,6 +245,17 @@ class Subscriptions extends Model
     }
 
     /**
+     * Retrun true if plan have subscriptions
+     *
+     * @param int $planId
+     * @return boolean
+     */
+    public function hasSubscriptions(int $planId)
+    {
+        return ($this->plansQuery($planId)->count() > 0);
+    }
+
+    /**
      * Subscriptions query 
      *
      * @param Builder $query
@@ -255,4 +266,16 @@ class Subscriptions extends Model
     {
         return $query->where('user_id','=',$userId);
     }
+
+    /**
+     * Get subscriptions for plan
+     *
+     * @param Builder $query
+     * @param integer $planId
+     * @return Builder
+     */
+    public function scopePlansQuery($query, int $planId)
+    {
+        return $query->where('plan_id','=',$planId);
+    } 
 }
