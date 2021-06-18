@@ -91,14 +91,12 @@ class SubscriptionPlans extends Model
      */
     public function getSubscribeUrl($billingType, $currentUser = false)
     {
-        if ($currentUser == true) {
-            return 'subscription/create/' . $this->slug . '/' . $billingType;
-        }        
         if ($this->isFree() == true) {
             return 'signup'; 
         }
+        $path = $this->slug . '/' . $billingType;
 
-        return 'subscription/signup/' . $this->slug . '/' . $billingType;
+        return ($currentUser == true) ? 'subscription/create/' . $path : 'subscription/signup/' . $path;
     }
 
     /**
