@@ -27,6 +27,20 @@ class Subscriptions extends Service implements ServiceInterface
     }
 
     /**
+     * Get subscription plan model
+     *
+     * @param string $slug
+     * @return Model|null
+     */
+    public function getPlan(string $slug)
+    {
+        $model = Model::SubscriptionPlans('subscriptions');
+        $plan = $model->findById($slug);
+        
+        return (\is_object($plan) == false) ? $model->findBySlug($slug) : $plan;      
+    } 
+    
+    /**
      * Return true if user is subscribed
      *    
      * @param int $userId

@@ -29,10 +29,9 @@ class SubscriptionPages extends Controller
     */
     public function showPlans($request, $response, $data) 
     { 
-        $language = $this->getPageLanguage($data);
         $response = $this->noCacheHeaders($response);
 
-        return $this->pageLoad($request,$response,$data,'subscriptions>subscription',$language);
+        return $this->pageLoad($request,$response,$data,'subscriptions>subscription');
     }
 
     /**
@@ -71,7 +70,7 @@ class SubscriptionPages extends Controller
                 'error'         => $apiResponse->getError(),
                 'error_details' => $apiResponse->getErrorDetails(),
             ];
-            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error',$language,false);
+            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error');
         }
         $apiResult = $apiResponse->getResult();
 
@@ -112,7 +111,7 @@ class SubscriptionPages extends Controller
             return $this->withRedirect($response,$url);
         }
 
-        return $this->pageLoad($request,$response,['error' => $error],'subscriptions>subscription.error',$language,false);
+        return $this->pageLoad($request,$response,['error' => $error],'subscriptions>subscription.error',$language);
     }
 
     /**
@@ -134,7 +133,7 @@ class SubscriptionPages extends Controller
 
         if (empty($token) == true) {
             $error = ['error' => 'Not valid subscription approval token'];            
-            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language);
         }
 
         $apiResponse = $driver->subscription()->confirm($token);
@@ -143,7 +142,7 @@ class SubscriptionPages extends Controller
                 'error'         => $apiResponse->getError(),
                 'error_details' => $apiResponse->getErrorDetails(),
             ];
-            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error',$language,false);
+            return $this->pageLoad($request,$response,$data,'subscriptions>subscription.error',$language);
         }
         // confirm subscription
         $subscriptionId = $apiResponse->getResultItem('id');       
@@ -153,7 +152,7 @@ class SubscriptionPages extends Controller
 
         if ($result == false) {
             $error = ['error' => 'Subscription activation error'];  
-            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language,false);
+            return $this->pageLoad($request,$response,$error,'subscriptions>subscription.error',$language);
         }
 
         // event dispatch
@@ -166,7 +165,7 @@ class SubscriptionPages extends Controller
         }
 
         // load success page
-        return $this->pageLoad($request,$response,$data,'subscriptions>subscription.success',$language,false);        
+        return $this->pageLoad($request,$response,$data,'subscriptions>subscription.success',$language);        
     }
 
     /**
