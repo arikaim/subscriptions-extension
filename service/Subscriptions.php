@@ -44,12 +44,22 @@ class Subscriptions extends Service implements ServiceInterface
      * Return true if user is subscribed
      *    
      * @param int $userId
-     * @param string|null $planSlug
+     * @param string|array|null $plans
      * @return boolean
      */
-    public function hasSubscription(int $userId, ?string $planSlug = null): bool
+    public function hasSubscription(int $userId, $plans = null): bool
     {
-        return (bool)Model::Subscriptions('subscriptions')->isSusbscribed($userId,$planSlug);
+        $model = Model::Subscriptions('subscriptions');
+        if (\is_array($plans) == true) {
+            foreach($plans as $plan) {
+                if ($model->isSusbscribed($userId,$plan) == true) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        return $model->isSusbscribed($userId,$plans);
     }
 
     /**
