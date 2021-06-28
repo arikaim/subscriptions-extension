@@ -59,7 +59,7 @@ class SubscriptionPlanFeatures extends Model
      * Get plan features query
      *
      * @param Builder $query
-     * @param int $planId
+     * @param int|null $planId
      * @return Builder
      */
     public function scopePlanFeaturesQuery($query, $planId = null)
@@ -73,7 +73,7 @@ class SubscriptionPlanFeatures extends Model
      * Get feature
      *
      * @param string $key
-     * @param int $planId
+     * @param int|null $planId
      * @return Model|null
      */
     public function getFeature($key, $planId = null)
@@ -85,10 +85,10 @@ class SubscriptionPlanFeatures extends Model
      * Return true if feature exist
      *
      * @param string $key
-     * @param int $planId
+     * @param int|null $planId
      * @return boolean
      */
-    public function hasFeature($key, $planId = null)
+    public function hasFeature(string $key, $planId = null): bool
     {
         $model = $this->getFeature($key,$planId);
 

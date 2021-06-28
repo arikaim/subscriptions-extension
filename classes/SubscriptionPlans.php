@@ -62,21 +62,23 @@ class SubscriptionPlans
         }
 
         // create plan features      
-        Model::seed('SubscriptionPlanFeatures','subscriptions',function($seed) use($config, $plan) {
-            $features = $config['features'] ?? [];
-            foreach($features as $item) {
-                $key = $item['key'] ?? null;
-                if (empty($key) == false) {
-                    $seed->create(['key' => $key],[
-                        'uuid'          => Uuid::create(),
-                        'title'         => $item['title'], 
-                        'key'           => $key,                        
-                        'plan_id'       => $plan->id               
-                    ]); 
-                }
+        $model = Model::SubscriptionPlanFeatures('subscriptions');
+        $features = $config['features'] ?? [];
+        foreach($features as $item) {
+            $key = $item['key'] ?? null;
+            if (empty($key) == true) {
+                continue;
             }
-        });
-
+            if ($model->hasFeature($key,$plan->id) == false) {
+                $model->create([
+                    'uuid'          => Uuid::create(),
+                    'title'         => $item['title'], 
+                    'key'           => $key,                        
+                    'plan_id'       => $plan->id               
+                ]); 
+            }               
+        }
+      
         return true;
     }
 }
