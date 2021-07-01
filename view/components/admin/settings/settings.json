@@ -3,5 +3,8 @@
         "dirver": "Drivers",
         "ipn": "Ipn",
         "redirects": "Redirects"
+    },
+    "message": {
+        "demo": "Disabled in DEMO"
     }
 }

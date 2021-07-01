@@ -24,6 +24,7 @@
     }
 ] %}
 
+{% if demo_mode != true %}
 {{  component('components:tabs.vertical',{ 
         items: items, 
         menu: { id: 'settings_menu' }, 
@@ -35,3 +36,8 @@
         } 
     })
 }}
+{% else %}
+<div class="ui warning message">
+    {{ message.demo }}
+</div>
+{% endif %}
