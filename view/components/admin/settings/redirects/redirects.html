@@ -1,29 +1,29 @@
-{% component 'components:tabs.vertical.content' %}
+{% component 'semantic~tabs.vertical.content' %}
 {% set redirects = getOption('subscriptions.redirects') %}
 
 <div class="mt-4">
     <form class="ui form" id="redirects_form">
-        {{  component('components:form.fields.url',{
+        {{  component('semantic~form.fields.url',{
                 label: labels.success,
                 name: 'success_url',
                 value: redirects.success_url
             }) 
         }}
 
-        {{  component('components:form.fields.url',{
+        {{  component('semantic~form.fields.url',{
                 label: labels.cancel,
                 name: 'cancel_url',
                 value: redirects.cancel_url
             }) 
         }}
 
-        {{  component('components:form.fields.url',{
+        {{  component('semantic~form.fields.url',{
             label: labels.error,
             name: 'error_url',
             value: redirects.error_url
         }) 
     }}
-    {{ component('components:form.footer') }}
+    {{ component('semantic~form.footer') }}
     </form>
 </div>
 {% endcomponent %}

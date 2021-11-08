@@ -16,7 +16,7 @@
             {{ fields.price.label }}
         </h4>       
         <div class="three fields">
-            {{  component('components:form.fields.price',{
+            {{  component('semantic~form.fields.price',{
                     name: 'annual_price',       
                     placeholder: fields.annual.placeholder,         
                     label: fields.annual.label,
@@ -26,7 +26,7 @@
                 })  
             }}
     
-            {{  component('components:form.fields.price',{
+            {{  component('semantic~form.fields.price',{
                     name: 'monthly_price',
                     label: fields.monthly.label,
                     placeholder: fields.monthly.placeholder,      
@@ -50,5 +50,5 @@
         <label>{{ fields.description.label }}</label>
         <textarea name="description" id="description" placeholder="{{ fields.description.placeholder }}">{{ plan.description }}</textarea>
     </div> 
-    {{ component('components:form.footer') }}
+    {{ component('semantic~form.footer') }}
 </form>

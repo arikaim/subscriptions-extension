@@ -17,7 +17,7 @@
 <div class="ui basic segment">
     <div class="ui grid">
         <div class="five wide column">
-            {{ component('components:segment-title',{ title: labels.plans, icon: 'calendar alternate outline' }) }}
+            {{ component('semantic~segment-title',{ title: labels.plans, icon: 'calendar alternate outline' }) }}
             <div class="ui big divided list">
                 {% for plan in plans %}
                     {{ component('subscriptions::admin.provider.item',{ plan: plan }) }}

@@ -11,7 +11,7 @@
         <label>{{ fields.title.label }}</label>
         <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ feature.title }}"> 
     </div>     
-    {{  component('components:form.fields.slug',{
+    {{  component('semantic~form.fields.slug',{
             name: 'key',
             label: fields.key.label,
             editable: true,
@@ -28,5 +28,5 @@
         <label>{{ fields.description.label }}</label>
         <textarea name="description" id="description" placeholder="{{ fields.description.placeholder }}">{{ feature.description }}</textarea>
     </div> 
-    {{ component('components:form.footer') }}
+    {{ component('semantic~form.footer') }}
 </form>
