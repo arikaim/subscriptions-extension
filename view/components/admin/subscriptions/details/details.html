@@ -7,10 +7,12 @@
 </div>
 {% else %}
     {% set model = createModel('Subscriptions','subscriptions').findById(uuid) %}
-    {% set driver_name = getOption('subscriptions.driver') %}
-    {% set driver = service('driver').create(driver_name) %}
-    {% set result = driver.subscription().details(model.subscription_id) %}
-    {% set details = result.getResult() %}
+    {% if model.checkout_driver != 'admin' %}
+        {% set driver_name = getOption('subscriptions.driver') %}
+        {% set driver = service('driver').create(driver_name) %}
+        {% set result = driver.subscription().details(model.subscription_id) %}
+        {% set details = result.getResult() %}
+    {% endif %}
     <div class="mt-4">
         <div class="ui grid">   
             <div class="six wide column">
@@ -37,9 +39,14 @@
                         <tr>
                             <td class="four wide right aligned">{{ labels.id }}</td>
                             <td>{{ model.subscription_id }}</td>
+                        </tr>  
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.driver }}</td>
+                            <td>{{ model.checkout_driver }}</td>
                         </tr>                       
                     </tbody>
                 </table>
+                {% if model.checkout_driver != 'admin' %}
                 <div class="mt-4 p-2">
                     <h4 class="ui header">
                         {{ labels.api }}
@@ -55,8 +62,9 @@
                         {% endif %}
                     </div>
                 </div>
+                {% endif %}
             </div>
-            <div class="ten wide column" id="transaction_details">
+            <div class="ten wide column" id="transaction_details">              
                 {{ component('subscriptions::admin.subscriptions.details.transactions',{ transactions: model.transactions }) }}
             </div>
         </div>

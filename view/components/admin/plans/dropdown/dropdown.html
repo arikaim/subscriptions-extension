@@ -10,7 +10,7 @@
 {% set label = (selected is empty) ? labels.choose : selected.title %}
 
 <div class="ui dropdown subscription-plans-dropdown {{ class }}" {{ title|attr('title') }} {{ id|attr('id') }}>
-    <input type="hidden" value="{{ selected[data_column] }}" name="{{ name }}">  
+    <input {{ rule|attr('rule') }} type="hidden" value="{{ selected[data_column] }}" name="{{ name }}">  
     {% if icon is not empty %}
     <i class="icon {{ icon }}"></i>
     {% endif %}

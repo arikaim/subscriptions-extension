@@ -1,0 +1,16 @@
+{
+    "title": {
+        "content": "Add Subscription",
+        "icon": "plus"
+    },
+    "fields": {        
+        "user": {
+            "label": "User",
+            "placeholder": "Select user"
+        },
+        "plan": {
+            "label": "Plan",
+            "placeholder": "Select Plan"
+        }
+    }
+}

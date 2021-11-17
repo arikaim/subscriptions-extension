@@ -1,0 +1,28 @@
+{% component 'semantic~tabs.vertical.content' %}
+<div class="mt-4">
+    <form class="ui form" id="add_subscription_form">  
+        <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">        
+        <div class="field">
+            <label>{{ fields.user.label }}</label>
+            {{  component('users::admin.users.dropdown',{ 
+                    name: 'user_id',
+                    rule: 'empty',
+                    class: 'clearable', 
+                    data_field: 'id' 
+                }) 
+            }}
+        </div>  
+        <div class="field">
+            <label>{{ fields.plan.label }}</label>
+            {{  component('subscriptions::admin.plans.dropdown',{ 
+                    class: 'clearable selection',
+                    data_field: 'id',
+                    rule: 'empty',
+                    name: 'plan_id' 
+                }) 
+            }}
+        </div>  
+        {{ component('semantic~form.footer',{ save_button_title: 'Add' }) }}
+    </form>
+</div>       
+{% endcomponent %}

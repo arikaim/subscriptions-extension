@@ -1,12 +1,13 @@
-<div class="ui grid">
-    <div class="fourteen wide column">           
-        <div class="ui segment">
+<div class="ui segment">
+    <div class="ui grid">
+        <div class="fourteen wide column">  
+            <span class="font-bold px-2">
+                {{ label.user }}
+            </span>                     
             {{ component('users::admin.users.dropdown',{ class: 'clearable', data_field: 'id' }) }}
-        </div>
-    </div>
-    <div class="two wide column right floated">  
-        <div class="ui segment right aligned">     
-        {{ component('semantic~paginator.dropdown',{ namespace: 'subscriptions' }) }}
+        </div>       
+        <div class="two wide column right aligned">   
+            {{ component('semantic~paginator.dropdown',{ namespace: 'subscriptions' }) }}
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@
         "status": "Status",
         "billing": "Billing",
         "plan": "Plan",
+        "driver": "Checkout Driver",
         "api": "Checkout Api Details",
         "id": "Subscription Id",
         "user": "User"

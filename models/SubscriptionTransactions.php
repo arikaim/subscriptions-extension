@@ -64,7 +64,7 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
      * @param TransactionInterface $transaction
      * @return boolean
      */
-    public function saveTransaction(TransactionInterface $transaction)
+    public function saveTransaction(TransactionInterface $transaction): bool
     {
         $model = $this->geTransaction($transaction->getTransactionId());
         if (\is_object($model) == true) {
@@ -78,7 +78,7 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
             'subscription_id' => $transaction->getOrderId(),
             'type'            => $transaction->getType(),
             'currency'        => $transaction->getCurrency(),
-            'checkout_driver' => $transaction->geetCheckoutDriver(),
+            'checkout_driver' => $transaction->getCheckoutDriver(),
             'payer_email'     => $transaction->getPayerEmail(),
             'payer_name'      => $transaction->getPayerName(),
             'details'         => \json_encode($details)          
@@ -94,7 +94,7 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
      * @param string $id
      * @return mixed
     */
-    public function geTransaction($id)
+    public function getTransaction($id)
     {
         return $this->where('transaction_id','=',$id)->first();
     }

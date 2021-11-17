@@ -1,4 +1,9 @@
 {
+    "subscription": {
+        "add": "Subscription added successfully.",
+        "update": "Subscription saved successfully.",
+        "delete": "Subscription deleted successfully."
+    },
     "plan": {
         "add": "Subscription Plan added successfully.",
         "update": "Subscription Plan saved successfully.",
@@ -10,6 +15,11 @@
         "delete": "Subscription Feature deleted successfully."
     },
     "errors": {
+        "subscription": {
+            "add": "Can't add subscription.",
+            "update": "Can't update subscription.",           
+            "exist": "Subscription exists for this user."
+        },
         "plan": {
             "add": "Can't add subscription plan.",
             "update": "Can't update subscription plan.",

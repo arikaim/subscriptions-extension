@@ -23,7 +23,10 @@ class Subscriptions extends Extension
     */
     public function install()
     {        
-        // Control Panel    
+        // Control Panel  
+        // Subscriptions
+        $this->addApiRoute('POST','/api/admin/subscriptions/add','SubscriptionsControlPanel','add','session'); 
+        $this->addApiRoute('PUT','/api/admin/subscriptions/status','SubscriptionsControlPanel','setStatus','session');  
         // Plans
         $this->addApiRoute('POST','/api/subscriptions/admin/plans/add','PlansControlPanel','add','session');   
         $this->addApiRoute('PUT','/api/subscriptions/admin/plans/update','PlansControlPanel','update','session'); 

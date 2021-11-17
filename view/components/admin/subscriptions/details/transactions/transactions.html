@@ -1,10 +1,7 @@
-<div class="ui header">   
-    {{ title }}
-</div>
-<div class="ui divider"></div>
-<div>
+{{ component('semantic~segment-title',{ title: title, icon: icon }) }}
+<div class="mt-2">
     <table class="ui compact stackable selectable borderless basic table">
-        <thead class="table-head">
+        <thead class="">
             <tr>              
                 <th class="two wide">{{ columns.created }}</th>          
                 <th class="collapsing two wide">{{ columns.type }}</th>

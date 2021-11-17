@@ -1,6 +1,7 @@
 {
     "labels": {
         "view": "View",
+        "add": "Add",
         "details": "Details"
     }
 }
