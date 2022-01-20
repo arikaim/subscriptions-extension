@@ -43,12 +43,16 @@ class Subscriptions extends Service implements ServiceInterface
     /**
      * Return true if user is subscribed
      *    
-     * @param int $userId
+     * @param int|null $userId
      * @param string|array|null $plans
      * @return boolean
      */
-    public function hasSubscription(int $userId, $plans = null): bool
+    public function hasSubscription(?int $userId, $plans = null): bool
     {
+        if (empty($userId) == true) {
+            return false;
+        }
+
         $model = Model::Subscriptions('subscriptions');
         if (\is_array($plans) == true) {
             foreach($plans as $plan) {
@@ -65,28 +69,36 @@ class Subscriptions extends Service implements ServiceInterface
     /**
      * Return true if user is subscribed
      *    
-     * @param int $userId 
+     * @param int|null $userId 
      * @return Model|null
      */
-    public function getSubscriptionPlan(int $userId)
+    public function getSubscriptionPlan(?int $userId)
     {
-       $subscription = Model::Subscriptions('subscriptions')->getSubscription($userId);
-       if (empty($subscription) == true) {
-           return null;
-       }
+        if (empty($userId) == true) {
+            return null;
+        }
 
-       return $subscription->plan->first();
+        $subscription = Model::Subscriptions('subscriptions')->getSubscription($userId);
+        if (empty($subscription) == true) {
+            return null;
+        }
+
+        return $subscription->plan->first();
     }
 
     /**
      * Check if plan feature exist
      *
-     * @param integer $userId
+     * @param integer|null $userId
      * @param string $key
      * @return boolean
      */
-    public function hasPlanFeature(int $userId, string $key): bool
+    public function hasPlanFeature(?int $userId, string $key): bool
     {
+        if (empty($userId) == true) {
+            return false;
+        }
+
         $plan = $this->getSubscriptionPlan($userId);
         if (empty($plan) == true) {
             return false;
@@ -99,12 +111,16 @@ class Subscriptions extends Service implements ServiceInterface
     /**
      * Get plan feature item value
      *
-     * @param integer $userId
+     * @param integer|null $userId
      * @param string $key
      * @return mixed
      */
-    public function getPlanFeatureValue(int $userId, string $key)
+    public function getPlanFeatureValue(?int $userId, string $key)
     {
+        if (empty($userId) == true) {
+            return null;
+        }
+
         $plan = $this->getSubscriptionPlan($userId);
         if (empty($plan) == true) {
             return null;
