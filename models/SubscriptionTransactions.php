@@ -11,9 +11,7 @@ namespace Arikaim\Extensions\Subscriptions\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Arikaim\Modules\Checkout\Interfaces\TransactionStorageInterface;
 use Arikaim\Modules\Checkout\Interfaces\TransactionInterface;
-
 use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
 use Arikaim\Core\Db\Traits\DateCreated;
@@ -21,7 +19,7 @@ use Arikaim\Core\Db\Traits\DateCreated;
 /**
  * Subscription transactions model class
  */
-class SubscriptionTransactions extends Model implements TransactionStorageInterface
+class SubscriptionTransactions extends Model
 {
     use Uuid,
         DateCreated,
@@ -66,7 +64,7 @@ class SubscriptionTransactions extends Model implements TransactionStorageInterf
      */
     public function saveTransaction(TransactionInterface $transaction): bool
     {
-        $model = $this->geTransaction($transaction->getTransactionId());
+        $model = $this->getTransaction($transaction->getTransactionId());
         if (\is_object($model) == true) {
             return false;
         }
