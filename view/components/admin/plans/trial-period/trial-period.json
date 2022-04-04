@@ -1,0 +1,11 @@
+{
+    "items": {
+        "": "No trial",
+        "P7D": "7 Days",
+        "P14D": "14 Days",
+        "P31D": "1 Month"
+    },
+    "labels": {
+        "select": "Select"
+    }
+}

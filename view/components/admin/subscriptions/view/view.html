@@ -11,23 +11,26 @@
         </div>
     </div>
 </div>
-<table class="ui compact stackable selectable borderless basic table">
-    <thead class="table-head">
-        <tr>              
-            <th class="one wide collapsing left aligned">{{ columns.action }}</th>
-            <th class="two wide">{{ columns.created }}</th>          
-            <th class="collapsing one wide">{{ columns.status }}</th>
-            <th>{{ columns.plan }}</th>   
-            <th class="two wide">{{ columns.billing_date }}</th>   
-            <th class="two wide">{{ columns.user }}</th>               
-            <th class="one wide">{{ columns.billing }}</th>       
-            <th class="two wide">{{ columns.driver }}</th>                                      
-        </tr>
-    </thead>
-    <tbody id="subscriptions_rows" component="subscriptions::admin.subscriptions.view.rows" namespace="subscriptions">
-        {{ component('subscriptions::admin.subscriptions.view.rows') }} 
-    </tbody>
-</table> 
-<div id="paginator">      
-    {{ component("semantic~paginator",{ namespace: 'subscriptions' }) }}
+<div class="ui segment">
+    <table class="ui compact stackable selectable borderless basic table">
+        <thead class="table-head">
+            <tr>              
+                <th class="one wide collapsing left aligned">{{ columns.action }}</th>
+                <th class="two wide">{{ columns.created }}</th> 
+                <th class="two wide">{{ columns.expire }}</th>          
+                <th class="collapsing one wide">{{ columns.status }}</th>
+                <th>{{ columns.plan }}</th>   
+                <th class="two wide">{{ columns.billing_date }}</th>   
+                <th class="two wide">{{ columns.user }}</th>               
+                <th class="one wide">{{ columns.billing }}</th>       
+                <th class="two wide">{{ columns.driver }}</th>                                      
+            </tr>
+        </thead>
+        <tbody id="subscriptions_rows" component="subscriptions::admin.subscriptions.view.rows" namespace="subscriptions">
+            {{ component('subscriptions::admin.subscriptions.view.rows') }} 
+        </tbody>
+    </table> 
+    <div id="paginator">      
+        {{ component("semantic~paginator",{ namespace: 'subscriptions' }) }}
+    </div>
 </div>

@@ -1,6 +1,4 @@
-{% set model = createModel('SubscriptionPlans','subscriptions').orderBy('title') %}
-{% set items = paginate(model,'subscription-plans') %}
-{% set items = items.getItems() %}
+{% set items = createModel('SubscriptionPlans','subscriptions').orderBy('title').get() %}
 {% if items|length == 0 %}
 <tr>
     <td>{{ labels.empty }}</td>
@@ -14,11 +12,9 @@
                 <button class="ui icon mini basic button edit-button" uuid="{{ item.uuid }}" title="{{ labels.edit }}">
                     <i class="icon edit"></i>
                 </button>     
-                {% if item.hasProducts() == false %}       
                 <button class="ui icon mini basic button delete-button" uuid="{{ item.uuid }}" {{ labels.delete|attr('title') }} data-title="{{ item.title }}">
                     <i class="icon trash orange"></i>
                 </button>  
-                {% endif %}
             </div>                  
             {% else %}
             <div class="ui basic red label">{{ labels.demo }}</div>
@@ -32,7 +28,14 @@
                 }) 
             }}
         </td>          
-        <td>{{ item.title }}</td> 
+        <td class="flex flex-rows items-center p-2">
+            {% if item.isFree() == true %}
+                <div class="ui green horizontal basic label">{{ labels.free }}</div>                                              
+            {% endif %}
+            <div>
+                {{ item.title }}
+            </div>
+        </td> 
         <td>
             <div class="ui horizontal basic label">
                 {{ item.slug }}

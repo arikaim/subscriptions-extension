@@ -1,6 +1,7 @@
 {
     "labels": {
         "empty": "..",
+        "recurring": "Recurring",
         "details": "Subscription Details"
     }
 }

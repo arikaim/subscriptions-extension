@@ -1,0 +1,13 @@
+<div class="ui dropdown {{ class|default('basic button') }}" id="{{ id|default('trial_period') }}">  
+    <input type="hidden" name="{{ name|default('trial_period') }}" value="{{ selected }}">
+    <i class="icon calendar"></i>
+    <div class="text">{{ selected|default(labels.select) }}</div>
+    <i class="icon dropdown"></i>  
+    <div class="menu">   
+    {% for value, title in items %}
+        <div class="item {{ value|ifthen(selected,'active') }}" data-value="{{ value }}">        
+            {{ title }}                       
+        </div>      
+    {% endfor %}
+    </div>
+</div>

@@ -1,6 +1,6 @@
 {% component 'semantic~tabs.vertical.content' %}
     {% set class = 'sixteen wide column' %}
-    {% set panel_class = '' %}
+    {% set panel_class = 'ui segment' %}
     {% set plan = createModel('SubscriptionPlans','subscriptions').findById(uuid) %}
     <div class="mt-4">
         {{ component('subscriptions::admin.plans.features.form',{ plan_id: plan.id }) }}

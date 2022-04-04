@@ -6,11 +6,20 @@
 {% set monthly_price = (plan is empty) ? 0 : plan.monthly_price %}
 
 <form class="ui form" id="subscriptoion_plan_form">  
-    <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">        
-    <div class="field">
-        <label>{{ fields.title.label }}</label>
-        <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ plan.title }}"> 
-    </div>   
+    <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">       
+    <div class="two fields">
+        <div class="field">
+            <label>{{ fields.title.label }}</label>
+            <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ plan.title }}"> 
+        </div>  
+        <div class="field">
+            <label>{{ fields.trial.label }}</label>
+            {{  component('subscriptions::admin.plans.trial-period',{                                
+                    selected: plan.trial_period
+                }) 
+            }}
+        </div>
+    </div> 
     <div class="ui segment field">
         <h4 class="ui dividing header">
             {{ fields.price.label }}
@@ -25,7 +34,6 @@
                     currency_code: plan.currency.code
                 })  
             }}
-    
             {{  component('semantic~form.fields.price',{
                     name: 'monthly_price',
                     label: fields.monthly.label,

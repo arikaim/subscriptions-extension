@@ -4,6 +4,10 @@
             "label": "Title",
             "placeholder": "Enter product type title"
         },
+        "trial": {
+            "label": "Trial Period",
+            "placeholder": "Enter trial period"
+        },
         "price": {
             "label": "Price",
             "placeholder": "Enter Price"

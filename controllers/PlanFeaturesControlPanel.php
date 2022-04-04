@@ -18,18 +18,6 @@ use Arikaim\Core\Db\Model;
 class PlanFeaturesControlPanel extends ControlPanelApiController
 {
     /**
-     * Constructor
-     * 
-     * @param Container|null $container
-    */
-    public function __construct($container = null) 
-    {
-        parent::__construct($container);
-        $this->setModelClass('SubscriptionPlanFeatures');
-        $this->setExtensionName('subscriptions');
-    }
-
-    /**
      * Init controller
      *
      * @return void
@@ -37,6 +25,8 @@ class PlanFeaturesControlPanel extends ControlPanelApiController
     public function init()
     {
         $this->loadMessages('subscriptions::admin.messages');
+        $this->setModelClass('SubscriptionPlanFeatures');
+        $this->setExtensionName('subscriptions');
     }
 
     /**

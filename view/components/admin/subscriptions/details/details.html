@@ -13,14 +13,32 @@
         {% set result = driver.subscription().details(model.subscription_id) %}
         {% set details = result.getResult() %}
     {% endif %}
-    <div class="mt-4">
+    <div class="ui segment mt-4">
         <div class="ui grid">   
             <div class="six wide column">
                 <table class="ui table definition very basic">
                     <tbody>
                         <tr>
                             <td class="four wide right aligned">{{ labels.uuid }}</td>
-                            <td>{{ model.uuid }}</td>
+                            <td>
+                                {{ model.uuid }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.created }}</td>
+                            <td>
+                                {{ model.date_created|dateFormat }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.expire }}</td>
+                            <td>
+                                {% if model.date_expire is empty %}
+                                    <div class="ui basic label">{{ labels.recurring }}</div>
+                                {% else %}
+                                    { model.date_expire|dateFormat }}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <td class="four wide right aligned">{{ labels.status }}</td>
@@ -30,12 +48,23 @@
                         </tr>
                         <tr>
                             <td class="four wide right aligned">{{ labels.plan }}</td>
-                            <td>{{ model.plan.title }}</td>
+                            <td class="flex flex-rows items-center">                               
+                                {% if model.plan.isFree() == true %}
+                                    <div class="ui green mini basic label">{{ labels.free }}</div>                                              
+                                {% endif %}
+                                <div class="px-1">
+                                    {{ model.plan.title }}
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td class="four wide right aligned">{{ labels.user }}</td>
                             <td>{{ model.user.username_or_email }}</td>
                         </tr>
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.billing }}</td>
+                            <td>{{ model.billing_type }}</td>
+                        </tr>  
                         <tr>
                             <td class="four wide right aligned">{{ labels.id }}</td>
                             <td>{{ model.subscription_id }}</td>

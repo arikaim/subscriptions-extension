@@ -55,6 +55,7 @@ class Subscriptions extends Model
         'subscription_id',
         'next_billing_date',
         'date_created',
+        'date_expired',
         'date_updated'
     ];
     

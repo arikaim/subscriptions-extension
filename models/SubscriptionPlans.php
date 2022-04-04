@@ -52,6 +52,8 @@ class SubscriptionPlans extends Model
         'annual_price',
         'currency_id',
         'status',       
+        'trial_period',
+        'one_time_billing',
         'api_monthly_plan_id', 
         'api_annual_plan_id',
         'slug',

@@ -11,7 +11,6 @@ function SubscriptionPlansView() {
    
     this.init = function() {
         this.loadMessages('subscriptions::admin.messages');
-        paginator.init('plans_rows');   
     };
 
     this.initRows = function() {

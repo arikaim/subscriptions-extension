@@ -2,6 +2,7 @@
     "labels": {
         "empty": "..",
         "edit": "Edit",
+        "free": "Free",
         "delete": "Delete",    
         "demo": "demo mode",   
         "status": {

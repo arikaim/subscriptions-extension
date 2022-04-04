@@ -7,8 +7,8 @@
     },
     "columns": {
         "action": "Action",
-        "created": "Date Created",
-        "expired": "Date Expired",
+        "created": "Created",
+        "expire": "Expire",
         "status": "Status",
         "plan": "Plan",
         "user": "User",

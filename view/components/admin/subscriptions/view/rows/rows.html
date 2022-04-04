@@ -17,7 +17,14 @@
             </button>                        
         </td>
         <td>
-            {{ item.date_created|dateTimeFormat }}
+            {{ item.date_created|dateFormat }}
+        </td>  
+        <td>
+            {% if item.date_expired is empty %}
+                <div class="ui mini basic label">{{ labels.recurring }}</div>
+            {% else %}
+                {{ item.date_expired|dateFormat }}
+            {% endif %}
         </td>  
         <td>
             {{ component('subscriptions::admin.subscriptions.label',{ status: item.status }) }}         

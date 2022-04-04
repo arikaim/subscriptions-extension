@@ -38,8 +38,10 @@ class SubscriptionPlansSchema extends Schema
         $table->status();        
         $table->price(0.00,'monthly_price');
         $table->price(0.00,'annual_price');     
+        $table->integer('one_time_billing')->nullable(true);
         $table->relation('currency_id','currency');
         $table->string('title')->nullable(false);
+        $table->string('trial_period')->nullable(true);
         $table->text('description')->nullable(true);
         $table->string('api_monthly_plan_id')->nullable(true);
         $table->string('api_annual_plan_id')->nullable(true);
@@ -56,6 +58,12 @@ class SubscriptionPlansSchema extends Schema
      * @return void
      */
     public function update($table) 
-    {               
+    {          
+        if ($this->hasColumn('trial_period') == false) {
+            $table->string('trial_period')->nullable(true);
+        }
+        if ($this->hasColumn('one_time_billing') == false) {
+            $table->integer('one_time_billing')->nullable(true);
+        }
     }
 }

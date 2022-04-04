@@ -1,6 +1,6 @@
 {% set plan = createModel('SubscriptionPlans','subscriptions').findById(uuid) %}
-<div class="ui divided grid">
-    <div class="six wide column">
+<div class="ui grid">
+    <div class="ui segment six wide column">
         <div class="ui list" id="features_items">
             {{ component('subscriptions::admin.plans.features.list',{ plan_id: plan.id }) }}
         </div>     

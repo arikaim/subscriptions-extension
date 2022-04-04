@@ -4,9 +4,13 @@
     "labels": {
         "alert": "Alert",
         "uuid": "Uuid",
+        "recurring": "Recurring",
+        "created": "Date Created",
+        "expire": "Date Expire",
         "status": "Status",
         "billing": "Billing",
         "plan": "Plan",
+        "free": "Free",
         "driver": "Checkout Driver",
         "api": "Checkout Api Details",
         "id": "Subscription Id",
