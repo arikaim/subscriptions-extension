@@ -53,6 +53,12 @@
                 }}
             </div>
         </div>
+        {{  component('semantic~form.fields.checkbox',{ 
+                field_label: fields.one_time.label,
+                name: 'one_time_billing',
+                value: plan.one_time_billing 
+            }) 
+        }}
     </div>    
     <div class="field">
         <label>{{ fields.description.label }}</label>

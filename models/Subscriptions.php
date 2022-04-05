@@ -118,6 +118,23 @@ class Subscriptions extends Model
     }
 
     /**
+     * Create subscription with PENDING status
+     *
+     * @param int $userId
+     * @param int $planId
+     * @param string $billingType
+     * @param string $token
+     * @param string $checkoutDriver
+     * @return Model|false
+     */
+    public function createSubscription($userId, $planId, $billingType, $token, $checkoutDriver)
+    {
+        $model = $this->registerSubscription($userId, $planId, $billingType, $token, $checkoutDriver);
+
+        return (\is_object($model) == true) ? $model : false;
+    }
+
+    /**
      * Confirm subscription
      *
      * @param string $token
@@ -139,6 +156,24 @@ class Subscriptions extends Model
             'subscription_id'   => $id,
             'next_billing_date' => $nextBillingDate          
         ]);
+    }
+
+    /**
+     * Activate subscription (one time payment)
+     *
+     * @return boolean
+     */
+    public function activateSubscription(): bool
+    {
+        $dateExpired = null;
+
+        $result = $this->update([
+            'status'            => 1, // ACTIVE
+            'date_created'      => DateTime::getTimestamp(),
+            'date_expired'      => $dateExpired       
+        ]);
+
+        return ($result !== false);
     }
 
     /**
@@ -240,7 +275,7 @@ class Subscriptions extends Model
      * @param string $checkoutDriver
      * @return Model|null
      */
-    public function findSubscription($token, $checkoutDriver)
+    public function findSubscription(string $token,string $checkoutDriver)
     {
         return $this->where('token','=',$token)->where('checkout_driver','=',$checkoutDriver)->first();
     }

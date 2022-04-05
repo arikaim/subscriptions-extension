@@ -20,6 +20,10 @@
             "label": "Monthly Billing",
             "placeholder": "Enter Monthly Billing Price"
         },
+        "one_time": {
+            "label": "Allow one time billing",
+            "placeholder": "Allow one time billing"
+        },
         "description": {
             "label": "Description",
             "placeholder": "Enter product type description"

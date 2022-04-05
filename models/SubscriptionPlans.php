@@ -254,6 +254,19 @@ class SubscriptionPlans extends Model
     }
 
     /**
+     * Find pla by id,uuid or slug
+     *
+     * @param mixed $key
+     * @return Model|null
+     */
+    public function findPlan($key)
+    {
+        $model = $this->findById($key);
+        
+        return (\is_object($model) == true) ? $model : $this->findBySlug($key);
+    } 
+
+    /**
      * Return true if plan exist
      *
      * @param string $title

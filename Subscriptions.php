@@ -43,6 +43,8 @@ class Subscriptions extends Extension
         // Pages
         $this->addPageRoute('/subscription','SubscriptionPages','showPlans','subscriptions>subscription',null,'subscription.page');
         $this->addPageRoute('/subscription/signup/{plan}/{billing}','SubscriptionPages','signup','subscriptions>subscription.signup');
+        // checkout
+        $this->addPageRoute('/subscription/signup/checkout/{driver_name}/{plan}/{billing}','SubscriptionPages','signupCheckout','subscriptions>subscription.signup');
         $this->addPageRoute('/subscription/create/{plan}/{billing}[/{user}[/{language:[a-z]{2}}/]]','SubscriptionPages',
             'create','subscriptions>subscription',null,
             'subscription.create.page',false

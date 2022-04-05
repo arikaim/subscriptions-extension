@@ -29,15 +29,12 @@ class Subscriptions extends Service implements ServiceInterface
     /**
      * Get subscription plan model
      *
-     * @param string $slug
+     * @param mixed $slug
      * @return Model|null
      */
-    public function getPlan(string $slug)
+    public function getPlan($slug)
     {
-        $model = Model::SubscriptionPlans('subscriptions');
-        $plan = $model->findById($slug);
-        
-        return (\is_object($plan) == false) ? $model->findBySlug($slug) : $plan;      
+        return Model::SubscriptionPlans('subscriptions')->findPlan($slug);
     } 
     
     /**

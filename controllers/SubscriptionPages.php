@@ -205,4 +205,24 @@ class SubscriptionPages extends Controller
 
         return $this->pageLoad($request,$response,$data,'users>user.signup',$language);
     }
+
+    /**
+     * User signup for one time payment subscription
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function signupCheckout($request, $response, $data) 
+    {
+        $language = $this->getPageLanguage($data);
+        $plan = $data->get('plan');
+        $billing = $data->get('billing');
+        $driverName = $data->get('driver_name','paypal-express');
+        
+        $data['redirect_url'] =  '/checkout/' . $driverName . '/' . $plan . '/subscriptions/' . $billing . '/{{user}}';
+
+        return $this->pageLoad($request,$response,$data,'users>user.signup',$language);
+    }
 }
