@@ -12,6 +12,7 @@ namespace Arikaim\Extensions\Subscriptions\Service;
 use Arikaim\Core\Db\Model;
 use Arikaim\Core\Service\Service;
 use Arikaim\Core\Service\ServiceInterface;
+use Arikaim\Core\Arikaim;
 
 /**
  * Subscriptions service class
@@ -24,6 +25,38 @@ class Subscriptions extends Service implements ServiceInterface
     public function __construct()
     {
         $this->setServiceName('subscriptions');
+    }
+
+    /**
+     * Cancel subscription
+     *
+     * @param SubscriptionsProviderInteface $apiDriver
+     * @param integer $userId
+     * @return boolean
+     */
+    public static function cancel(int $userId): bool
+    {
+        $subscription = Model::Subscriptions('subscriptions')->getSubscription($userId);
+        if (\is_object($subscription) == false) {
+            return false;
+        }
+        if (empty($subscription->subscription_id) == true) {
+            return false;
+        }
+
+        $apiDriver = Arikaim::get('driver')->create($subscription->checkout_driver);
+        if (\is_object($apiDriver) == false) {
+            return false;
+        }
+     
+        $apiResponse = $apiDriver->subscription()->cancel($subscription->subscription_id);
+
+        if ($apiResponse->hasError() == false) {
+            $subscription->setStatus(6); // Canceled
+            return true;
+        }
+
+        return false;
     }
 
     /**

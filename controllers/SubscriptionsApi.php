@@ -74,6 +74,27 @@ class SubscriptionsApi extends ApiController
     }
 
     /**
+     * Cancel subscription
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param Validator $data
+     * @return Psr\Http\Message\ResponseInterface
+    */
+    public function cancel($request, $response, $data) 
+    {   
+        $this->onDataValid(function($data) {             
+            $result = $this->get('subscriptions')->cancel((int)$this->getUserId());
+
+            $this->setResponse($result,function() {                  
+                $this
+                    ->message('cancel');   
+            },'errors.cancel');              
+        });
+        $data->validate();  
+    }
+
+    /**
      * Update subscription status
      *
      * @param string $type

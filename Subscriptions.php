@@ -54,6 +54,7 @@ class Subscriptions extends Extension
        
         // API
         $this->addApiRoute('POST','/api/subscription/notify','SubscriptionsApi','notify',null); 
+        $this->addApiRoute('DELETE','/api/subscription/cancel','SubscriptionsApi','cancel','session'); 
 
         // Events
         $this->registerEvent('subscriptions.create','Create subscription');        
