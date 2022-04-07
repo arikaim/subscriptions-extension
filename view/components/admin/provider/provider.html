@@ -1,9 +1,7 @@
-
 {% set driver_name = getOption('subscriptions.driver') %}
 {% set driver = service('driver').create(driver_name) %}
 {% set plans = createModel('SubscriptionPlans','subscriptions').paidPlansQuery().activeQuery() %}
 {% set plans = plans.get() %}
-
 <div class="ui segment">
     <div class="item">       
         <span class="font-bold">
@@ -14,9 +12,9 @@
         </span>        
     </div>
 </div>
-<div class="ui basic segment">
+<div class="ui segment">
     <div class="ui grid">
-        <div class="five wide column">
+        <div class="six wide column">
             {{ component('semantic~segment-title',{ title: labels.plans, icon: 'calendar alternate outline' }) }}
             <div class="ui big divided list">
                 {% for plan in plans %}
@@ -24,7 +22,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="eleven wide column" id="plan_content">
+        <div class="ten wide column" id="plan_content">
         </div>
     </div>
 </div>

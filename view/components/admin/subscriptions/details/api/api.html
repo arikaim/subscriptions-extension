@@ -34,7 +34,7 @@
                                 {{ plan.payment_definitions[0].amount.value }}
                                 <span>{{ plan.payment_definitions[0].amount.currency }}</span>
                             </td>
-                        </tr>                        
+                        </tr>                                            
                     </tbody>
                 </table>
             </td>
@@ -65,6 +65,12 @@
                                 {{ billing_date|convertDate }}
                             </td>
                         </tr>   
+                        <tr>
+                            <td class="four wide right aligned">{{ labels.start_date }}</td>
+                            <td>                               
+                                <span>{{ details.start_date }}</span>
+                            </td>
+                        </tr>      
                     </tbody>
                 </table>
             </td>
