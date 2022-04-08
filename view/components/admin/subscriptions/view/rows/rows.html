@@ -27,7 +27,7 @@
             {% endif %}
         </td>  
         <td>
-            {{ component('subscriptions::admin.subscriptions.label',{ status: item.status }) }}         
+            {{ component('semantic~status.dropdown',{ status: item.status, uuid: item.uuid, skip: [0,2,3,4,5] }) }}       
         </td>
         <td>
            {{ item.plan.title }}       

@@ -32,6 +32,14 @@ function SubscriptionsView() {
     };
 
     this.initRows = function() {
+
+        $('.status-dropdown').dropdown({
+            onChange: function(value) {
+                var uuid = $(this).attr('uuid');
+                subscriptionsControlPanel.setStatus(uuid,value);               
+            }
+        });
+
         arikaim.ui.button('.subscription-details',function(element) {
             var uuid = $(element).attr('uuid');
             return arikaim.page.loadContent({
