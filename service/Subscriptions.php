@@ -40,6 +40,11 @@ class Subscriptions extends Service implements ServiceInterface
         if (\is_object($subscription) == false) {
             return false;
         }
+        if ($subscription->checkout_driver == 'admin') {
+            $subscription->setStatus(6); // Canceled created by admin subscription
+            return true;
+        }
+
         if (empty($subscription->subscription_id) == true) {
             return false;
         }

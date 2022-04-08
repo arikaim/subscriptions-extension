@@ -83,8 +83,10 @@ class SubscriptionsApi extends ApiController
     */
     public function cancelController($request, $response, $data) 
     {   
-        $this->onDataValid(function($data) {             
-            $result = $this->get('subscriptions')->cancel((int)$this->getUserId());
+        $this->onDataValid(function($data) {   
+            
+            $userId = (int)$this->getUserId();
+            $result = $this->get('subscriptions')->cancel($userId);
 
             $this->setResponse($result,function() {                  
                 $this
