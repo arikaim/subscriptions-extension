@@ -28,6 +28,36 @@ class Subscriptions extends Service implements ServiceInterface
     }
 
     /**
+     * Add subscription
+     *
+     * @param integer $usedrId
+     * @param integer $planId
+     * @param string|null $expirePeriod
+     * @param string|null $billingType
+     * @return Model|false;
+     */
+    public function add(int $userId, int $planId, ?string $expirePeriod, ?string $billingType = 'monthly')
+    {
+        $model = Model::Subscriptions('subscriptions');
+        $subscription = $model->getSubscription($userId);
+
+        if (\is_object($subscription) == true) {
+            $result = $subscription->setStatus(1);
+            $subscription->setExpirePeriod($expirePeriod);
+        } else {
+            $token = Uuid::create();
+            $model->registerSubscription($userId,$planId,$billingType,$token,'admin');
+            $subscription = $model->getSubscription($userId);
+            if (\is_object($subscription) == true) {
+                $subscription->setStatus(1);
+                $subscription->setExpirePeriod($expirePeriod);
+            }
+        }
+
+        return (\is_object($subscription) == true) ? $subscription : false;
+    }
+
+    /**
      * Cancel subscription
      *
      * @param SubscriptionsProviderInteface $apiDriver

@@ -52,6 +52,17 @@ function SubscriptionPlansView() {
                 params: { uuid: uuid }
             });          
         });
+
+        arikaim.ui.button('.details-button',function(element) {
+            var uuid = $(element).attr('uuid');    
+            $('#plan_details').show();
+
+            arikaim.page.loadContent({
+                id: 'plan_details',
+                component: 'subscriptions::admin.plans.details',
+                params: { uuid: uuid }
+            });          
+        });
     };
 };
 

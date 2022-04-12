@@ -1,0 +1,95 @@
+{% if uuid is not empty %}
+    {% set plan = createModel('SubscriptionPlans','subscriptions').findById(uuid) %}
+{% endif %}
+<div class="ui segment mt-4">
+    {% if hide_title != true %}
+        {{ component('semantic~segment-title',{ title: title, icon: 'info', close_button: true }) }}
+    {% endif %}
+    <table class="ui table definition very basic">
+        <tbody>
+            <tr>
+                <td class="four wide right aligned">{{ labels.uuid }}</td>
+                <td>
+                    {{ plan.uuid }}
+                </td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">{{ labels.title }}</td>
+                <td>
+                    {{ plan.title }}
+                </td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">{{ labels.description }}</td>
+                <td>
+                    {{ plan.description }}
+                </td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">{{ labels.created }}</td>
+                <td>
+                    {{ plan.date_created|dateFormat }}
+                </td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">{{ labels.status }}</td>
+                <td>
+                    {{ component('subscriptions::admin.subscriptions.label',{ status: plan.status }) }}
+                </td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">{{ labels.price }}</td>
+                <td>
+                    {% if plan.isFree() == true %}
+                        <div class="ui green horizontal basic label">{{ labels.free }}</div>                                              
+                    {% endif %}
+                    <div class="ui basic label">
+                        {{ labels.monthly }}
+                        <div class="detail">
+                            <span>{{ plan.currency.sign }}</span>
+                            {{ plan.monthly_price|numberFormat }}
+                        </div>
+                    </div>   
+                    <div class="ui basic label">
+                        {{ labels.annual }}
+                        <div class="detail">
+                            <span>{{ plan.currency.sign }}</span>
+                            {{ plan.annual_price|numberFormat }}
+                        </div>
+                    </div>                    
+                </td>
+            </tr>    
+            <tr>
+                <td class="four wide right aligned">{{ labels.onetime }}</td>
+                <td>
+                    <div class="ui basic label">
+                        {{ (plan.one_time_billing == true) ? labels.on : labels.off }}
+                    </div>
+                </td>
+            </tr>  
+            <tr>
+                <td class="four wide right aligned"></td>
+                <td>
+                    {{ component('subscriptions::admin.subscriptions.label',{ status: plan.status }) }}
+                </td>
+            </tr>    
+        </tbody>
+    </table>  
+    <h4>{{ labels.features }}</h4>
+    <table class="ui table definition very basic">
+        <thead>
+            <tr>
+                <th>{{ labels.key }}</th>
+                <th>{{ labels.value }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in plan.features %}
+            <tr>
+                <td class="four wide right aligned">{{ item.key }}</td>
+                <td>{{ item.item_value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

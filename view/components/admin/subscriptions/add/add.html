@@ -26,7 +26,13 @@
                     }) 
                 }}
             </div>  
-            <div class="field"></div>
+            <div class="field">
+                <label>{{ fields.expire.label }}</label>
+                {{  component('subscriptions::admin.plans.trial-period',{                                
+                        name: 'expire_period'
+                    }) 
+                }}
+            </div>
         </div>
         {{ component('semantic~form.footer',{ save_button_title: 'Add' }) }}
     </form>

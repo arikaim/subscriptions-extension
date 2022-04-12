@@ -1,6 +1,5 @@
 {
-    "items": {
-        "": "None",
+    "items": {       
         "P7D": "7 Days",
         "P14D": "14 Days",
         "P1M": "1 Month",
@@ -9,6 +8,6 @@
         "P1Y": "1 Year"
     },
     "labels": {
-        "select": "Select Period"
+        "empty": "No trial"
     }
 }

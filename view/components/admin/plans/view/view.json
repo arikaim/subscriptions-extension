@@ -7,8 +7,8 @@
         "action": "Action",
         "title": "Title",
         "slug": "Slug",
-        "monthly": "Monthly Bulling Price",
-        "annual": "Annual Bulling Price",
+        "monthly": "Monthly Price",
+        "annual": "Annual Price",
         "description": "Description",
         "status": "Status"      
     }

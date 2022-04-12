@@ -87,6 +87,26 @@ class Subscriptions extends Model
     }
 
     /**
+     * Set date expired
+     *
+     * @param string|null $period
+     * @return boolean
+     */
+    public function setExpirePeriod(?string $period): bool
+    {
+        if (empty($period) == false) {
+            $expireDate = DateTime::addInterval($period);
+            $expireDate = ($expireDate == false) ? null : $expireDate->getTimestamp();
+        }
+    
+        $result = $this->update([
+            'date_expired' => (empty($period) == true) ? null : $expireDate
+        ]);
+
+        return ($result !== false);
+    }
+
+    /**
      * Register subscription with PENDING status
      *
      * @param int $userId

@@ -11,6 +11,10 @@
         "plan": {
             "label": "Plan",
             "placeholder": "Select Plan"
+        },
+        "expire": {
+            "label": "Expire Period",
+            "placeholder": "Select Expire Period"
         }
     }
 }

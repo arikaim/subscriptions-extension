@@ -55,24 +55,14 @@ class SubscriptionsControlPanel extends ControlPanelApiController
     public function addController($request, $response, $data) 
     {       
         $this->onDataValid(function($data) {   
-            $userId = $data->get('user_id');
-            $planId = $data->get('plan_id');
-            $billingType = $data->get('billing_type','monthly');
-            $model = Model::Subscriptions('subscriptions');
-            $subscription = $model->getSubscription($userId);
+            $userId = (int)$data->get('user_id');
+            $planId = (int)$data->get('plan_id');
+            $expirePeriod = (string)$data->get('expire_period');
+            $billingType = (string)$data->get('billing_type','monthly');
 
-            if (\is_object($subscription) == true) {
-                $result = $subscription->setStatus(1);
-            } else {
-                $token = Uuid::create();
-                $result = $model->registerSubscription($userId,$planId,$billingType,$token,'admin');
-                $subscription = $model->getSubscription($userId);
-                if (\is_object($subscription) == true) {
-                    $subscription->setStatus(1);
-                }
-            }
+            $subscription = $this->get('subscriptions')->add($userId,$planId,$expirePeriod,$billingType);
 
-            $this->setResponse($result,function() use($subscription) {                  
+            $this->setResponse(($subscription !== false),function() use($subscription) {                  
                 $this
                     ->message('subscription.add')
                     ->field('plan_id',$subscription->plan_id)

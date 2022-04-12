@@ -1,0 +1,21 @@
+{
+    "title": "Plan Details",    
+    "labels": {
+        "title": "Title",
+        "description": "Description",
+        "uuid": "Uuid",
+        "created": "Date Created",
+        "status": "Status",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "price": "Price",
+        "free": "Free",
+        "onetime": "One time billing",
+        "on": "On",
+        "off": "Off",
+        "features": "Features",
+        "key": "Key",
+        "value": "Value",
+        "trial": "Trial Period"       
+    }
+}

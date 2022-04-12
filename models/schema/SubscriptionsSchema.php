@@ -44,7 +44,7 @@ class SubscriptionsSchema extends Schema
         $table->string('next_billing_date')->nullable(true);
         $table->dateCreated();
         $table->dateUpdated();  
-        $table->dateColumnn('date_expired');
+        $table->dateExpired();
         // index        
         $table->unique('user_id');    
         $table->unique(['token','checkout_driver']);   
@@ -60,7 +60,7 @@ class SubscriptionsSchema extends Schema
     public function update($table) 
     {               
         if ($this->hasColumn('date_expired') == false) {
-            $table->dateColumnn('date_expired');
+            $table->dateExpired();
         }
     }
 }
