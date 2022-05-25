@@ -73,7 +73,8 @@ class SubscriptionPlans
                 $model->create([
                     'uuid'          => Uuid::create(),
                     'title'         => $item['title'], 
-                    'key'           => $key,                        
+                    'key'           => $key,    
+                    'item_value'    => $item['item_value'] ?? null,                        
                     'plan_id'       => $plan->id               
                 ]); 
             }               
