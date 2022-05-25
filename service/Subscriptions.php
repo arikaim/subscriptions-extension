@@ -43,8 +43,11 @@ class Subscriptions extends Service implements ServiceInterface
         $subscription = $model->getSubscription($userId);
 
         if (\is_object($subscription) == true) {
-            $result = $subscription->setStatus(1);
+            $subscription->setStatus(1);
             $subscription->setExpirePeriod($expirePeriod);
+            $subscription->update([
+                'plan_id' => $planId
+            ]);
         } else {
             $token = Uuid::create();
             $model->registerSubscription($userId,$planId,$billingType,$token,'admin');
