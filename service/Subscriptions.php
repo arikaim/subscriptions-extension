@@ -13,6 +13,7 @@ use Arikaim\Core\Db\Model;
 use Arikaim\Core\Service\Service;
 use Arikaim\Core\Service\ServiceInterface;
 use Arikaim\Core\Arikaim;
+use Arikaim\Core\Utils\Uuid;
 
 /**
  * Subscriptions service class
