@@ -12,6 +12,7 @@ namespace Arikaim\Extensions\Subscriptions\Classes;
 use Arikaim\Core\Extension\Extension;
 use Arikaim\Core\Db\Model;
 use Arikaim\Core\Utils\Uuid;
+use Arikaim\Core\Db\Seed;
 
 /**
  * Subscription Plans
@@ -40,7 +41,7 @@ class SubscriptionPlans
         $currency = $currency->findCurrency($currencyCode);
      
         // Add user type
-        Model::seed('SubscriptionPlans','subscriptions',function($seed) use($config, $slug, $currency) {
+        Seed::withModel('SubscriptionPlans','subscriptions',function($seed) use($config, $slug, $currency) {
             $seed->create(['slug' => $slug],[
                 'uuid'          => Uuid::create(),
                 'title'         => $config['title'], 
