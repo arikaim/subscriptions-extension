@@ -4,7 +4,6 @@
 {% endif %}
 {% set annual_price = (plan is empty) ? 0 : plan.annual_price %}
 {% set monthly_price = (plan is empty) ? 0 : plan.monthly_price %}
-
 <form class="ui form" id="subscriptoion_plan_form">  
     <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">       
     <div class="two fields">

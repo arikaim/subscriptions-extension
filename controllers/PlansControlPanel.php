@@ -22,18 +22,6 @@ class PlansControlPanel extends ControlPanelApiController
     use Status;
 
     /**
-     * Constructor
-     * 
-     * @param Container|null $container
-    */
-    public function __construct($container = null) 
-    {
-        parent::__construct($container);
-        $this->setModelClass('SubscriptionPlans');
-        $this->setExtensionName('subscriptions');
-    }
-
-    /**
      * Init controller
      *
      * @return void
@@ -41,6 +29,8 @@ class PlansControlPanel extends ControlPanelApiController
     public function init()
     {
         $this->loadMessages('subscriptions::admin.messages');
+        $this->setModelClass('SubscriptionPlans');
+        $this->setExtensionName('subscriptions');
     }
 
     /**
@@ -53,29 +43,28 @@ class PlansControlPanel extends ControlPanelApiController
     */
     public function createController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {   
-            $uuid = $data->get('uuid');
-            $billingType = $data->get('billing_type');
-            $driverName = $this->get('options')->get('subscriptions.driver');
-            $driver = $this->get('driver')->create($driverName);
+        $data->validate(true);   
 
-            $apiResponse = Subscriptions::createPlan($driver,$uuid,$billingType);
-            if ($apiResponse->hasError() == true) {
-                $this->error($apiResponse->getError());
-                return false;
-            }
+        $uuid = $data->get('uuid');
+        $billingType = $data->get('billing_type');
+        $driverName = $this->get('options')->get('subscriptions.driver');
+        $driver = $this->get('driver')->create($driverName);
 
-            $result = $apiResponse->getResult();
-            $planId = $result['id'] ?? null;
+        $apiResponse = Subscriptions::createPlan($driver,$uuid,$billingType);
+        if ($apiResponse->hasError() == true) {
+            $this->error($apiResponse->getError());
+            return false;
+        }
 
-            $this->setResponse(!empty($planId),function() use($uuid,$planId) {                  
-                $this
-                    ->message('plan.create')
-                    ->field('plan_id',$planId)
-                    ->field('uuid',$uuid);             
-            },'errors.plan.create');              
-        });
-        $data->validate();                
+        $result = $apiResponse->getResult();
+        $planId = $result['id'] ?? null;
+
+        $this->setResponse(!empty($planId),function() use($uuid,$planId) {                  
+            $this
+                ->message('plan.create')
+                ->field('plan_id',$planId)
+                ->field('uuid',$uuid);             
+        },'errors.plan.create');              
     }
 
     /**
@@ -88,21 +77,20 @@ class PlansControlPanel extends ControlPanelApiController
     */
     public function activateController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {   
-            $planId = $data->get('plan_id');
-            $driverName = $this->get('options')->get('subscriptions.driver');
-            $driver = $this->get('driver')->create($driverName);
+        $data->validate(true);    
 
-            $result = Subscriptions::activatePlan($driver,$planId);
-          
-            $this->setResponse($result,function() use($planId) {                  
-                $this
-                    ->message('plan.activate')
-                    ->field('status','ACTIVE')
-                    ->field('plan_id',$planId);          
-            },'errors.plan.activate');     
-        });
-        $data->validate();    
+        $planId = $data->get('plan_id');
+        $driverName = $this->get('options')->get('subscriptions.driver');
+        $driver = $this->get('driver')->create($driverName);
+
+        $result = Subscriptions::activatePlan($driver,$planId);
+        
+        $this->setResponse($result,function() use($planId) {                  
+            $this
+                ->message('plan.activate')
+                ->field('status','ACTIVE')
+                ->field('plan_id',$planId);          
+        },'errors.plan.activate');     
     }
 
     /**
@@ -115,28 +103,27 @@ class PlansControlPanel extends ControlPanelApiController
     */
     public function bindController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {   
-            $uuid = $data->get('uuid');
-            $providerPlanId = $data->get('plan_id');
-            $billingType = $data->get('billing_type');
-            
-            $model = Model::create('SubscriptionPlans','subscriptions');
-            $plan = $model->findById($uuid);
-            if (\is_object($plan) == false) {
-                $this->error('errors.plan.id');
-                return false;
-            }
-            
-            $result = $plan->updatePlanId($billingType,$providerPlanId);
-            
-            $this->setResponse($result,function() use($uuid,$providerPlanId) {                  
-                $this
-                    ->message('plan.bind')
-                    ->field('plan_id',$providerPlanId)
-                    ->field('uuid',$uuid);             
-            },'errors.plan.bind');              
-        });
-        $data->validate();                
+        $data->validate(true);   
+
+        $uuid = $data->get('uuid');
+        $providerPlanId = $data->get('plan_id');
+        $billingType = $data->get('billing_type');
+        
+        $model = Model::create('SubscriptionPlans','subscriptions');
+        $plan = $model->findById($uuid);
+        if ($plan == null) {
+            $this->error('errors.plan.id','Not valid plan id');
+            return false;
+        }
+        
+        $result = $plan->updatePlanId($billingType,$providerPlanId);
+        
+        $this->setResponse($result,function() use($uuid,$providerPlanId) {                  
+            $this
+                ->message('plan.bind')
+                ->field('plan_id',$providerPlanId)
+                ->field('uuid',$uuid);             
+        },'errors.plan.bind');              
     }
 
     /**
@@ -149,24 +136,22 @@ class PlansControlPanel extends ControlPanelApiController
     */
     public function addController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {   
+        $data->validate(true);  
+
+        $model = Model::create('SubscriptionPlans','subscriptions');
+
+        if ($model->hasPlan($data['title']) == true) {
+            $this->error('errors.plan.exist');
+            return false;
+        }
         
-            $model = Model::create('SubscriptionPlans','subscriptions');
+        $plan = $model->create($data->toArray());
 
-            if ($model->hasPlan($data['title']) == true) {
-                $this->error('errors.plan.exist');
-                return false;
-            }
-            
-            $plan = $model->create($data->toArray());
-
-            $this->setResponse(\is_object($plan),function() use($plan) {                  
-                $this
-                    ->message('plan.add')
-                    ->field('uuid',$plan->uuid);             
-            },'errors.plan.add');              
-        });
-        $data->validate();                
+        $this->setResponse(\is_object($plan),function() use($plan) {                  
+            $this
+                ->message('plan.add')
+                ->field('uuid',$plan->uuid);             
+        },'errors.plan.add');                    
     }
 
     /**
@@ -179,24 +164,25 @@ class PlansControlPanel extends ControlPanelApiController
     */
     public function updateController($request, $response, $data) 
     {       
-        $this->onDataValid(function($data) {             
-            $uuid = $data->get('uuid',null);
-            $model = Model::create('SubscriptionPlans','subscriptions')->findById($uuid);
+        $data
+            ->addFilter('annual_price','ToFloat')
+            ->addFilter('monthly_price','ToFloat')
+            ->filterAndValidate(true);   
+         
+        $uuid = $data->get('uuid',null);
+        $model = Model::create('SubscriptionPlans','subscriptions')->findById($uuid);
+        if ($model == null) {
+            $this->error('errors.plan.id','Not valid plane id.');
+            return false;
+        }
+        
+        $result = $model->update($data->toArray());
 
-            if (\is_object($model) == false) {
-                $this->error('errors.plan.id');
-                return false;
-            }
-            
-            $result = $model->update($data->toArray());
-
-            $this->setResponse($result,function() use($uuid) {                  
-                $this
-                    ->message('plan.update')
-                    ->field('uuid',$uuid);             
-            },'errors.plan.update');              
-        });
-        $data->validate();                
+        $this->setResponse($result,function() use($uuid) {                  
+            $this
+                ->message('plan.update')
+                ->field('uuid',$uuid);             
+        },'errors.plan.update');              
     }
 
     /**
