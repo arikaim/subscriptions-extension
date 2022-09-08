@@ -146,13 +146,9 @@ class Subscriptions extends Service implements ServiceInterface
         if (empty($userId) == true) {
             return null;
         }
-
         $subscription = Model::Subscriptions('subscriptions')->getSubscription($userId);
-        if (empty($subscription) == true) {
-            return null;
-        }
 
-        return $subscription->plan->first();
+        return ($subscription == null) ? null : $subscription->plan;          
     }
 
     /**
@@ -174,7 +170,7 @@ class Subscriptions extends Service implements ServiceInterface
         }
         $feature = $plan->features->where('key','=',$key)->first();
 
-        return \is_object($feature);
+        return ($feature != null);
     }
 
     /**
@@ -196,6 +192,6 @@ class Subscriptions extends Service implements ServiceInterface
         }
         $feature = $plan->features->where('key','=',$key)->first();
 
-        return (empty($feature) == true) ? null : $feature->item_value;         
+        return ($feature == null) ? null : $feature->item_value;         
     }
 }
