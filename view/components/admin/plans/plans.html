@@ -1,15 +1,33 @@
-{{  component('semantic~tabs.vertical',{ 
-        items: [ 
-            { title: labels.view, component: 'subscriptions::admin.plans.view', icon: 'list', active: true },
-            { title: labels.add, component: 'subscriptions::admin.plans.add', icon: 'plus' },
-            { id:'edit_plan', title: labels.edit, component: 'subscriptions::admin.plans.edit', icon: 'edit' }
-        ], 
-        menu: { id: 'subscription_plan_menu' }, 
-        item_class: 'subscription-plan-item',
-        content: { 
-            id: 'subscription_plan_content',
-            component: 'subscriptions::admin.plans.view',
-            params: params 
-        } 
-    })
-}}
+<div class="ui two column grid">
+    <div class="column">
+        <div class="ui segment">     
+            <div class="ui stackable two column grid">      
+                <div class="column">
+                    <button 
+                        mountTo="plan_details"
+                        component="subscriptions::admin.plans.add"
+                        title="{{ tooltip.create }}"
+                        class="ui mini curcular green icon button plan-action-buttons">
+                        <i class="icon plus"></i>
+                    </button>
+                    <button 
+                        mountTo="plan_details"
+                        component="subscriptions::admin.plans.features.type"
+                        title="{{ tooltip.feature }}"
+                        class="ui mini curcular basic icon labeled button plan-action-buttons">
+                        <i class="icon list"></i>
+                        {{ labels.feature }}
+                    </button>
+                </div>
+                <div class="right aligned column">                                       
+                </div>
+            </div>
+        </div>     
+        <div class="ui segment">
+            {{ component("subscriptions::admin.plans.view",{}) }}           
+        </div>                 
+    </div>
+    <div class="column" id="plan_details">
+    </div>
+</div>
+

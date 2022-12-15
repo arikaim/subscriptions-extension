@@ -42,16 +42,11 @@ function SubscriptionPlans() {
         return arikaim.put('/api/subscriptions/admin/plans/status',data,onSuccess,onError);      
     };
 
-    this.init = function() {       
-        arikaim.ui.tab('.subscription-plan-item','subscription_plan_content');
-    };    
-
     this.initEditForm = function() {
         arikaim.ui.form.onSubmit('#subscriptoion_plan_form',function() {
             return self.update('#subscriptoion_plan_form');
         },function(result) {
             arikaim.ui.form.showMessage(result.message);       
-        },function(error) {
         });
     }
 }
@@ -59,5 +54,5 @@ function SubscriptionPlans() {
 var subscriptionPlans = new SubscriptionPlans();
 
 arikaim.component.onLoaded(function() {
-    subscriptionPlans.init();
+    arikaim.ui.loadComponentButton('.plan-action-buttons');
 });

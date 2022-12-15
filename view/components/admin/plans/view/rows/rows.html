@@ -7,14 +7,14 @@
 {% for item in items %}  
     <tr id="row_{{ item.uuid }}">              
         <td>     
-            <button class="ui icon mini basic button details-button" uuid="{{ item.uuid }}" title="{{ labels.details }}">
+            <button class="ui icon mini basic compact button details-button" uuid="{{ item.uuid }}" title="{{ labels.details }}">
                 <i class="icon info"></i>
             </button>          
             {% if demo_mode != true %}
-                <button class="ui icon mini basic button edit-button" uuid="{{ item.uuid }}" title="{{ labels.edit }}">
+                <button class="ui icon mini compact basic button edit-button" uuid="{{ item.uuid }}" title="{{ labels.edit }}">
                     <i class="icon edit"></i>
                 </button>     
-                <button class="ui icon mini basic button delete-button" uuid="{{ item.uuid }}" {{ labels.delete|attr('title') }} data-title="{{ item.title }}">
+                <button class="ui icon mini compact basic button delete-button" uuid="{{ item.uuid }}" {{ labels.delete|attr('title') }} data-title="{{ item.title }}">
                     <i class="icon trash orange"></i>
                 </button>              
             {% else %}
@@ -43,7 +43,7 @@
             </div>
         </td> 
         <td>      
-            <span class="font-bold">
+            <span class="font-bold text-sm">
                 {{ item.currency.code }}
             </span>   
             <span>

@@ -1,6 +1,4 @@
 {
-    "title": {
-        "content": "Add Subscription Plan",
-        "icon": "plus"
-    }
+    "title": "Add Subscription Plan",
+    "icon": "plus"  
 }

@@ -8,11 +8,6 @@
         {{ labels.features }}     
     </div> 
 </div>
-<div class="ui grid">
-    <div class="six wide column">
-        <div class="ui active tab basic segment " id="plan_edit_content">           
-            {{ component('subscriptions::admin.plans.edit.details',{ uuid: uuid }) }}
-        </div> 
-    </div>
-</div>
-
+<div class="ui active tab basic segment " id="plan_edit_content">           
+    {{ component('subscriptions::admin.plans.edit.details',{ uuid: uuid }) }}
+</div> 

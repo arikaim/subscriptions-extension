@@ -1,0 +1,15 @@
+{% set features = createModel('SubscriptionPlanFeatures','subscriptions').planFeaturesQuery(plan_id) %}
+{% set features = features.get() %}
+{% for feature in features %}
+    <div class="item" id="row_{{ feature.uuid }}">
+        <div class="content">
+            <button class="ui mini button basic compact icon edit-feature" title="{{ labels.edit }}" uuid="{{ feature.uuid }}">
+                <i class="icon edit"></i>
+            </button>
+            <button class="ui mini button basic compact icon delete-feature" title="{{ labels.delete }}" uuid="{{ feature.uuid }}">
+                <i class="icon trash orange"></i>
+            </button>
+            {{ feature.title }}
+        </div>        
+    </div>
+{% endfor %}

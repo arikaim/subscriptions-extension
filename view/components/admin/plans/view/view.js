@@ -45,9 +45,8 @@ function SubscriptionPlansView() {
 
         arikaim.ui.button('.edit-button',function(element) {
             var uuid = $(element).attr('uuid');    
-            arikaim.ui.setActiveTab('#edit_plan','.subscription-plan-item');
             arikaim.page.loadContent({
-                id: 'subscription_plan_content',
+                id: 'plan_details',
                 component: 'subscriptions::admin.plans.edit',
                 params: { uuid: uuid }
             });          

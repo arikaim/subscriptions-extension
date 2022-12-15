@@ -1,21 +1,16 @@
-<div class="flex flex-row w-full flex-grow">
-    <div class="ui segment w-full" >
-        <table class="ui compact stackable selectable borderless basic table">
-            <thead class="table-head">
-                <tr>              
-                    <th class="two wide collapsing left aligned">{{ columns.action }}</th> 
-                    <th class="two wide column">{{ columns.status }}</th>                
-                    <th>{{ columns.title }}</th>  
-                    <th class="two wide column">{{ columns.slug }}</th>     
-                    <th class="two wide column">{{ columns.monthly }}</th>    
-                    <th class="two wide column">{{ columns.annual }}</th>                        
-                    <th>{{ columns.description }}</th>                                                                                 
-                </tr>
-            </thead>
-            <tbody>
-                {{ component('subscriptions::admin.plans.view.rows') }} 
-            </tbody>
-        </table> 
-    </div>
-    <div class="pl-2 flex-auto w-1/2 hidden" id="plan_details"></div>
-</div>
+<table class="ui compact stackable selectable borderless basic table">
+    <thead class="table-head">
+        <tr>              
+            <th class="two wide collapsing left aligned">{{ columns.action }}</th> 
+            <th class="two wide column">{{ columns.status }}</th>                
+            <th>{{ columns.title }}</th>  
+            <th class="two wide column">{{ columns.slug }}</th>     
+            <th class="two wide column">{{ columns.monthly }}</th>    
+            <th class="two wide column">{{ columns.annual }}</th>                        
+            <th>{{ columns.description }}</th>                                                                                 
+        </tr>
+    </thead>
+    <tbody>
+        {{ component('subscriptions::admin.plans.view.rows') }} 
+    </tbody>
+</table>

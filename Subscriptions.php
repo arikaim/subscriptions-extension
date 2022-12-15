@@ -36,6 +36,10 @@ class Subscriptions extends Extension
         $this->addApiRoute('PUT','/api/subscriptions/admin/plan/bind','PlansControlPanel','bind','session');   
         $this->addApiRoute('PUT','/api/subscriptions/admin/plan/activate','PlansControlPanel','activate','session');
         $this->addApiRoute('POST','/api/subscriptions/admin/plan/create','PlansControlPanel','create','session');   
+        // Feature types
+        $this->addApiRoute('POST','/api/subscriptions/admin/feature/type/add','FeatureTypesControlPanel','create','session');   
+        $this->addApiRoute('PUT','/api/subscriptions/admin/feature/type/update','FeatureTypesControlPanel','update','session'); 
+        $this->addApiRoute('DELETE','/api/subscriptions/admin/feature/type/delete/{uuid}','FeatureTypesControlPanel','delete','session'); 
         // Plan Features
         $this->addApiRoute('POST','/api/subscriptions/admin/plan/feature/add','PlanFeaturesControlPanel','add','session');   
         $this->addApiRoute('PUT','/api/subscriptions/admin/plan/feature/update','PlanFeaturesControlPanel','update','session'); 
@@ -65,6 +69,7 @@ class Subscriptions extends Extension
         $this->createDbTable('SubscriptionPlanFeaturesSchema');
         $this->createDbTable('SubscriptionsSchema');
         $this->createDbTable('SubscriptionTransactionsSchema');
+        $this->createDbTable('PlanFeatureTypesSchema');
         // Options
         $this->createOption('subscriptions.driver','paypal-subscriptions');  
         $this->createOption('subscriptions.ipn.logs',true);  
