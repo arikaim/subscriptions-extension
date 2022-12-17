@@ -1,14 +1,15 @@
 {% set plan = createModel('SubscriptionPlans','subscriptions').findById(uuid) %}
-<div class="ui grid">
-    <div class="ui segment six wide column">
+<div class="ui padded grid">
+    <div class="ui segment six wide column">       
         <div class="ui list" id="features_items">
             {{ component('subscriptions::admin.plans.features.list',{ plan_id: plan.id }) }}
-        </div>     
+        </div>              
         <div class="ui divider"></div>   
         <div>
             <button class="ui mini button green icon add-feature" title="{{ labels.add }}" plan-uuid="{{ plan.uuid }}">
                 <i class="icon plus"></i>
             </button>
+            {{ component('subscriptions::admin.plans.features.type.dropdown',{}) }}
         </div>
     </div>
     <div class="ten wide column" id="feature_content">

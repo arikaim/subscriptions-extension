@@ -14,12 +14,22 @@ function PlanFeaturesView() {
 
         arikaim.ui.button('.add-feature',function(element) {
             var uuid = $(element).attr('plan-uuid');
+            var type = $('#feature_type_dropdown').dropdown('get value');
 
             arikaim.page.loadContent({
                 id: 'feature_content',
                 component: 'subscriptions::admin.plans.features.add',
-                params: { uuid: uuid }
+                params: { 
+                    uuid: uuid,
+                    type: type
+                }
             });    
+        });
+
+        $('#feature_type_dropdown').dropdown({
+            onChange: function(featureType) {  
+
+            }
         });
     };
 

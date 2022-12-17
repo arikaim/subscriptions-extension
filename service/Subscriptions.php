@@ -194,4 +194,18 @@ class Subscriptions extends Service implements ServiceInterface
 
         return ($feature == null) ? null : $feature->item_value;         
     }
+
+    /**
+     * Save feature type
+     *
+     * @param string      $key
+     * @param string      $title
+     * @param integer     $itemValue
+     * @param string|null $description
+     * @return object|null
+     */
+    public function saveFeatureType(string $key, string $title, ?string $description = null, $itemValue = 0): ?object
+    {
+        return Model::PlanFeatureTypes('subscriptions')->saveFeatureType($key,$title,$itemValue,$description);
+    }
 }

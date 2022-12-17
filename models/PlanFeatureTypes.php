@@ -58,10 +58,38 @@ class PlanFeatureTypes extends Model
      * @param string $key
      * @return Model|null
      */
-    public function findFeatyreType(string $key): ?object
+    public function findFeatureType(string $key): ?object
     {
         $model = $this->finByColumn($key,['key']);
 
         return ($model != null) ? $model : $this->findById($key);        
+    }
+
+    /**
+     * Save feature type
+     *
+     * @param string      $key
+     * @param string      $title
+     * @param integer     $itemValue
+     * @param string|null $description
+     * @return object|null
+     */
+    public function saveFeatureType(string $key, string $title, ?string $description = null, $itemValue = 0): ?object
+    {
+        $data = [
+            'key'         => $key,
+            'title'       => $title,
+            'item_value'  => $itemValue,
+            'description' => $description
+        ];
+
+        $type = $this->findFeatureType($key);
+        if ($type == null) {
+            return $this->create($data);
+        } 
+        
+        $result = $this->update($data);
+        
+        return ($result === false) ? null : $type;
     }
 }

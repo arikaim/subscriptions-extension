@@ -1,0 +1,20 @@
+{% set model = createModel('PlanFeatureTypes','subscriptions') %}
+{% if selected is not empty %}
+    {% set selected = model.findByid(selected) %}
+{% endif %}
+{% set data_field = data_field|default('uuid') %}
+{% set selected_text = (selected is empty) ? labels.select : selected.title %}
+<div 
+    class="ui dropdown feature-type-dropdown {{ class|default('selection') }}" 
+    id="{{ id|default('feature_type_dropdown') }}">
+    <input name="{{ name|default('feature_type') }}" type="hidden" value="{{ selected[data_field] }}">
+    <div class="text">{{ selected_text }}</div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+        {% for item in model.get() %}
+        <div class="item" data-value="{{ item[data_field] }}">
+            {{ item.title }}
+        </div>
+        {% endfor %}
+    </div>
+</div>

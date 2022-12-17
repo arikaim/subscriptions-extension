@@ -3,13 +3,18 @@
     {% set feature = feature.findById(uuid) %}    
     {% set plan_id = feature.plan_id %}
     {% set slug_update = true %}
+{% elseif type is not empty %}
+    {% set feature = createModel('PlanFeatureTypes','subscriptions').findById(type) %}
 {% endif %}
 <form class="ui form" id="plan_feature_form" method="POST"> 
     <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">  
     <input type="hidden" name="plan_id" id="plan_id" value="{{ plan_id }}">        
     <div class="field">
         <label>{{ fields.title.label }}</label>
-        <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ feature.title }}"> 
+        <input 
+            rule="empty" type="text" name="title" id="title" 
+            {{ fields.title.placeholder|attr('placeholder') }} 
+            value="{{ feature.title }}"> 
     </div>     
     {{  component('semantic~form.fields.slug',{
             name: 'key',
