@@ -1,3 +1,21 @@
 {% component 'semantic~panel' %}
-
+    <div class="ui grid">
+        <div class="ui six wide column">
+            <div class="ui list" id="feature_type_items">
+                {{ component('subscriptions::admin.plans.features.type.list') }}
+            </div>     
+            <div class="ui divider"></div>   
+            <div>
+                <button 
+                    mountTo="feature_type_content"
+                    component="subscriptions::admin.plans.features.type.add"
+                    class="ui mini button green icon add-feature-type" 
+                    title="{{ labels.add }}">
+                    <i class="icon plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="ten wide column" id="feature_type_content">
+        </div>
+    </div>
 {% endcomponent %}

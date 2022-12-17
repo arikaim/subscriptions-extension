@@ -1,7 +1,7 @@
 'use strict';
 
 arikaim.component.onLoaded(function() {   
-    safeCall('planFeaturesView',function(obj) {
+    safeCall('featureTypesView',function(obj) {
         obj.initRows();
     },true);   
 }); 

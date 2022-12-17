@@ -9,6 +9,18 @@
 function SubscriptionPlans() {
     var self = this;
 
+    this.updateFeatureType = function(formId, onSuccess, onError) {
+        return arikaim.put('/api/subscriptions/admin/feature/type/update',formId, onSuccess, onError);          
+    };
+
+    this.deleteFeatureType = function(uuid, onSuccess, onError) {
+        return arikaim.delete('/api/subscriptions/admin/feature/type/delete/' + uuid, onSuccess, onError);          
+    };
+
+    this.addFeatureType = function(formId, onSuccess, onError) {
+        return arikaim.post('/api/subscriptions/admin/feature/type/add',formId, onSuccess, onError);          
+    };
+
     this.addFeature = function(formId, onSuccess, onError) {
         return arikaim.post('/api/subscriptions/admin/plan/feature/add',formId, onSuccess, onError);          
     };

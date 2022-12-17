@@ -1,0 +1,21 @@
+{    
+    "fields": {        
+        "title": {
+            "label": "Title",
+            "placeholder": "Enter product type title"
+        },
+        "key": {
+            "label": "Key",
+            "placeholder": "Enter Feature Key"
+        },
+        "item": {
+            "label": "Item Value",
+            "placeholder": "Enter Feature Item Value"
+        },
+        "description": {
+            "label": "Description",
+            "placeholder": "Enter product type description"
+        }
+             
+    }
+}

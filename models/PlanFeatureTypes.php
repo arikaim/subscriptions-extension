@@ -58,7 +58,7 @@ class PlanFeatureTypes extends Model
      * @param string $key
      * @return Model|null
      */
-    public function findFeatyrType(string $key): ?object
+    public function findFeatyreType(string $key): ?object
     {
         $model = $this->finByColumn($key,['key']);
 

@@ -1,0 +1,29 @@
+{% if uuid is not empty %}
+    {% set feature = createModel('PlanFeatureTypes','subscriptions').findById(uuid) %}
+    {% set slug_update = true %}
+{% endif %}
+<form class="ui form" id="feature_type_form" method="POST"> 
+    <input type="hidden" name="uuid" id="uuid" value="{{ uuid }}">  
+    <div class="field">
+        <label>{{ fields.title.label }}</label>
+        <input rule="empty" type="text" name="title" id="title" {{ fields.title.placeholder|attr('placeholder') }} value="{{ feature.title }}"> 
+    </div>     
+    {{  component('semantic~form.fields.slug',{
+            name: 'key',
+            label: fields.key.label,
+            editable: true,
+            show_url: false,
+            disable_update: slug_update,
+            value: feature.key
+        })
+    }}   
+    <div class="field">
+        <label>{{ fields.item.label }}</label>
+        <input rule="empty" type="text" name="item_value" id="item_value" {{ fields.item.placeholder|attr('placeholder') }} value="{{ feature.item_value }}"> 
+    </div>   
+    <div class="field">
+        <label>{{ fields.description.label }}</label>
+        <textarea name="description" id="description" placeholder="{{ fields.description.placeholder }}">{{ feature.description }}</textarea>
+    </div> 
+    {{ component('semantic~form.footer') }}
+</form>
