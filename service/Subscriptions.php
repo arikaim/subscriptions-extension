@@ -205,7 +205,7 @@ class Subscriptions extends Service implements ServiceInterface
             return true;
         }
 
-        return ($featureValue >= $value);
+        return !($value >= $featureValue);
     }
 
     /**
