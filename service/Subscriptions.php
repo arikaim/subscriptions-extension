@@ -174,6 +174,33 @@ class Subscriptions extends Service implements ServiceInterface
     }
 
     /**
+     * Check plan feature quota
+     *
+     * @param integer|null $userId
+     * @param string       $key
+     * @param mixed        $value
+     * @return boolean
+     */
+    public function checkPlanFeatureQuota(?int $userId, string $key, $value): bool
+    {
+        if (empty($userId) == true) {
+            return false;
+        }
+
+        $featureValue = $this->getPlanFeatureValue($userId,$key);
+        if ($featureValue === null) {
+            return false;
+        }
+
+        if ($featureValue == -1) {
+            // unlimited
+            return true;
+        }
+
+        return ($featureValue >= $value);
+    }
+
+    /**
      * Get plan feature item value
      *
      * @param integer|null $userId
