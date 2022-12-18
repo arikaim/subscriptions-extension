@@ -151,7 +151,12 @@ class Subscriptions extends Service implements ServiceInterface
             return null;
         }
 
-        return ($subscription->status != $subscription->ACTIVE()) ? null : $subscription->plan;                   
+        if ($subscription->status != $subscription->ACTIVE()) {
+            // for canceled or disabled get free plan
+            return Model::SubscriptionPlans('subscriptions')->getFreePlan();
+        }
+
+        return $subscription->plan;                   
     }
 
     /**

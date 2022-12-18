@@ -145,6 +145,19 @@ class SubscriptionPlans extends Model
     }
 
     /**
+     * Find free plan model
+     *
+     * @return object|null
+     */
+    public function getFreePlan(): ?object
+    {
+        return $this
+            ->where('monthly_price','=',0)
+            ->where('annual_price','=',0)
+            ->first();
+    }
+
+    /**
      * Get price
      *
      * @param string $billingType
@@ -259,11 +272,11 @@ class SubscriptionPlans extends Model
      * @param mixed $key
      * @return Model|null
      */
-    public function findPlan($key)
+    public function findPlan($key): ?object
     {
         $model = $this->findById($key);
         
-        return (\is_object($model) == true) ? $model : $this->findBySlug($key);
+        return ($model != null) ? $model : $this->findBySlug($key);
     } 
 
     /**
@@ -272,14 +285,10 @@ class SubscriptionPlans extends Model
      * @param string $title
      * @return boolean
      */
-    public function hasPlan($title)
+    public function hasPlan($title): bool
     {
         $model = $this->findByColumn($title,'title');
-        if (\is_object($model) == true) {
-            return true;
-        }
-        $model = $this->findBySlug($title);
 
-        return \is_object($model);
+        return ($model != null) ? true : ($this->findBySlug($title) != null);   
     }
 }
