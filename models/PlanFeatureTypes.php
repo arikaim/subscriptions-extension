@@ -60,7 +60,7 @@ class PlanFeatureTypes extends Model
      */
     public function findFeatureType(string $key): ?object
     {
-        $model = $this->finByColumn($key,['key']);
+        $model = $this->findByColumn($key,['key']);
 
         return ($model != null) ? $model : $this->findById($key);        
     }
@@ -85,10 +85,10 @@ class PlanFeatureTypes extends Model
 
         $type = $this->findFeatureType($key);
         if ($type == null) {
-            return $this->create($data);
+           return $this->create($data);
         } 
         
-        $result = $this->update($data);
+        $result = $type->update($data);
         
         return ($result === false) ? null : $type;
     }
