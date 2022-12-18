@@ -233,6 +233,6 @@ class Subscriptions extends Service implements ServiceInterface
      */
     public function saveFeatureType(string $key, string $title, ?string $description = null, $itemValue = 0): ?object
     {
-        return Model::PlanFeatureTypes('subscriptions')->saveFeatureType($key,$title,$itemValue,$description);
+        return Model::PlanFeatureTypes('subscriptions')->saveFeatureType($key,$title,$description,$itemValue);
     }
 }
