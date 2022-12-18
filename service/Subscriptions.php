@@ -136,19 +136,22 @@ class Subscriptions extends Service implements ServiceInterface
     }
 
     /**
-     * Return true if user is subscribed
+     * Return plan mopdel if user is subscribed
      *    
      * @param int|null $userId 
      * @return Model|null
      */
-    public function getSubscriptionPlan(?int $userId)
+    public function getSubscriptionPlan(?int $userId): ?object
     {
         if (empty($userId) == true) {
             return null;
         }
         $subscription = Model::Subscriptions('subscriptions')->getSubscription($userId);
+        if ($subscription == null) {
+            return null;
+        }
 
-        return ($subscription == null) ? null : $subscription->plan;          
+        return ($subscription->status != $subscription->ACTIVE()) ? null : $subscription->plan;                   
     }
 
     /**
@@ -165,7 +168,7 @@ class Subscriptions extends Service implements ServiceInterface
         }
 
         $plan = $this->getSubscriptionPlan($userId);
-        if (empty($plan) == true) {
+        if ($plan == null) {
             return false;
         }
         $feature = $plan->features->where('key','=',$key)->first();
@@ -214,7 +217,7 @@ class Subscriptions extends Service implements ServiceInterface
         }
 
         $plan = $this->getSubscriptionPlan($userId);
-        if (empty($plan) == true) {
+        if ($plan == null) {
             return null;
         }
         $feature = $plan->features->where('key','=',$key)->first();
