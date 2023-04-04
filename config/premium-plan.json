@@ -1,0 +1,9 @@
+{
+    "title": "Premium",
+    "description": "Premium Account",
+    "annual_price": 24,
+    "monthly_price": 3,
+    "currency": "USD",
+    "features": [
+    ]
+}

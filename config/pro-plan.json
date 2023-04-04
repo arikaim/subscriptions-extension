@@ -1,0 +1,9 @@
+{
+    "title": "Pro",
+    "description": "Pro Account",
+    "annual_price": 98,
+    "monthly_price": 12,
+    "currency": "USD",
+    "features": [
+    ]
+}

@@ -55,11 +55,9 @@ class Subscriptions extends Extension
         );  
         $this->addPageRoute('/subscription/success/','SubscriptionPages','success','subscriptions>subscription.success');
         $this->addPageRoute('/subscription/cancel/','SubscriptionPages','cancel','subscriptions>subscription.cancel');   
-       
         // API
         $this->addApiRoute('POST','/api/subscription/notify','SubscriptionsApi','notify',null); 
         $this->addApiRoute('DELETE','/api/subscription/cancel','SubscriptionsApi','cancel','session'); 
-
         // Events
         $this->registerEvent('subscriptions.create','Create subscription');        
         $this->registerEvent('subscriptions.cancel','Cancel subscription');  
@@ -90,5 +88,17 @@ class Subscriptions extends Extension
     public function unInstall()
     {
         $this->unRegisterService('Subscriptions'); 
+    }
+
+    /**
+     * Post install actions
+     *
+     * @return void
+     */
+    public function postInstall()
+    {
+        $this->runService('subscriptions',function($service) {
+            $service->saveFeatureType('api-access','Api Access','Api access token and documentation.',-1);            
+        });
     }
 }
