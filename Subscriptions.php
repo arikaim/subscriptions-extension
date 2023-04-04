@@ -97,6 +97,13 @@ class Subscriptions extends Extension
      */
     public function postInstall()
     {
+        // Add subscriptions plans
+        Extension::run('Classes\\SubscriptionPlans','subscriptions',function($instance) {
+            $instance->create('free','free-plan.json','subscriptions');   
+            $instance->create('premium','premium-plan.json','subscriptions');     
+            $instance->create('pro','pro-plan.json','subscriptions');          
+        });
+
         $this->runService('subscriptions',function($service) {
             $service->saveFeatureType('api-access','Api Access','Api access token and documentation.',-1);            
         });

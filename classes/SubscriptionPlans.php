@@ -27,7 +27,7 @@ class SubscriptionPlans
      * @param string $extensionName
      * @return bool
      */
-    public function create($slug, $configFile, $extensionName)
+    public function create(string $slug, string $configFile, string $extensionName)
     {
         $currency = Model::Currency('currency');
         if (\is_object($currency) == false) {
