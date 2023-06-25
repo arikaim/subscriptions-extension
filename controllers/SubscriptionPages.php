@@ -31,7 +31,7 @@ class SubscriptionPages extends Controller
     { 
         $response = $this->noCacheHeaders($response);
 
-        return $this->pageLoad($request,$response,$data,'subscriptions>subscription');
+        return $this->pageLoad($request,$response,$data,'subscriptions>subscription',null,true);
     }
 
     /**
