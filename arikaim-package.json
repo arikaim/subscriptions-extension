@@ -5,7 +5,7 @@
     "type": "user",
     "description": "Subscriptions service.",
     "short-description": "Subscriptions service.",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "repository-type": "arikaim",
     "repository": "arikaim-repository/subscriptions-extension",
     "private-repository": true,

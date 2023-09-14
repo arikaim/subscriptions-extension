@@ -148,7 +148,8 @@ class Subscriptions extends Service implements ServiceInterface
         }
         $subscription = Model::Subscriptions('subscriptions')->getSubscription($userId);
         if ($subscription == null) {
-            return null;
+            // get free plan if not subscribed to any plan
+            return Model::SubscriptionPlans('subscriptions')->getFreePlan();
         }
 
         if ($subscription->status != $subscription->ACTIVE()) {
@@ -225,6 +226,7 @@ class Subscriptions extends Service implements ServiceInterface
         if ($plan == null) {
             return null;
         }
+       
         $feature = $plan->features->where('key','=',$key)->first();
 
         return ($feature == null) ? null : $feature->item_value;         
