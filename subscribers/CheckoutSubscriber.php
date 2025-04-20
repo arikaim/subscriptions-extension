@@ -12,9 +12,7 @@ namespace Arikaim\Extensions\Subscriptions\Subscribers;
 use Arikaim\Core\Events\EventSubscriber;
 use Arikaim\Core\Interfaces\Events\EventSubscriberInterface;
 use Arikaim\Core\Arikaim;
-use Arikaim\Core\Utils\Utils;
 use Arikaim\Core\Db\Model;
-use Exception;
 
 /**
  * Execute checkout actions 
@@ -91,10 +89,8 @@ class CheckoutSubscriber extends EventSubscriber implements EventSubscriberInter
      * @return bool
      */
     public function success($event)
-    {
-        $data = $event->getParameters(); 
-        $amount = (float)$event->getParameter('amount');
-        $transactionId = $event->getParameter('transaction_id');
+    {      
+        $amount = (float)$event->getParameter('amount');       
         $subscriptionId = $event->getParameter('order_id');
         if ($amount == 0 || empty($amount) == true) {
             return false;
@@ -104,6 +100,7 @@ class CheckoutSubscriber extends EventSubscriber implements EventSubscriberInter
         if (\is_object($subscription) == false) {
             return false;
         }
+
         return $subscription->activateSubscription();
     }
 
@@ -130,21 +127,4 @@ class CheckoutSubscriber extends EventSubscriber implements EventSubscriberInter
         return (\is_object($subscription) == true) ? $subscription->updateCheckoutToken($token,$checkoutDriver) : false;           
     }
 
-    /**
-     * Find subscription plan 
-     *
-     * @param EventInterface $event
-     * @return Model|null
-     */
-    protected function findSubscriptionPlan($event)
-    {
-        $model = Model::SubscriptionPlans('subscriptions');
-
-        
-        $token = $event->getParameter('token'); 
-        $checkoutDriver = $event->getParameter('checkout_driver'); 
-        $order = (empty($orderId) == false) ? $model->findPlan($orderId) : $model->findOrderByToken($token,$checkoutDriver);
-
-        return $order;
-    }
 }
