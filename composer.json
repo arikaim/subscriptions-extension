@@ -11,6 +11,7 @@
     }],
     "require": {
         "arikaim/installer": "*",
+        "arikaim/currency-extension": "*",
         "arikaim/checkout-module": "*"
     },
     "extra": {
