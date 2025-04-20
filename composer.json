@@ -1,0 +1,19 @@
+{
+    "name": "arikaim/subscriptions-extension",
+    "description": "Arikaim Subscriptions extension",
+    "keywords": ["Module", "Arikaim Subscriptions extension"],
+    "type": "arikaim-extension",
+    "license": "GPL-3.0-or-later",
+    "authors": [{
+        "name": "",
+        "email": "info@arikaim.com",
+        "homepage": "http://arikaim.com"
+    }],
+    "require": {
+        "arikaim/installer": "*",
+        "arikaim/checkout-module": "*"
+    },
+    "extra": {
+        "path": "subscriptions"
+    }
+}
